@@ -1,0 +1,5 @@
+
+intrinsic class LocalConnection 
+{
+}
+

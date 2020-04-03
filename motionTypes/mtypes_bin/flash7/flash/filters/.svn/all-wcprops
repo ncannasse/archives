@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters
+END
+DropShadowFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/DropShadowFilter.mt
+END
+GradientBevelFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/GradientBevelFilter.mt
+END
+BitmapFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/BitmapFilter.mt
+END
+BevelFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/BevelFilter.mt
+END
+ConvolutionFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/ConvolutionFilter.mt
+END
+Filter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/Filter.mt
+END
+ColorMatrixFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/ColorMatrixFilter.mt
+END
+BlurFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/BlurFilter.mt
+END
+DisplacementMapFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/DisplacementMapFilter.mt
+END
+GradientGlowFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/GradientGlowFilter.mt
+END
+GlowFilter.mt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/motionTools/!svn/ver/1/mtypes/flash7/flash/filters/GlowFilter.mt
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2
+END
+Utils.mt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Utils.mt
+END
+Macro.mt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Macro.mt
+END
+Generator.mt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Generator.mt
+END
+Preprocessor.mt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Preprocessor.mt
+END
+Template.mt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Template.mt
+END
+Parser.mt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/motionTools/!svn/ver/1/mtypes/neko/mtt2/Parser.mt
+END

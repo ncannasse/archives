@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/motionTools/!svn/ver/1/mtypes/neko/mail
+END
+MultiPart.mt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/motionTools/!svn/ver/1/mtypes/neko/mail/MultiPart.mt
+END
+Browser.mt
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/motionTools/!svn/ver/1/mtypes/neko/mail/Browser.mt
+END
+Smtp.mt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/motionTools/!svn/ver/1/mtypes/neko/mail/Smtp.mt
+END
+Imap.mt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/motionTools/!svn/ver/1/mtypes/neko/mail/Imap.mt
+END

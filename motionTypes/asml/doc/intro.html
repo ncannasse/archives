@@ -1,0 +1,180 @@
+<html>
+
+<head>
+<title>ASML</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Projet ASML :</h1>
+(c)2003 MOTION-TWIN<br>
+<br>
+<h3>Introduction :</h3>
+Pour créer des contenus en Flash dynamique (comme des jeux) il faut programmer en language ActionScript. Ce language, une
+forme de JavaScript crée par Macromédia, était jusqu'à présent entièrement basé sur les règles du typage dynamique. Une
+variable pouvait ainsi contenir n'importe quel type de base, et l'ensemble des vérifications étaient effectuées au runtime.<br>
+<br>
+Si ce système de type est trés pratique pour écrire rapidement des petites applications, il devient par la suite trés difficile
+à maitriser quand les applications grossissent : ces dernières deviennent alors particulièrement difficile à maintenir.
+De plus, concevoir une architecture et l'implémenter de façon correcte s'avère beaucoup plus difficile avec un système à typage
+dynamique.<br<
+<br>
+Hors, la stratégie de Macromédia à moyen terme est de s'attaquer au marché des clients légers : c'est à dire permettre l'écriture
+de petites applications clientes sécurisées qui permettent à l'utilisateur d'utiliser diverses applications sur n'importe quelle
+machine sans pour autant avoir à installer/configurer un logiciel particulier. On voit cette stratégie mise en oeuvre au travers
+de l'ajout de technologies telles que les transmissions de données XML, les classes de composants pour créer rapidement des
+interfaces, et la déclinaison en des offres "pro" dont les features ne sont pas particulierement intéressante pour les web-designers,
+clients traditionnels de Flash. Pour l'histoire, il se trouve qu'en faisant cela, Macromédia est venu légèrement piéniter sur
+les plates bandes de Microsoft. La réponse n'a pas attendue longtemps et ces derniers préparent donc "leur" version de Flash qui
+devrait être intégrée au prochain Windows. Mais passons...<br>
+<br>
+Macromédia donc, pour pouvoir attaquer le marché des clients légers, doit permettre de développer des applications "robustes". Pour
+cela, ils ont recemment ajoutés une surcouche au language ActionScript (je dis bien une surcouche, car les concepts du language restent
+trés dynamique, ainsi que le Runtime). Cette surcouche permet de définir facilement des classes, et d'utiliser des contraintes sur les
+champs ( public, static, private ) ou sur les types ( x : Number , c : MyClass ). Malheureusement et encore une fois, on peut s'apercevoir
+avec des exemples trés simples que leur typage n'est pas entièrement vérifié et que certaines contraintes sont tout simplement... ignorées.
+De plus, la lenteur spectaculaire de leur compilateur rends le déveloph3ement d'applications importantes problématique.<br>
+<br>
+C'est pour cela que j'ai commencé à travailler sur le projet ASML, dont je vais maintenant vous expliquer les principes.
+
+<h3>Inférence de Type :</h3>
+Vous êtes vous déjà demandé pourquoi, quand vous écrivez :
+<pre>
+	var p : Point = new Point(0,0);
+</pre>
+Il vous faut écrire deux fois le mot "Point" ?<br>
+<br>
+La question est pertinente : pourquoi le compilateur ne peut il pas tout simplement détecter que quand on écris :
+<pre>
+	var p = new Point(0,0);
+</pre>
+...puisque l'expression à droite du "=" a bien le type <code>Point</code> alors l'expression à gauche aura forcement le type <code>Point</code>.
+Ce mécanisme de compilation par propagation de type s'appelle "inférence de type". Il s'agit en fait de tirer le maximum d'informations
+de type depuis le code du programme et les fonctions connues, sans que le programmeur lui même ait à déclarer un seul type.<br>
+Prenons un autre exemple :
+<pre>
+	function f(x,y) {
+	  return x * y;
+	}
+</pre>
+Le compilateur peut deviner, par inférence de type, les types de x et y et le type de f trés rapidement :
+<ul>
+	<li>par défaut, x et y sont du type particulier <code>any</code>, ils peuvent donc prendre n'importe quel type.
+	<li>l'opération <code>*</code> est définie comme prenant deux "Number" en paramètres et retournant un Number.
+	<li>en appliquant la contrainte "Number" à x et y , on va donc transformer leur type en "Number".
+	<li>le résultat de la fonction f sera donc le type de retour de <code>*</code>, soit Number.
+</ul>
+La compilation avec inférence de type nous permet donc de déduire le type de f et de ses arguments, exactement
+comme si le programmeur avait écris :
+<pre>
+	function f(x : Number,y : Number) : Number {
+	  return x * y;
+	}
+</pre>
+Maintenant, prenont un exemple utilisant les objets :
+<pre>
+	function dist(a,b) {
+		return Math.sqrt((a.x - b.x) * (a.y - b.y));
+	}
+</pre>
+Cette fonction est trés simple, elle calcule la distance entre deux points a et b.<br>
+Le compilateur peut deviner le type de <code>dist</code> de la façon suivante :
+<ul>
+	<li>par défaut, a et b ont le type <code>any</code>
+	<li>la première expression évaluée est "a.x" : on va donc déterminer que "a" est bien un objet ayant un champ "x" , dont le type est <code>any</code>.
+	<li>ensuite , on va évaluer "b.x" , et donc déterminer que "b" est bien un objet ayant un champ "x" , dont le type est <code>any</code>.
+	<li>ensuite, on va évaluer <code>(a.x - b.x)</code> qui est pour l'instant <code>(any - any)</code>
+	<li>la déclaration de l'opération <code>-</code> est qu'elle prends deux "Number" et qu'elle retourne Number.
+	<li>on va donc déterminer que les "x" pour a et b sont du type Number, et que <code>(a.x - b.x)</code> a bien le type Number.
+	<li>on répete l'opération avec les "y"...
+	<li>on a ensuite <code>(Number * Number)</code>, ce qui est bien valide, et qui retourne "Number"
+	<li>puis <code>Math.sqrt(Number)</code> , qui retourne lui aussi "Number".
+	<li>fini.
+</ul>
+Le compilateur détermine donc le type de <code>dist</code> comme étant le suivant :
+<pre>
+	function dist(
+		a : { x : Number, y : Number } ,
+		b : { x : Number, y : Number }
+	) : Number;
+</pre>
+Ensuite, la fonction dist est donc utilisable avec tout objet qui a deux champs public x et y ( et pas seulement Point ! ).<br>
+<br>
+L'inférence de type permet donc de vérifier le type de l'intégralité du code source, de façon trés rapide et garantie. Le tout sans que le
+programmeur n'ait à spécifier aucun type ! Un petit exemple avancé pour ceux qui ne me croient toujours pas :
+<pre>
+	function f(a,b) {
+		return a.do_something(b);
+	}
+</pre>
+Question : quel est le type de f ? Celui de a ? Celui de b ?<br>
+Là encore, c'est plutot facile, à condition que différentes instances du type <code>any</code> puisse être différenciées. Nous allons donc adopter
+la notation d'Ocaml pour les types <code>any</code> ( à savoir : <code>'a 'b 'c ....</code> ).<br>
+En utilisant cette notation, le type de f est donc :
+<pre>
+	function f(
+		a : { do_something : ( ('b) : 'c ) } ,
+		b : 'b
+	) : 'c
+</pre>
+Cela veut dire la chose suivante (en décrypté) :
+<ul>
+	<li>la fonction f a deux arguments, a et b
+	<li>a est un objet ayant un champ "do_something"
+	<li>ce champ est une méthode qui prends un type "any" <code>'b</code> en paramètre est qui renvoie un type any <code>'c</code>
+	<li>b a le type any <code>'b</code>
+	<li>f retourne le type any <code>'c</code>
+</ul>
+Pas de grosses surprises donc ici, on a bien l'illustration au sein du type de f des contraintes qui sont appliquées dans son code.
+Ce qui veut bien dire que si les contraintes sont vérifiées ( donc si le type est vérifié ) alors l'appel à la fonction f est valide.
+En pratique, le type de f nous permet de lui passer en premier argument n'importe quel objet ayant une fonction "do_something"
+prenant un unique argument (a condition de passer à f un 2ème argument du type correct).
+
+<h3>Les possibilités :</h3>
+Maintenant que vous avez compris (ou du moins je l'espère) les possibilités de l'inférence de type, on peut donc en déduire les applications suivantes :
+<ol>
+	<li>l'écriture d'un outil "ASML" qui permet de vérifier par inférence l'ensemble d'un code source AS (Frutiparc 2 par exemple) :
+		<ul>
+			<li>cela permettra d'éliminer tous les types des sources, et donc de rendre la compilation AS énormement plus rapide
+			<li>cela permettra d'avoir un système de type plus puissant
+			<li>cela permettra d'être sûr que tout a bien été vérifié
+		</ul>
+	<li>l'écriture d'un générateur de code "sans classes" a partir d'un code "avec classes" :<br>
+		Vous écririez donc vos jeux/autres en code ASML (Object Oriented , 90% identique à AS2 , avec inférence de type) et le
+		générateur vous générerez le code AS1.
+		<ul>
+			<li>cela permettrait d'avoir plusieurs constructeurs
+			<li>cela permettrait d'avoir des méthodes qui changent selon le type des arguments (sélection : comme en Java)
+			<li>cela permettrait d'accélérer la compilation (uniquement du code AS1 sans classes à compiler pour Flash)
+			<li>cela permettrait de controler le language et les API de base, et donc de faire par exemple des jeux Flash compatibles Honsen.
+		</ul>
+	<li>un ajout de contraintes encore plus fortes :
+		<ul>
+			<li>différencier les float des entiers (permet de vérifier l'accés correct aux Array par exemple)
+			<li>rendre des types "nullable" (qui peuvent être null), cela permettrait de controler exactement où on peut avoir des null et ou on est certain qu'il n'y en aura jamais
+			<li>etc...
+		</ul>
+	<li>s'habituer a utiliser un système de types intelligent, car je compte a terme fusionner ASML dans MotionScript (pour Honsen).
+</ol>
+
+<h3>Ce qui a été fait :</h3>
+Ces deux derniers jours, j'ai écris un outil, une version "test" d'ASML, qui fait la chose suivante :
+<ul>
+	<li>parse des sources Flash (testé avec succés sur l'ensemble des sources FP2)<br>
+		<i>( mise a part certaines expressions que j'ai désactivé par la suite, comme le for...in ou d'autres détails )</i>
+	<li>vérifie par inférence de type que les sources (non typées) sont correctes<br>
+		<i>( test effectué sur 5 classes composant les sources de Snake3 - uniquement le déplacement du serpent par exemple ).</i>
+		Il faudrait encore un peu de boulot pour arriver à quelquechose de parfaitemant stable, mais ca peut être fait trés
+		rapidement à condition que vous en voyez le besoin.
+</ul>
+
+<h3>Ce qu'il reste a faire :</h3>
+Là en fait, ca dépends un peu de ce que l'équipe veut. Est-ce que ça vous interesse ? Pour tout de suite ? Sous quelle forme ?<br>
+Je suis libre pour toute discussions/questions concernant cet outil. En attendant, j'ai un peu de boulot pour Soba.
+<br>
+<br>
+2003-12-15<br>
+Nicolas Cannasse
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+
+<head>
+<title>ASML</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Projet ASML :</h1>
+(c)2003 MOTION-TWIN<br>
+Teléchargez <a href="asml.zip">ASML 1.2</a>
+
+<h3>Introduction :</h3>
+ASML est un outil permettant d'effectuer le typage d'un ensemble d'objets. Cet outil fonctionne soit en vérifiant les contraintes
+de type si elles sont spécifiées, soit en essayant de déterminer automatiquement le type grace à un algorithme d'inférence. De plus,
+ASML vérifie l'initialisation des variables locales et des champs d'un objet dans le constructeur.<br>
+<br>
+L'inférence de type nous garantie une fois le typage réussi que le programme écris est correct (au sens du typage, car l'algorithme
+implementé peut etre faux ou comprendre des bugs). Pour comprendre le mécanisme d'inférence, vous pouvez lire l'introduction d'ASML
+ici <a href="intro.html">intro.html</a>.
+
+<h3>Features :</h3>
+
+Voici une liste (non exaustive) de ce que fait ASML :
+<ul>
+	<li>parser de fichiers AS
+	<li>héritage , extends , interfaces et implements
+	<li>vérification de l'initialisation des variables locales avant utilisation
+	<li>vérification que chaque chemin d'une fonction fait bien "return" (dans le cas ou on a au moins un return qqch)
+	<li>vérification du bon nombre de parametres lors des appels de fonctions
+	<li>vérification des l'existence d'un constructeur adéquat
+	<li>typage spécial pour l'addition de strings et de nombres
+	<li>vérification des accés corrects aux statiques
+	<li>vérification de l'initialisation de tous les champs dans le constructeur
+	<li>vérification des opérations faites sur des entiers
+	<li>vérification de tous les types
+</ul>
+
+<h3>Restrictions :</h3>
+Pour pouvoir utiliser ASML, les restrictions suivantes s'appliquent :
+<ul>
+	<li>Pas de packages , pas d'import.
+	<li>Pas de casts : la coercition n'est pas une opération valide en ASML. Si votre programme utilise des coercitions, vous devez
+	enlever des contraintes de types. ASML vérifiera la validité des types et Flash ne donnera pas d'erreurs.
+	<li>Pas d'opérations "unsafe" : certaines opérations en Flash sont considérées comme "unsafe". "eval" et for...in sont deux exemples parmi
+	d'autres. Pour rentre le typage sûr, l'ensemble de ces opérations ont été regroupées dans la classe Std (voir Utilisation ci-dessous).
+	<li>Attention aux Arrays : actuellement, la généricité des tableaux n'est pas vérifiée, ce qui fait que les accés en écriture
+	et en lecture aux tableaux ( avec [ ] ) ne fait l'objet d'aucune vérification par ASML.
+	<li>Différenciation entre int et float : les entiers et les flottants ont deux types distincts. Ainsi par exemple la longueur d'un
+	tableau est un entier et Math.PI est un flottant. Certaines opérations sont restreintes aux entiers (par exemple l'accés à un
+	tableau).
+	<li>Pas de conversion automatique Number -> String : cette conversion est uniquement acceptée dans le cas d'une addition entre
+	une String et un Number. Sinon, vous devez utiliser la function string(x) qui convertis le nombre x en chaine de caracteres.
+</ul>
+
+<h3>Utilisation :</h3>
+
+Pour utiliser ASML, c'est trés simple : lancez la commande <code>asml.exe <i>mes_fichiers.as .....</i></code> et une erreur s'affichera
+si un probleme de type est rencontré. Sinon, ca veut dire que tout c'est bien passé et vous pouvez compiler avec Flash : la seule
+chose qu'il vous faut ajouter est un appel <code>Std.update();</code> dans votre boucle main, ainsi que l'ajout de /ext/asml à votre
+classpath (voir çi-dessous).
+
+<h3>Bibliothèque Standard :</h3>
+
+Pour l'instant, seulement une partie des classes FlashMX sont disponibles depuis ASML ( Maths, MovieClip, TextField, ... ). De plus,
+certaines des méthodes "unsafe" de ces classes ont été supprimées de façon à ce que leur utilisation provoque une erreur lors du
+typage avec ASML. Vous pouvez facilement enrichir cette bibliotheque standard avec des classes/fonctions disponibles depuis Flash
+en ajoutant/modifiant les fichiers contenus dans le répertoire asml/std.<br>
+<br>
+La classes Std est particulière et rassemble les opérations "unsafe". Std est est déclarée "intrinsic", son implémentation est disponible dans
+/ext/asml : vous devez donc ajouter ce chemin à votre classpath Flash pour pouvoir utiliser ASML ( n'ajoutez PAS /asml/std ! ).
+
+<br>
+2003-12-26<br>
+Nicolas Cannasse
+</body>
+</html>

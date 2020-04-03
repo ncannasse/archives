@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="asml"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Bytecode|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -g -pp camlp4o asml.dsp -g extlib.cma win32.cma"
+				ReBuildCommandLine="ocamake -g -pp camlp4o asml.dsp -g extlib.cma win32.cma -all"
+				Output="asml.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Native code|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -pp camlp4o -opt asml.dsp -o asml.exe extlib.cmxa win32.cmxa"
+				ReBuildCommandLine="ocamake -pp camlp4o -opt asml.dsp -o asml.exe extlib.cmxa win32.cmxa -all"
+				Output="asml.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath="checker.ml">
+		</File>
+		<File
+			RelativePath="expr.ml">
+		</File>
+		<File
+			RelativePath="lexer.mll">
+		</File>
+		<File
+			RelativePath="main.ml">
+		</File>
+		<File
+			RelativePath=".\oSDep.ml">
+		</File>
+		<File
+			RelativePath="parser.ml">
+		</File>
+		<File
+			RelativePath="typer.ml">
+		</File>
+		<File
+			RelativePath="types.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
