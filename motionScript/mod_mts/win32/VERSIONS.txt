@@ -1,0 +1,3 @@
+Apache_1.3.31
+Boehm GC 6.3alpha6 MT DLL
+Mysql 4.0.21

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="mts"
+	ProjectGUID="{7DD552B7-6BD8-49D8-B109-75AF8D886B5F}"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -pp camlp4o -opt mts.vcproj -o mts.exe"
+				ReBuildCommandLine="ocamake -pp camlp4o -opt mts.vcproj -o mts.exe -all"
+				Output="mts.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -pp camlp4o mts.vcproj -o mts.exe -g"
+				ReBuildCommandLine="ocamake -pp camlp4o mts.vcproj -o mts.exe -all -g"
+				Output="mts.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath="binary.ml">
+		</File>
+		<File
+			RelativePath="bytecode.ml">
+		</File>
+		<File
+			RelativePath="compile.ml">
+		</File>
+		<File
+			RelativePath="lexer.mll">
+		</File>
+		<File
+			RelativePath="linker.ml">
+		</File>
+		<File
+			RelativePath="main.ml">
+		</File>
+		<File
+			RelativePath="parser.ml">
+		</File>
+		<File
+			RelativePath="tools.ml">
+		</File>
+		<File
+			RelativePath="types.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

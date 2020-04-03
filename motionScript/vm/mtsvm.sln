@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mtsvm", "mtsvm.vcproj", "{DEE927CD-24AC-4E33-A95D-22F7EB8291CB}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mtsvm_dll", "mtsvm_dll.vcproj", "{C4771B58-D1C1-4FF4-AFC4-E6CAFD4AF483}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{DEE927CD-24AC-4E33-A95D-22F7EB8291CB}.Debug.ActiveCfg = Debug|Win32
+		{DEE927CD-24AC-4E33-A95D-22F7EB8291CB}.Debug.Build.0 = Debug|Win32
+		{DEE927CD-24AC-4E33-A95D-22F7EB8291CB}.Release.ActiveCfg = Release|Win32
+		{DEE927CD-24AC-4E33-A95D-22F7EB8291CB}.Release.Build.0 = Release|Win32
+		{C4771B58-D1C1-4FF4-AFC4-E6CAFD4AF483}.Debug.ActiveCfg = Debug|Win32
+		{C4771B58-D1C1-4FF4-AFC4-E6CAFD4AF483}.Debug.Build.0 = Debug|Win32
+		{C4771B58-D1C1-4FF4-AFC4-E6CAFD4AF483}.Release.ActiveCfg = Release|Win32
+		{C4771B58-D1C1-4FF4-AFC4-E6CAFD4AF483}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
