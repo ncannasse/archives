@@ -1,0 +1,53 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Animator - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\WINDOWS\TEMP\RSPE022.TMP" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "ANIMATOR_EXPORTS" /D "ANIMS_ATOR" /Fp"Release/Animator.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\NICO\Dragoon2\Animator\interface.cpp"
+]
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSPE022.TMP" 
+Creating temporary file "C:\WINDOWS\TEMP\RSPE023.TMP" with contents
+[
+kernel32.lib user32.lib gdi32.lib ddraw.lib dxguid.lib dinput.lib PDragoon.lib /nologo /dll /incremental:no /pdb:"Release/Animator.pdb" /machine:I386 /nodefaultlib:"libc.lib" /def:".\animator.def" /out:"Release/Animator.dll" /implib:"Release/Animator.lib" 
+.\Release\decor_fake.obj
+.\Release\dlib.obj
+.\Release\entree.obj
+.\Release\erreurs.obj
+.\Release\fonts.obj
+.\Release\graphisme.obj
+.\Release\sprites.obj
+.\Release\animain.obj
+.\Release\aplugin.obj
+.\Release\interface.obj
+.\Release\animator.obj
+.\Release\anims.obj
+.\Release\bmp.res
+]
+Creating command line "link.exe @C:\WINDOWS\TEMP\RSPE023.TMP"
+<h3>Output Window</h3>
+Compiling...
+interface.cpp
+Linking...
+   Creating library Release/Animator.lib and object Release/Animator.exp
+Creating temporary file "C:\WINDOWS\TEMP\RSPE040.BAT" with contents
+[
+@echo off
+copy Release\animator.dll d:\nico\dragoon2
+]
+Creating command line "C:\WINDOWS\TEMP\RSPE040.BAT"
+Copy
+        1 fichier(s) copi‚(s)
+
+
+
+<h3>Results</h3>
+Animator.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

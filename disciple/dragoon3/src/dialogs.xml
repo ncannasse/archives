@@ -1,0 +1,323 @@
+<dialogs>
+<!--*********************************-->
+<!-- Directory Creation Dialog -->
+
+<window name='dir.new' caption='Create Directory' width='200' height='80'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='dir.name' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='dir.name'/>
+</window>
+
+<!--*********************************-->
+<!-- File Rename Dialog -->
+
+<window name='file.rename' caption='Rename' width='200' height='105'>
+	<panel border='no' span='3' align='top' height='25'>
+		<label name='file.oldname' align='client'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='file.name' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='file.name'/>
+</window>
+
+<!--*********************************-->
+<!-- Main Window -->
+
+<window name='main.win' caption='Dragoon3 - (c)2002 Motion-Twin' width='800' height='600' state='maximize'>
+	<panel name='main.bottom' visible='false' align='bottom' span='3' height='100'/>
+	<panel name='main.left' visible='false' align='left' width='270' span='5'/>
+	<panel name='main.panel' border='no' visible='false' align='client'/>
+	<menu name='menu.new'/>
+	<menu name='menu.tools'/>
+	<menu name='menu.import'/>
+	<menu name='menu.actions'>
+		<menuitem caption='New' submenu='menu.new'/>
+		<menuitem caption='Import' submenu='menu.import'/>
+		<menubreak/>
+		<menuitem caption='Rename' name='menu.rename'/>
+		<menuitem caption='Delete' name='menu.delete'/>
+		<menuitem caption='Custom' name='menu.custom'/>
+		<menubreak/>
+		<menuitem caption='Synchronize' name='menu.sync'/>
+	</menu>
+	<menuitem caption='Files...' name='menu.files' submenu='menu.actions'/>
+	<menuitem caption='Tools...' submenu='menu.tools'/>
+</window>
+
+<!--*********************************-->
+<!-- Documents -->
+
+<panel name='main.doc' height='15' border='no' visible='true' align='top'>
+	<button name='doc.close' align='right' caption='X' bold='true' fontface='Comic Sans MS' width='15'/>
+	<label width='5' align='left'/>
+	<label name='doc.name' align='client'/>
+</panel>
+
+<!--*********************************-->
+<!-- Console -->
+
+<listbox name='console' align='client'/>
+
+<!--*********************************-->
+<!-- Workspace -->
+
+<treeview name='workspace' align='client'/>
+
+<!--*********************************-->
+<!-- Tools Menu -->
+
+<menuitem caption='Reload Dialogs' name='dialogs.reload'/>
+<menuitem caption='Kill Document' name='document.kill'/>
+<menuitem caption='Export' name='vfs.export'/>
+<menuitem caption='Import' name='vfs.import'/>
+
+<!--*********************************-->
+<!-- Synchronize Dialog -->
+
+<window name='vfs.sync' caption='Synchronize...' width='250' height='50'>
+	<panel align='client'>
+		<label name='sync.text' caption='Connecting...' align='center' width='200'/>
+	</panel>
+</window>
+
+<!--*********************************-->
+<!-- CardType Creation Dialog -->
+
+<window name='cardtype.new' caption='Create Card Type' width='200' height='80'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='cardtype.name' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='cardtype.name'/>
+</window>
+
+<!--*********************************-->
+<!-- Cards New Dialog -->
+
+<window caption='Create new Card:' name='card.new' width='250' height='140'>
+	<panel border='no' align='top' height='30' span='5'>
+		<label caption='Card Name:' align='left'/>
+		<edit name='card.name' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='bottom' height='30'>
+		<button caption='OK' align='center' on_click='ok'/>
+	</panel>
+	<panel border='no' align='client' span='5'>
+		<label caption='Card Type:' align='left'/>
+		<combobox name='card.type' align='right'/>
+	</panel>
+	<action focus='card.name'/>
+</window>
+
+<!--*********************************-->
+<!-- Cards Type Edit Panel -->
+
+<panel name='cardtype' border='no' align='client'>
+	<panel border='no' align='top' span='5' space='10' height='32'>
+		<label caption='Field name: ' align='left'/>
+		<edit name='field.name' align='left' width='150'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='10' height='28'>
+		<label caption='Field type: ' align='left'/>
+		<combobox name='field.type' align='left' width='150'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='10' height='28'>
+		<label align='left'/>
+		<checkbox caption='Parameter' name='field.param' align='left' width='150'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='10' height='50'>
+		<panel border='no' align='center' space='5' height='20' width='320'>
+			<button name='field.add' caption='Add' bold='true' align='left'/>
+			<button name='field.moveup' caption='Move Up' align='left'/>
+			<button name='field.rename' caption='Rename' enable='false' align='left'/>
+			<button name='field.del' caption='Delete' align='left'/>
+		</panel>
+	</panel>
+	<panel border='no' align='top' span='5' space='10' height='20' caption='Fields:'/>
+	<panel border='no' align='client' span='5'>
+		<listbox name='fields' fontface='Courier' align='client'/>
+	</panel>
+</panel>
+
+<!--*********************************-->
+<!-- Card Query Panel -->
+
+<panel caption='Card Query' name='card_query.new' width='300' height='400'>
+	<panel border='no' align='top' height='100' span='10'>
+		<richedit name='card_query.val' align='client'/>
+	</panel>
+	<panel border='no' align='top' height='30' span='5'>
+		<button name='card_query.search' caption='Search' align='center'/>
+		<label name='card_query.count' align='left'/>
+	</panel>
+	<panel border='no' align='client' span='10'>
+		<listbox name='card_query.found' align='client'/>
+	</panel>
+	<action focus='card_query.val'/>
+</panel>
+
+<!--*********************************-->
+<!-- MTW  3D Model Panel -->
+
+<panel name='3d.model' border='no' align='client'>
+	<panel align='top' border='single' height='30' span='5' space='5'>
+		<label caption='Animation:' align='left'/>
+		<combobox name='anim.list' align='left'/>
+		<button name='anim.stop' caption='Stop' align='left'/>
+		<button name='anim.reset' caption='Reset' align='left'/>
+	</panel>
+	<panel align='client' name='3dpanel' border='no'/>
+</panel>
+
+
+<!--*********************************-->
+<!-- Picture BMP JPG PNG ... -->
+
+<panel name='picture' border='no' align='client'/>
+
+<!--*********************************-->
+<!-- OCAML PROJECT -->
+
+<panel name='ocaml.project' border='no'>
+<panel border='no' align='left' width='200' span='20' space='5'>
+	<label align='top' caption='Options : '/>
+	<checkbox name='opt' align='top' caption='Native code'/>
+	<checkbox name='dbg' align='top' caption='Debug infos'/>
+	<checkbox name='cma' align='top' caption='Build a CMA'/>
+	<label align='top' caption='Arguments : '/>
+	<edit name='args' align='top'/>
+	<label align='top' caption='Files path : '/>
+	<edit name='path' align='top'/>
+
+	<label align='top'/>
+	<button name='compile' caption='Compile' bold='true' align='top'/>
+	<button name='run' caption='Run' align='top'/>
+	<button name='clean' caption='Clean' align='top'/>
+</panel>
+</panel>
+
+<!--*********************************-->
+<!-- DISCIPLE card create -->
+
+<window name='dcard.new' caption='Create New Card' width='200' height='150'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='dcard.name' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Type:' align='left'/>
+		<combobox name='dcard.type' align='right'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Model:' align='left'/>
+		<combobox name='dcard.model' align='right'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='dcard.name'/>
+</window>
+
+<!--*********************************-->
+<!-- DISCIPLE card edit -->
+
+
+<panel name='dcard.edit.creature' border='no'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Essence:' align='left'/>
+		<combobox name='essence' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Level:' align='left'/>
+		<edit name='level' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Life:' align='left'/>
+		<edit name='life' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Movement:' align='left'/>
+		<edit name='movement' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Speed:' align='left'/>
+		<edit name='speed' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Model:' align='left'/>
+		<label name='model' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Size:' align='left'/>
+		<edit name='size' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Anim Bcl:' align='left'/>
+		<edit name='animbcl' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Anim Move:' align='left'/>
+		<edit name='animmove' align='left'/>
+		<label caption='Move Speed:' align='left'/>
+		<edit name='movespeed' align='left'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='160'>
+		<label caption='Capacities:' align='top'/>
+		<richedit name='capacities' fontface='Courier' tabsize='4' align='left' width='300'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='' align='left'/>
+		<button caption='Save' name='save' align='left'/>
+	</panel>
+
+</panel>
+
+<!--*********************************-->
+<!-- SYMBOL create -->
+
+<window name='symbol.new' caption='Create New Symbol' width='300' height='150'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='symbol.name' width='150' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='File:' align='left'/>
+		<combobox name='symbol.file' align='right' width='150'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='symbol.name'/>
+</window>
+
+<!--*********************************-->
+
+<window name='ddeck.new' caption='Create New Deck' width='300' height='100'>
+	<panel border='no' align='top' span='5' space='5' height='30'>
+		<label caption='Name:' align='left'/>
+		<edit name='ddeck.name' width='150' align='right' on_keybreturn='ok' on_keybesc='cancel'/>
+	</panel>
+	<panel border='no' align='client'>
+		<button caption='OK' height='18' align='center' on_click='ok'/>
+	</panel>
+	<action focus='ddeck.name'/>
+</window>
+
+<!--*********************************-->
+
+</dialogs>

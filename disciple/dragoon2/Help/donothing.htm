@@ -1,0 +1,105 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoo's Plugins Dev - Write a "Do Nothing" plugin</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Plugins Dev - Write a &quot;Do
+Nothing&quot; Plugin</u></font><br>
+</p>
+
+<blockquote>
+    <p align="left">First, you need to create a Dynamic Link
+    Library Project with your programming system. This sample
+    shows step-by-step how to create a do-nothing plugin with
+    Microsoft Visual C++</p>
+    <p align="left">Add to your project the following fonction :</p>
+<code>
+<ul>
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call,LPVOID lpReserved)<br>
+{<ul>
+<b>switch</b>( ul_reason_for_call )<br>
+   {<br>
+   <b>case </b>DLL_PROCESS_ATTACH:<ul>
+           <font color=green>// perform any memory allocations / inititialisations<br>
+           // you can store the hModule param, it will be used<br>
+           // for HINSTANCE in LoadBitmap function<br></font>
+           <b>break</b>;</ul>
+   <b>case</b> DLL_PROCESS_DETACH:<ul>
+           <font color=green>// free memory<br></font>
+           <b>break</b>;</ul>
+   <b>default</b>:<ul>
+           <b>break</b>;</ul>
+   }<br>
+   <b>return</b> TRUE;</ul>
+}
+</ul>
+</code>
+
+    <p align="left">Then, you need to write a .DEF file that
+    exports your fonction, and another one that we'll see after:</p>
+    <blockquote>
+        <p align="left"><strong>LIBRARY </strong>Do_Nothing<br>
+        <br>
+        <strong>EXPORTS</strong></p>
+        <blockquote>
+            <p align="left">DllMain<br>
+            PlugInfo @1</p>
+        </blockquote>
+    </blockquote>
+    <p align="left">When Dragoon find a DLL file in his directory,
+    he looks for the first Exported fonction ( @1 ) wich we will
+    be called PlugInfo. Then he create a TPlugInfo data structure,
+    and pass it as a paramater to the PlugInfo function, wich
+    fill it with Plugin's personnal information.<br>
+    Here's the (short version) TPlugInfo data Structure :<br>
+    <br>
+    </p>
+    <blockquote>
+        <p><strong>typedef struct </strong><br>
+        { </p><ul>
+        <p>DWORD Code;<br>
+        DWORD ID;<br>
+        <strong>char</strong> *Name;<br>
+        <strong>char </strong>*Author;<br>
+        <strong>char </strong>*Help;<br>
+        HANDLE hInst;<br>
+        <br></ul>
+        } TPlugInfo, *LPPlugInfo;<br>
+        <p></p>
+    </blockquote>
+    <p>Now, you can write the fonction PlugGetInfo like that:</p>
+    <blockquote>
+        <p><br>
+        <strong>bool</strong><br>
+        PluginGetInfo( LPPlugInfo inf, void * )<br>
+        {<ul>
+        inf-&gt;Code = 0xDAFF00CE; <font color=green>// a constant used to prove
+        this is a Dragoon's plugin<br></font>
+        inf-&gt;ID = -1;<br>
+        inf-&gt;Name = <font color="#FF0000">&quot;Do Nothing v1.0&quot;</font><font
+        color="#000000">;</font><br>
+        inf-&gt;Hlp = <font color="#FF0000">&quot;No Help\nAt all&quot;</font>;<br>
+        inf-&gt;Author = <font color="#FF0000">&quot;Yourself&quot;</font>;<br>
+        inf-&gt;hInst = hInst;<font color=green> // [optional] stored by the first
+        call to DllMain<br></font>
+        <br>
+        <strong>return true;</strong></ul>
+        }<p></p>
+    </blockquote>
+    <p>Compile, put the DLL in Dragoon's Directory, and run. If
+    all is ok, you'll see a message in the Console and you'll be
+    able to access to Infos on MainMenu / Preferences / PlugIns
+    Info.</p>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+    <p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</blockquote>
+</body>
+</html>

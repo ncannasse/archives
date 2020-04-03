@@ -1,0 +1,52 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote>
+    <ul>
+        <li><p align="left"><font size="4"><u>Plugin
+            Initialisation</u></font></p>
+            <ul>
+                <li><a href="pluggetinfo.htm"><font size="3">The
+                    PlugGetInfo Function</font></a><font size="3">
+                    <br>
+                    <br>
+                    <strong>bool </strong>PluginGetInfo(
+                    LPPlugInfo inf, void * )<strong>;<br>
+                    <br>
+                    </strong>This Fonction is used by Dragoon to
+                    initialise the Plugin. Dragoon create a new
+                    TPlugInfo struct and call PluginGetInfo by
+                    passing a pointer of it. The second parameter
+                    is not used.<br>
+                    <br>
+                    <u>What to Do ?<br>
+                    </u>PluginGetInfo MUST fill the fields of the
+                    TPlugInfo struct, or return false<br>
+                    <br>
+                    <u>What does it Return ?<br>
+                    </u>PluginGetIngo must return true if the
+                    Plugin have been correctly installed, or
+                    false if it failed.<br>
+                    In this case, the plugin will be free from
+                    memory and no other call will be done.</font></li>
+            </ul>
+        </li>
+    </ul>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>

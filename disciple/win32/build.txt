@@ -1,0 +1,133 @@
+OCaml-Win32
+build.txt
+Copyright (c) 2002 by Harry Chomsky
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Library General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the Free
+Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+----------------------------------------------------------------------
+
+This document explains how to build a Windows application using the OCaml-Win32
+library.
+
+1. How to build
+
+For the most part, you can build a Windows application using OCaml-Win32 just
+as you would build a normal OCaml program.  Link your program with the library
+win32.cma or win32.cmxa.  To use dynamic linking, make the file dllwin32.dll
+available at runtime on the Windows PATH.  To use static linking, add the
+"-custom" flag when you build your program, or use the native-code compiler
+ocamlopt.  These three options are illustrated by the test programs
+test_dynamic.exe, test_static.exe and test_opt.exe.  Note that Visual C++ is
+required for building a program using static linking, but not for building
+using dynamic linking.
+
+If you wish to use OCaml's dynlink library to load OCaml-Win32 dynamically,
+you will need to use release 3.05 or higher of OCaml, since release 3.04
+contains a bug that prevents it from resolving the DLL filename correctly.
+
+The Win32 module provides three variables containing the standard arguments
+to WinMain: the_instance, the_command_line, and the_show_command.  (WinMain
+actually takes a fourth argument, "hPrevInstance", which is obsolete and so
+not provided by OCaml-Win32.)
+
+To make your program a true Windows application, however, you need to consider
+two additional issues: Windows resources and the choice of subsystem.
+
+2. Windows resources
+
+If you want to include Windows resources (such as icons, string tables, and
+templates for menus and dialog boxes) in your application, create a .res file
+using a resource editing tool such as that provided with Visual C++.  Use the
+Visual C++ utility CVTRES to convert the .res file into a .obj file.  Link
+your program in static mode using "-custom" or ocamlopt, and link in the .obj
+file.  You can then load your resources just as you would from a C Win32
+program.  This procedure is illustrated by the test program.
+
+If you use dynamic linking, you cannot use your own resources.
+
+3. Subsystems
+
+Every Win32 executable includes a flag indicating which subsystem it uses.
+The two most common subsystems are "console" (for command-line applications)
+and "windows" (for GUI applications).  The OCaml compiler normally builds
+executables using the console subsystem.
+
+When Windows launches a console-subsystem program, it makes a console available
+so the program can do I/O using the standard input, output and error streams.
+If the program is launched from the command line, Windows gives it access to
+the existing console, and postpones displaying the next command prompt until
+the program has exited.  If the program is launched from the Windows graphical
+environment, Windows creates a new console for it.
+
+If your program interacts with the user through a graphical user interface, you
+probably don't want the console to appear whenever the program is launched.
+OCaml-Win32 gives you some ways to avoid this by making your program use the
+windows subsystem instead of the console subsystem.
+
+If you are using static linking (with the "-custom" flag or ocamlopt), you can
+make your program use the windows subsystem by linking in the file
+lkwinapp.obj.  This is illustrated by the test program.  Alternatively, you can
+run the command-line utility mkwinapp.exe to modify the executable after you
+have built it.  (The Visual C++ utility EDITBIN can also make this change, as
+well as many others.)
+
+If you are using dynamic linking, things are more complicated.  Your program
+is actually a stub that calls ocamlrun.exe, which in turn loads and interprets
+the OCaml bytecode located in your executable file.  To run without a console,
+you need to alter both your program and ocamlrun.exe to use the windows
+subsystem.  You can run the command-line utility mkwinapp.exe to perform these
+modifications -- but you must also keep a normal, console-mode version of
+ocamlrun.exe for running standard OCaml programs (such as the OCaml compiler
+itself).
+
+Instead of keeping two versions of ocamlrun.exe and risking confusion between
+them, you may want to consider creating a windows-subsystem runtime with some
+other name, such as ocamlrnw.exe.  You can make your OCaml program use this
+runtime by specifying the "-use-runtime" flag or by editing the program's
+executable after it is built.  Unfortunately, though, the C code within
+OCaml-Win32 (as well as any other mixed OCaml/C libraries you are using) calls
+on OCaml runtime functions by loading them from ocamlrun.exe, not from
+ocamlrnw.exe or whatever runtime happens to be active.  This can cause
+programs using this trick to crash.  There currently does not appear to be any
+way around this problem.
+
+Finally, even if you decide to use the windows subsystem for your application,
+you may wish to build a console version of it for debugging purposes.  With the
+console subsystem, you can use normal OCaml functions like print_endline to
+write messages to the console.  Once you switch to the windows subsystem, these
+functions will not work -- you will have to use message boxes instead.  The
+test program illustrates using a message box to display any uncaught exception
+that escapes from the program, preventing the OCaml runtime from attempting to
+write it to the standard error stream.
+
+4. Multi-threading
+
+If you wish to use OCaml's Thread library, compile your program with the
+"-thread" flag, and include the libraries unix.cma and threads.cma as well as
+win32.cma.  You will need to use release 3.05 or higher of OCaml, since release
+3.04 contains a bug that causes multi-threaded Windows programs to crash.
+
+If you experience crashes even with OCaml release 3.05 or higher, it is most
+likely due to an improper alternation of calls to enter_blocking_section and
+leave_blocking_section.  In particular, the OCaml-Win32 window procedure and
+dialog procedure both assume that they are called from within a blocking
+section; they begin with a call to leave_blocking_section and end with a call
+to enter_blocking_section.  This means that any call to a Win32 API function
+that may invoke a window procedure must be surrounded by enter_blocking_section
+/ leave_blocking_section.  This of course includes functions like SendMessage,
+but it also includes less obvious functions like BeginPaint which may send
+messages as part of their activities.  It is possible that this version of
+OCaml-Win32 contains some unsurrounded calls to API functions that should be
+surrounded.  Please contact the author if you discover any such cases.

@@ -1,0 +1,44 @@
+OCaml-Win32 Library, version 0.02
+Copyright (c) 2002 by Harry Chomsky
+
+OCaml-Win32 is a set of OCaml wrappers for the Win32 API.  You can use this
+library to write true Win32 GUI applications in OCaml.  A small sample
+application is provided.
+
+In most cases, you can call an OCaml-Win32 function in much the same way as
+you would call the equivalent Win32 API function from C.  The biggest
+difference is the way of sending and receiving Windows messages; see the file
+"messages.txt" for more details.
+
+You can attach the OCaml-Win32 library to your program using static or dynamic
+linking, but certain Windows features are available only when using static
+linking.  See the file "build.txt" for details.
+
+The library is broken up into modules that correspond to sections of the
+Platform SDK documentation included with MSDN Library Visual Studio 6.0.  The
+module Win32 collects all of these small modules together into a single large
+module.
+
+Places where more work is needed are indicated in the source code by comments
+with the characters "...".  The Win32 API is enormous and only small parts of
+it have been wrapped in this release.  Future releases will wrap increasingly
+large portions of the API, according to the author's needs and any requests
+received from users.
+
+Nicolas Cannasse has extended the OCaml-Win32 library, and has also developed
+a RAD library called Osiris (based on OCaml-Win32) for easy prototyping of
+Windows GUI applications.  His work is available at:
+
+    http://tech.motion-twin.com
+
+OCaml-Win32 is released under the GNU Library General Public License.  If you
+wish to use it in a manner that is incompatible with this license, please
+contact the author.
+
+Requirements:
+- OCaml version 3.04 or higher (3.06 recommended), native Win32 port
+- Microsoft Visual C++ version 6
+
+Harry Chomsky
+harryc@chomsky.net
+http://www.chomsky.net

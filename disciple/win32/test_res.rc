@@ -1,0 +1,50 @@
+/* OCaml-Win32
+ * test_res.rc
+ * Copyright (c) 2002 by Harry Chomsky
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <windows.h>
+
+102 MENU DISCARDABLE
+BEGIN
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About", 173
+    END
+END
+
+Accels ACCELERATORS
+BEGIN
+    VK_F5, 173, SHIFT, VIRTKEY
+END
+
+AboutDlg DIALOG FIXED 6, 21, 198, 99
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "About OCaml Test"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "&OK", IDOK, 72, 74, 40, 14
+    LTEXT           "OCaml Test", 104, 45, 14, 128, 8
+    LTEXT           "Written as a test", 105, 45, 35, 59, 8
+    LTEXT           "Harry Chomsky", 106, 45, 45, 98, 8
+    LTEXT           "Copyright (c) 2001", 107, 45, 54, 138, 8
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    12          "This is the string numbered 12!"
+END

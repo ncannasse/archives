@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote>
+    <ul>
+        <li><p align="left"><font size="4"><u>Plugin
+            Initialisation</u></font></p>
+            <ul>
+                <li><a href="entrypoint.htm"><font size="3">The
+                    plugin EntryPoint </font></a><font size="3"><br>
+                    <br>
+                    This is the standard Microsoft Visual Studio
+                    DLL Entry-Point. If you're not using Visual
+                    Studio, use the DLLEntryPoint specified in
+                    your developpement system's help:<br>
+                    <br>
+<code>
+<ul>
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call,LPVOID lpReserved)<br>
+{<ul>
+<b>switch</b>( ul_reason_for_call )<br>
+   {<br>
+   <b>case </b>DLL_PROCESS_ATTACH:<ul>
+           <font color=green>// perform any memory allocations / inititialisations<br>
+           // you can store the hModule param, it will be used<br>
+           // for HINSTANCE in LoadBitmap function<br></font>
+           <b>break</b>;</ul>
+   <b>case</b> DLL_PROCESS_DETACH:<ul>
+           <font color=green>// free memory<br></font>
+           <b>break</b>;</ul>
+   <b>default</b>:<ul>
+           <b>break</b>;</ul>
+   }<br>
+   <b>return</b> TRUE;</ul>
+}
+</ul>
+</code>
+
+                    </font></li><br><br>
+See Windows 32 SDK Help for more info on the meaning of this function.
+            </ul>
+        </li>
+    </ul>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<html>
+
+<head>
+<title>Osiris Help</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<center><b>Osiris Documentation</b></center>
+<br>
+<br>
+
+<b>The <code>component</code> class:</b><br>
+All Osiris widgets are inheriting from component. The component class enable basic component operation such as : changing and retreiving position, toggle visibily, changing widget text and font, etc...
+<br>
+<br>
+<b>The <code>container</code> class:</b><br>
+A container is a component who can contain one or more other components : for example, windows and panels are containers, so you can add buttons, labels, ... into them. Most of the time, when creating a new component, you'll need to provide a container in which to place the component.
+<br>
+<br>
+
+<b>Tutorial 1 - Creating a window:</b><br>
+This sample show you how to create a window, show it, and then wait the user to close the window :<br>
+<pre>
+open Osiris;;
+let wnd = new_window() in
+wnd#visible true;
+while wnd#process true do
+  ()
+done;;
+</pre>
+
+<b>Tutorial 2 - Adding a button:</b><br>
+Now we want to add a button in that window, so we create a button by calling <code>new_button</code> with the window container. Then we are setting the button caption and adding an action which is called when the user click on the button :<br>
+<pre>
+open Osiris;;
+let wnd = new_window() in
+let my_button = new_button wnd#container in
+my_button#x 50;
+my_button#y 100;
+my_button#caption "Click Me !";
+my_button#on_click (fun _ -> message_box "Button clicked");
+wnd#visible true;
+while wnd#process true do
+  ()
+done;;
+</pre>
+
+<b>Tutorial 3 - Adding a menu:</b><br>
+Menu are not components. This sample show you how add two menu items called "Files" and "Edit" to the window menu.
+When the user click on the "Files" menu item, it opens a submenu containing three actions : "New" "Open" and "Exit" :<br>
+<pre>
+open Osiris;;
+
+exception Exit_application;;
+
+let wnd = new_window() in
+let files = new_menuitem wnd#menu in
+let edit = new_menuitem wnd#menu in
+  files#caption "Files";
+  edit#caption "Edit";
+let sub_files = new_menu() in
+files#submenu (Some sub_files);
+  let f_new = new_menuitem sub_files in
+  let f_open = new_menuitem sub_files in
+  let f_break = new_menuitem sub_files in
+  let f_exit = new_menuitem sub_files in
+  f_new#caption "New";
+  f_open#caption "Open";
+  f_break#break true;
+  f_exit#caption "Exit";
+  f_exit#on_click (fun _ -> raise Exit_application);
+wnd#visible true;
+try
+  while wnd#process true do
+    ()
+  done;
+with
+  Exit_application -> wnd#destroy;;
+</pre>
+
+<b>Tutorial 4 - List boxes & Labels :</b><br>
+Listbox controls are commonly used in today user interfaces. This sample show you how to create and display a simple listbox containing strings:<br>
+<pre>
+open Osiris;;
+
+let wnd = new_window() in
+let my_list = new_listbox wnd#container in
+let my_text = new_label wnd#container in
+my_text#caption "Choose an OS:";
+my_list#listprint (fun () -> ["Windows";"MacOS";"Linux";"Unix"]);
+my_list#y 20;
+wnd#visible true;
+while wnd#process true do
+  ()
+done;;
+</pre>
+
+<b>Tutorial 5 - Advanced List selection:</b><br>
+This sample demonstrate how to create and display a listbox, add items from it, and handle the current user selection.
+The list here does contains user-defined structure  :<br>
+<pre>
+open Osiris;;
+
+type people = {
+  age : int;
+  name : string;
+}
+
+let peoples = ref [];; (* an empty list of people *)
+
+let people_string p = "Name : " ^ p.name ^ " Age : " ^ (string_of_int p.age) in
+
+let wnd = new_window() in
+let plist = new_listbox wnd#container in
+let pitems = new_litems plist#genlist in
+pitems#print people_string;
+pitems#list (fun () -> !peoples);
+
+let add_people name age =
+  peoples := !peoples @ [ { name = name; age = age } ];
+  pitems#redraw
+in
+
+add_people "Jean-Luc" 28;
+add_people "Pierre" 41;
+add_people "Julie" 14;
+
+let who_is_selected () =
+  match pitems#selected with
+  | None -> message_box "No one is selected"
+  | Some p -> message_box (p.name ^ " is selected")
+in
+
+let test = new_button wnd#container in
+test#on_click (fun _ -> who_is_selected());
+test#caption "Who ?";
+test#x 50;
+test#y 200;
+
+wnd#visible true;
+while wnd#process true do
+  ()
+done;;
+</pre>
+
+
+<b>Tutorial 6 - Panels & Working with Aligns:</b><br>
+Each component got an <code>align</code> method in order to specify where does it appears.
+The default component alignment is AlNone, so component position is exactly the (x,y,width,height) specified by the user or default ones.
+This sample show you the power of alignments : no need to specify an fixed position, and components are automatically resized when the
+window is resized :<br>
+<pre>
+open Osiris;;
+
+let wnd = new_window() in
+let pbottom = new_panel wnd#container in
+pbottom#align AlBottom;
+let pleft = new_panel wnd#container in
+pleft#align AlLeft;
+pleft#span 5; (* an empty border of five units *)
+pleft#space 10; (* 10 units space between inner components *)
+
+let my_button = new_button pleft#container in
+my_button#caption "I'm TOP";
+my_button#align AlTop;
+let big_list = new_listbox pleft#container in
+big_list#align AlClient;
+
+let center_button = new_button pbottom#container in
+center_button#caption "I'm CENTER";
+center_button#align AlCenter;
+
+wnd#width 600;
+wnd#height 350;
+wnd#visible true;
+while wnd#process true do
+ ()
+done;;
+</pre>
+
+<br>
+<b>Author:</b><br>
+Osiris 1.2 - (c)2002 Nicolas Cannasse & Motion-Twin.<br>
+Orisis is under GPL, please contact me at ncannasse@motion-twin.com for more informations.<br>
+Last version available at <a href="http://tech.motion-twin.com">http://tech.motion-twin.com</a>
+
+</body>
+</html>

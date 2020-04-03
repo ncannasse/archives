@@ -1,0 +1,230 @@
+OCaml-Win32
+messages.txt
+Copyright (c) 2002 by Harry Chomsky
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Library General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the Free
+Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+----------------------------------------------------------------------
+
+This document explains how to use the OCaml-Win32 library to send and
+receive Windows messages.
+
+1. Overall approach
+
+The OCaml-Win32 library generally tries to follow the conventions of the Win32
+API itself, particularly in its use of datatypes.  But with message passing
+that approach is not practical.  Each Windows message defines its own
+conventions about what information is carried in the wparam and lparam
+parameters and the message's return value and how that information is encoded
+into 32-bit integers.  Win32 programs written in C manage to obey these
+conventions by extensive use of typecasts.  Instead of following this weakly-
+typed approach, OCaml-Win32 takes the more heavyweight approach of wrapping
+each message type with specialized type-conversion functions that enable the
+OCaml programmer to send and receive messages as though they had strongly-
+typed parameters and return values.
+
+2. Basic data types
+
+OCaml-Win32 defines the following datatypes for messages:
+
+- message_id: an integer, typically one of the WM_xxx constants;
+
+- message_contents: a record including a message_id and the 32-bit wparam
+  and lparam parameters that go with it;
+
+- message_result: a 32-bit integer, as returned by a message send;
+
+- msg: a record similar to the Win32 MSG structure, including a
+  message_contents record as one of its components.
+
+3. Sending messages
+
+To send a message, an OCaml-Win32 application must construct a message_contents
+value, pass it to an appropriate function which will return a message_result
+value, then analyze the message_result.  These three steps are called "pack",
+"send", and "unpack".  When all three steps are combined into one, the step is
+called "issue".
+
+For example, the message LB_GETSEL can be sent to a list box to determine if
+one if its items is selected.  It takes an integer parameter (index) and
+returns a Boolean result.  OCaml-Win32 defines the integer constant lb_getsel
+and provides the following two primitive functions to go with it:
+
+    pack_lb_getsel : index:int -> message_contents
+    unpack_lb_getsel : message_result -> bool
+
+pack_lb_getsel combines the message id LB_GETSEL with appropriate wparam and
+lparam values representing the specified index, and returns a message_contents
+record.  The application passes this record to a message sender (a value of
+type message_sender = msg:message_contents -> message_result), then calls
+unpack_lb_getsel on the result to convert it into a Boolean value.
+
+To combine these steps into one, OCaml-Win32 defines the following function:
+
+    issue_lb_getsel : sender:message_sender -> index:int -> bool
+
+In some cases, especially where memory allocation is involved, the steps
+cannot be separated, and the library provides only the issue function, not
+the pack and unpack functions.
+
+The most common message sender is the function send_message (similar to the
+Win32 function SendMessage) partially applied to specify which window to send
+the message to.  A complete message send might look like:
+
+    let is_selected =
+        issue_lb_getsel ~sender:(send_message ~wnd:my_window) ~index:5
+
+To simplify this pattern, the function send_message comes with a variant
+called send:
+
+    send : wnd:hwnd -> issuer:(sender:message_sender -> 'a) -> 'a
+
+The above message send can be written as:
+
+    let is_selected = send ~wnd:my_window ~issuer:issue_lb_getsel ~index:5
+
+Likewise, the function send_dlg_item_message (similar to the Win32 function
+SendDlgItemMessage) can be partially applied to make a message sender, and it
+comes with a variant called send_dlg_item that takes an issuer parameter.
+
+4. Receiving messages
+
+In order to receive messages, a Win32 application defines a window procedure.
+Under OCaml-Win32, a programmer can either provide a pointer to an external
+window procedure written in C, or use an OCaml function of type
+window_function = wnd:hwnd -> msg:message_contents -> message_result.  Such a
+function receives a message in raw form and returns a raw result.
+
+A typical window function passes its message to a message processor (a value
+of type message_processor = wnd:hwnd -> msg:message_contents -> message_result
+option), which either processes the message and provides a result, or returns
+None to indicate that it chose not to process the message.  Message processors
+can be combined in a cascading sequence using the functions
+sequence_message_processors and combine_message_processors; a message is
+passed from one processor to the next until one of them decides to accept it.
+If none of the processors accepts the message, the window function should call
+some default function to process the message.
+
+OCaml-Win32 provides two standard window functions, both parameterized by a
+list of message processors.  If all of the processors reject the message, the
+first function passes it on to DefWindowProc, while the second passes it on to
+another window procedure, thus allowing subclassing of existing windows.
+
+Since it is not practical to write message processors directly in OCaml, the
+programmer instead writes message handlers that accept parameters and return
+values of appropriate types, then calls on the library to "deliver" the
+message to the handler and "return" the result from the handler by carrying
+out the necessary type conversions.
+
+A message handler takes as parameters a window handle, a message_contents
+record containing the raw form of the message, and additional values providing
+the message parameters as appropriate types.  It returns a value of type 'a
+message_handler_result, indicating whether it handled the message and if so
+what value should be returned.  It can specify the return value using the
+appropriate type or in raw form as a 32-bit integer.  The following values
+can be used to specify handler return values:
+
+    message_not_handled : 'a message_handler_result
+    message_handled : unit message_handler_result
+    message_return : 'a -> 'a message_handler_result
+    message_return_raw : message_result -> 'a message_handler_result
+
+For example, the message WM_ERASEBKGND is sent to a window with a handle to a
+device context as its parameter; the handler must return a Boolean value.
+OCaml-Win32 specifies the handler type as follows:
+
+    type wm_erasebkgnd_handler =
+        wnd:hwnd ->
+        msg:message_contents ->
+        dc:hdc ->
+        bool message_handler_result
+
+A handler might look like this:
+
+    fun ~wnd ~msg ~dc ->
+        (* do something with dc; *)
+        message_return true
+
+In order to incorporate a message handler into a window function, it must first
+be converted into a message processor.  For a message with handler type 'a and
+return values of type 'b, the library provides a deliverer function with the
+following type for passing a raw message to the handler:
+
+    type ('a, 'b) message_deliverer =
+        handler:'a ->
+        wnd:hwnd ->
+        msg:message_contents ->
+        'b message_handler_result
+
+It also provides a returner function with the following type for packaging the
+handler's return value:
+
+    type 'b message_returner = result:'b -> message_result
+
+The function on_message, parameterized by a message id, a deliverer and a
+returner, converts a message handler of the appropriate type to a message
+processor.  The library provides partially-applied versions of on_message for
+each type of message that it supports.
+
+For example, in the case of WM_ERASEBKGND, the library provides the following
+two primitive functions:
+
+    deliver_wm_erasebkgnd :
+        handler:wm_erasebkgnd_handler ->
+        wnd:hwnd ->
+        msg:message_contents ->
+        bool message_handler_result
+
+    return_wm_erasebkgnd : result:bool -> message_result
+
+It uses these functions, together with the integer constant wm_erasebkgnd, to
+construct a specialized version of on_message:
+
+    on_wm_erasebkgnd : wm_erasebkgnd_handler -> message_processor
+
+The programmer can construct a message processor as follows:
+
+    on_wm_erasebkgnd (fun ~wnd ~msg ~dc ->
+        (* do something with dc; *)
+        message_return true)
+
+In some cases, especially where memory allocation is involved, no separate
+deliverer and returner are provided; instead, the library provides a primitive
+variant of on_message directly.
+
+5. Dialog boxes
+
+Dialog boxes in Win32 generally use a standard window procedure provided by
+Windows itself, which in turn calls a dialog procedure provided by the
+programmer.  The form of a dialog procedure is very similar to the form of
+a window procedure, except that it stores its message result in a special
+location and returns TRUE to indicate that it processed the message or FALSE
+to indicate that the window procedure should handle the message itself.
+Moreover, there are exceptions to this exception -- for some message types,
+the dialog procedure returns the message result directly, just like a window
+procedure does.
+
+In OCaml-Win32, a dialog procedure is defined exactly like a window procedure,
+either as an external C function or as an OCaml window function.  The library
+provides a standard dialog function, which like the standard window function is
+parameterized by a list of message processors.  The function returns zero
+(representing the Win32 constant FALSE) if the processors reject the message.
+If the processors do process the message, the function checks whether the
+message type is one of the exceptions mentioned above, and returns the
+specified return value in one way or the other.
+
+The OCaml programmer can ignore these details and simply use the standard
+dialog function along with a list of message processors constructed from
+message handlers as described in the previous section.

@@ -1,0 +1,68 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote>
+    <ul>
+        <li><p align="left"><font size="4"><u>Plugin
+            Initialisation</u></font></p>
+            <ul>
+                <li><strong>ACTIONS:</strong> <ul>
+                        <li><a href="onpakchange.htm"><font
+                            size="3">OnPAKChange</font> </a><p><strong>typedef
+                            struct </strong><br>
+                            {</p><ul>
+                            <p>DWORD Code;<br>
+                            DWORD ID;<br>
+                            <strong>char</strong> *Name;<br>
+                            <strong>char </strong>*Author;<br>
+                            <strong>char </strong>*Help;<br>
+                            HANDLE hInst;<br>
+                            <br>
+                            PLUGPROC ReceiveActions<br>
+                            PLUGPROC OnPAKChange<br>
+                            DWORD Reserved[3];<br><br>
+                            </ul>
+                            } TPlugInfo, *LPPlugInfo;<br>
+                            <br>
+                            <br>
+                            The OnPAKChange Field of the
+                            TPlugInfo can be set to a local-PLUGPROC-fonction
+                            to handle changes in the PAKs files;
+                            When a PAK File is modified, Dragoon's
+                            checks the existence of the
+                            OnPAKChange fonction and then Call it
+                            with in first parameter the FullName
+                            of the PAKFile ( including fullpath ).
+                            The second parameter is always NULL.<br>
+                            <br>
+                            <u>What to Do ?</u><br>
+                            What you want.... PAK may have be
+                            modified, or simply saved....<br>
+                            <br>
+                            <u>What does it return ?<br>
+                            </u>what you want, Dragoon's is not
+                            handling errors for this fonction.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>

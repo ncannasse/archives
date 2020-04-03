@@ -1,0 +1,77 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote>
+    <ul>
+        <li><p align="left"><font size="4"><u>Plugin
+            Initialisation</u></font></p>
+            <ul>
+                <li><a href="tpluginfo.htm"><font size="3">TPlugInfo
+                    struct</font></a><font size="3"> </font></li>
+            </ul>
+        </li>
+    </ul>
+</blockquote>
+
+<blockquote>
+    <blockquote>
+        <blockquote>
+            <p><strong>typedef struct </strong><br>
+            {<ul>
+            DWORD Code;<br>
+            DWORD ID;<br>
+            <strong>char</strong> *Name;<br>
+            <strong>char </strong>*Author;<br>
+            <strong>char </strong>*Help;<br>
+            HANDLE hInst;<br>
+            <br>
+            DWORD Reserved[5];<br>
+            </ul>
+            } TPlugInfo, *LPPlugInfo;</p>
+            <p><u>Fields description:</u></p>
+            <ul>
+                <li><u>Code:</u> The plugin must set this field
+                    to CODE ( 0xDAFF00CE ) if he want be
+                    recognized as a Dragoon's plugin.</li>
+                <li><u>ID:</u> This is the Identification of a
+                    plugin. ( ex: Animator has code 1 ). It's
+                    reserved for future use, like Inter-Plugin
+                    Advanced Communications.</li>
+                <li><u>Name:</u> Pointer to a NULL terminated
+                    String that contains the full Name of the
+                    Plugin ( ex: &quot;Animator v1.34&quot;)</li>
+                <li><u>Author:</u> Pointer to a NULL terminated
+                    String that contains the name of the Author
+                    of the PlugIn</li>
+                <li><u>Help:</u> Pointer to a NULL terminated
+                    String that contains a small text that we'll
+                    be display has an help / info for this plugin</li>
+                <li><u>hInst:</u> the Plugin HANDLE, used like
+                    HINSTANCE for LoadBitmap fonctions.</li>
+                <li><u>Reserved:</u> These fields are not
+                    explicited here. See Later in the Reference
+                    to use thems.</li>
+            </ul>
+        </blockquote>
+    </blockquote>
+</blockquote>
+
+<blockquote>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>

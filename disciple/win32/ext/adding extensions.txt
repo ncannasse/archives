@@ -1,0 +1,39 @@
+Procedure for adding and compiling extensions :
+
+1) copy extensions files into the /ext directory of the ocaml win32 api source distribution
+2) add the following lines to Makefile :
+
+(in macros definitions)
+
+EXTMODULES= (list of modules in the /ext directory)
+- don't forget to use the "\" as directory separator for "del" semantic
+- eg : EXTMODULES= ext\win32_pack.+ ext\win32_richedit.+ ...
+
+and add $(EXTMODULES) to the MODULES macro
+add also EXTFLAGS= -I ext
+add the following libs to WINLIBS & CCLIBS : comdlg32.lib + comctl32.lib
+
+(in compilation options)
+
+add $(EXTFLAGS) to the ocamlc & ocamlopt parameters when compiling .ml files
+
+
+--- add the following at the end of win32.ml -----
+
+(* Nicolas Cannasse EXTENSIONS *)
+include Win32_comctrl
+include Win32_comdlg
+include Win32_richedit
+include Win32_shell
+include Win32_dynlink
+
+-----------------------------------------------------
+
+(IF you're using OCaml 3.04, you'll get an error "Cannot load module" if you dynamicly link with win32.cma.
+To avoid that, recompile win32.cma with "-dllib dllwin32" instead of "-dllib -lwin32" (this is a known bug
+in dynlink module under 3.04) - corrected under 3.05)
+
+
+Now it works :)
+
+- Nicolas Cannasse / 06-10-2002

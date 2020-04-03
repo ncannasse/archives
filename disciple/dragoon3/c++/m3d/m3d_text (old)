@@ -1,0 +1,191 @@
+/* **************************************************************************** */
+/*																				*/
+/*   M3D Text display															*/
+/*	 Nicolas Cannasse															*/
+/*	 (c)2002 Motion-Twin														*/
+/*																				*/
+/* **************************************************************************** */
+#include <m3d.h>
+
+namespace M3D {
+/* ---------------------------------------------------------------------------- */
+
+	extern int width,height;
+
+namespace Text {
+
+	struct TText {
+		WString txt;
+		DWORD color;
+		MVec pos;
+		RECT rpos;
+		Font *f;
+		TText( Font *f ) : f(f), pos(VECTOR(0,0,0.1f)), color(0xFFFFFFFF) {
+			rpos.left = 0;
+			rpos.right = 0;
+			rpos.top = 0;
+			rpos.bottom = 0;
+		}
+	};
+
+	static WArray<Font*> fonts;
+	static WList<TText*> texts;
+
+	struct Font {
+		int fnb;
+		FONT font;
+		WArray<TText*> texts;
+		Font( FONT f ) : font(f) { }
+		~Font() { if( font ) font->Release(); texts.Delete(); }
+	};
+
+	void add_sorted( TText *t ) {
+		int p = 0;
+		FLOAT z = t->pos.Get()->z;
+		FOREACH(TText*,texts);
+			if( item->pos.Get()->z < z ) {
+				texts.Insert(t,p);
+				return;
+			}			
+			p++;
+		ENDFOR;
+		texts.Add(t);	
+	}
+
+
+	TText *get_text( int ref ) {
+		Font *f = fonts[ref&0xFF];
+		return f->texts[ref>>8];
+	}
+
+	TData::TData( int ref ) : ref(ref) {
+	}
+
+	int
+	TData::Ref() {
+		return ref;
+	}
+
+	void
+	TData::SetPos( VECTOR *v) {
+		TText *t = get_text(ref);
+		FLOAT z = t->pos.Get()->z;
+		t->pos.Set(*v);
+		if( z != v->z ) {
+			texts.Remove(t);
+			add_sorted(t);
+		}	
+	}
+
+	void
+	TData::SetDest( FLOAT x, FLOAT y, FLOAT time ) {
+		TText *t = get_text(ref);
+		FX::Lerp::V2Lerp(&t->pos,t->pos.Get(),&VECTOR(x,y,t->pos.Get()->z),time);
+	}
+
+	void
+	TData::SetString( const char *str ) {
+		TText *t = get_text(ref);
+		t->txt = str;
+	}
+
+	void
+	TData::SetColor( DWORD color ) {
+		TText *t = get_text(ref);
+		t->color = color;
+	}
+
+	Font *CreateFont( HFONT f ) {
+		FONT xfont;
+		if( !M3DCHECK(D3DXCreateFont(device,f,&xfont)) )
+			return NULL;
+		Font *font = new Font(xfont);
+		font->fnb = fonts.Length();
+		fonts.Add(font);
+		return font;
+	}
+
+
+	void FreeFont( Font *f ) {
+		if( fonts.Length() > f->fnb )
+			fonts[f->fnb] = NULL;
+		delete f;
+	}
+
+	TData Create( Font *f ) {		
+		TText *t = new TText(f);
+		// TODO : add @ an empty place
+		int ref = f->fnb+(f->texts.Length()<<8);
+		f->texts.Add(t);
+		add_sorted(t);
+		return TData(ref);
+	}
+
+	void Remove( int ref ) {
+		Font *f = fonts[ref&0xFF];
+		TText *t = f->texts[ref>>8];
+		f->texts[ref>>8] = NULL;
+		delete t;
+		texts.Remove(t);
+	}
+
+	static WList<TText*>::Cel<TText*> *rpos;
+
+	void Begin() {
+		FOREACH(TText*,texts);
+			if( item->pos.IsModified() ) {
+				FLOAT xp = width * (item->pos.Get()->x+1.0f)/2.0f;
+				FLOAT yp = height * (item->pos.Get()->y+1.0f)/2.0f;
+				item->rpos.left = (int)xp;
+				item->rpos.top = (int)yp;
+			}
+		ENDFOR;
+		rpos = texts.AtStart();
+	}
+
+	void Render( FLOAT zmax ) {
+		FONT f = NULL;
+		FLOAT z;
+		while( rpos && (z=rpos->item->pos.Get()->z) > zmax ) {
+			TText *t = rpos->item;
+			rpos = rpos->next;
+			if( !f ) {
+				f = t->f->font;
+				f->Begin();
+			}
+			f->DrawText(t->txt.c_str(),-1,&t->rpos,DT_LEFT | DT_NOCLIP,t->color);
+		}
+		if( f )
+			f->End();
+	}
+
+	void End() {
+		if( fonts.Length() > 0 )
+			fonts[0]->font->Begin();
+		while( rpos ) {
+			TText *t = rpos->item;
+			rpos = rpos->next;
+			t->f->font->DrawText(t->txt.c_str(),-1,&t->rpos,DT_LEFT | DT_NOCLIP,t->color);
+		}
+		if( fonts.Length() > 0 )
+			fonts[0]->font->End();
+	}
+
+	void Close() {
+		int i;
+		for(i=0;i<fonts.Length();i++) {
+			Font *f = fonts[i];
+			if( f ) {
+				f->font->Release();
+				f->font = NULL;
+				f->texts.Delete();
+			}
+		}		
+		fonts.Clean();
+	}
+
+};
+
+/* ---------------------------------------------------------------------------- */
+}; // namespace
+/* **************************************************************************** */

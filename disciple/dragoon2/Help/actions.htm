@@ -1,0 +1,106 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote> 
+  <ul>
+    <li>
+      <p align="left"><font size="4"><u>Plugin Initialisation</u></font></p>
+      <ul>
+        <li><strong>ACTIONS:</strong> 
+          <ul>
+            <li><a href="actions.htm"><font size="3">ReceiveActions</font></a> 
+              <br>
+              <strong><br>
+              typedef struct </strong><br>
+              { 
+              <ul>
+                <p>DWORD Code;<br>
+                  DWORD ID;<br>
+                  <strong>char</strong> *Name;<br>
+                  <strong>char </strong>*Author;<br>
+                  <strong>char </strong>*Help;<br>
+                  HANDLE hInst;<br>
+                  <br>
+                  PLUGPROC ReceiveActions;<br>
+                  DWORD Reserved[4];</p>
+              </ul>
+              } TPlugInfo, *LPPlugInfo<br>
+              <br>
+              The ReceiveActions Field of the TPlugInfo struct can be set to one 
+              Plugin-local fonction of type PLUGPROC ( take 2 void* and return 
+              a bool ). So, when loading the project, Dragoon will call this fonction, 
+              passing it a pointer to a TActions struct<br>
+              <br>
+              <strong>typedef struct</strong> TActions {
+              <ul>
+                <p><br>
+                  CREATEOBJPROC CreateObj;<br>
+                  PLUGPROC DelObj;<br>
+                  <br>
+                  PLUGPROC SetObjVisible;<br>
+                  PLUGPROC SetObjEnabled;<br>
+                  <br>
+                  PLUGPROC SetCaption;<br>
+                  <br>
+                  PLUGPROC ListAddItem;<br>
+                  PLUGPROC ListDelItem;<br>
+                  PLUGPROC_EN ListGetItemByIndex;<br>
+                  PLUGPROC_EN ListGetItemByName;<br>
+                  PLUGPROC ListClear;<br>
+                  <br>
+                  PLUGPROC GridClear;<br>
+                  PLUGPROC_EN GridSetCount;<br>
+                  PLUGPROC_EN GridSetLength;<br>
+                  PLUGPROC_EN GridSetCell;<br>
+                  PLUGPROC_EN GridGetCell;<br>
+                  <br>
+                  PLUGPROC EditSetText;<br>
+                  <br>
+                  PLUGPROC_EN InputTxt;<br>
+                  PLUGPROC Log;<br>
+                  PLUGPROC CnvIDToFileName;<br>
+                  PLUGPROC RunPAKBrowser;<br>
+                  PLUGPROC ShowPlugForm;<br>
+                  PLUGPROC_EN RunPlugin;<br>
+                  <br>
+                  PLUGPROC CreateItem;<br>
+                </p>
+              </ul>
+              } TActions, *LPActions;<br>
+              <br>
+              <br>
+              All the fields of this fonction will be specified later, and parameters 
+              to pass will be specified.<br>
+              The ReceiveActions procedure is used to get a Handle to a valid 
+              TActions struct.<br>
+              This Handle will be use for further calls to Dragoon's API.<br>
+              <br>
+              <u>What to Do ?<br>
+              </u>Set a global LPActions var to the first parameter passed<br>
+              <br>
+              <u>What does it return ?</u><br>
+              no errors are handling, so you can return any value<br>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>

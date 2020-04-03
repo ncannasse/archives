@@ -1,0 +1,6 @@
+LIBRARY Symbols
+
+EXPORTS
+	DllMain		 
+	DragoonEntryPoint @1
+	ConvertSymbol @2

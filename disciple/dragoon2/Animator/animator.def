@@ -1,0 +1,5 @@
+LIBRARY Animator
+
+EXPORTS
+	DllMain		 
+	DragoonEntryPoint @1

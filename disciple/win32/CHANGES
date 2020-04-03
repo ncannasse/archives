@@ -1,0 +1,32 @@
+Version 0.02
+August 26, 2002
+
+This is a major upgrade, with several new modules and some incompatible
+changes from version 0.01.  The differences are too numerous to list in
+detail, but the major new features are as follows:
+
+- Window subclassing
+
+  The OCaml programmer can now write custom window procedures and easily pass
+  messages from one window procedure to another.  One effect of this change is
+  that it's now easy to "subclass" a window -- whether the window is defined in
+  OCaml or in C -- to change its behavior.
+
+  The pattern for defining message handlers and registering window classes has
+  changed, so old code will need to be updated.  See messages.txt for details.
+
+- Dynamic linking
+
+  OCaml-Win32 can now be built as a DLL to be loaded by OCaml's dynamic linking
+  feature.
+
+- Compatibility with OCaml threads
+
+  The library is now compatible with OCaml's threads.
+
+----------------------------------------------------------------------
+
+Version 0.01
+January 12, 2002
+
+Initial release.

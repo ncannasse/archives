@@ -1,0 +1,74 @@
+Dragoon3 - Description des Modules:
+-----------------------------------
+
+Aexpr:
+parsing des expressions conditionnelles
+
+Boot:
+charge win32, log, run et core
+
+Console:
+gere la console, recupere et enregistre les messages
+
+Core:
+charge et initialise les modules du répertoire courant
+
+Dialogs:
+gere le fichier xml de description de l'interface
+
+Dir:
+gestion des répertoires
+
+Document:
+gestion des documents ouverts
+
+Gfxres:
+permet l'accés simplifié aux resources graphiques (icones & bitmaps)
+
+Log:
+réception des messages
+
+M3d:
+interface vers le moteur 3D
+
+M3dview:
+visualisation et réglages des parametres des fichiers 3D
+
+Main:
+gestion de la fenetre principale
+
+Mtlib:
+bibliotheque de fonctions & modules standards
+
+Mysql:
+permet l'accés aux bases de données mysql
+
+Osiris:
+module de gestion objet des composants d'interface
+
+P_cards:
+plugin - gestion des types & des instances de cartes
+
+P_ocaml:
+plugin - affichage et edition des fichier OCaml
+
+Protocol:
+protocole de gestion distant des fichiers
+
+Run:
+gere l'enregistrement des modules
+
+Vfs:
+gere le systeme de fichier virtuel
+
+Win32:
+permet l'accés à l'API Win32
+
+Workspace:
+gere la vision du systeme de fichier virtuel
+
+Xgui:
+permet d'instancier des objets osiris a partir d'xml
+
+Xml:
+parsing & printing du format xml

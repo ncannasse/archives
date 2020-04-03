@@ -1,0 +1,70 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Dragoon's Plugin Dev Reference</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p align="center"><font size="6"><u>Reference</u></font></p>
+
+<blockquote>
+    <ul>
+        <li><p align="left"><font size="4"><u>Plugin
+            Initialisation</u></font></p>
+            <ul>
+                <li><strong>ACTIONS:</strong> <ul>
+                        <li><a href="onloadprj.htm"><font
+                            size="3">OnLoadProjectFinished</font></a>
+                            <font size="3"><br>
+                            </font><p><strong>typedef struct </strong><br>
+                            {<ul>
+                            DWORD Code;<br>
+                            DWORD ID;<br>
+                            <strong>char</strong> *Name;<br>
+                            <strong>char </strong>*Author;<br>
+                            <strong>char </strong>*Help;<br>
+                            HANDLE hInst;<br>
+                            <br>
+                            PLUGPROC ReceiveActions<br>
+                            PLUGPROC OnPAKChange;<br>
+                            PLUGPROC OnLoadProjectFinished;<br>
+                            <br>
+                            DWORD Reserved[2];</ul></p>
+                            <p>} TPlugInfo, *LPPlugInfo;<br>
+                            <br>
+                            The OnLoadProjectFinished field of
+                            the TPlugInfo struct can be set to
+                            handle the event wich occurs when the
+                            user load the project for the first
+                            time.<br>
+                            The first parameter passed to this
+                            fonction is a NULL-terminated String
+                            which contains the Project Full-Path
+                            name that have been loaded. The
+                            second parameter is always NULL.<br>
+                            <br>
+                            <u>What to Do ?</u><br>
+                            Load your own data file<br>
+                            <br>
+                            <u>What does it return ?</u><br>
+                            what you want.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p><font size="3"><br>
+    </font></p>
+    <p align="left">Dragoon's is a product of Warp'n'Boom
+    Software.<br>
+    (c)2000</p>
+</blockquote>
+
+<p align="right">email: <a href="mailto:warplayer@wanadoo.fr">warplayer@wanadoo.com</a></p>
+</body>
+</html>
