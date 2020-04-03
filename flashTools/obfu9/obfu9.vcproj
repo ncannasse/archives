@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="obfu9"
+	ProjectGUID="{029CE7F4-27DC-4E1F-892F-65CA396C4ED7}"
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Build|Win32"
+			IntermediateDirectory="./"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -g obfu9.vcproj extLib.cmxa extc.cmxa swfLib.cmxa -n as3.mli -n as3hl.mli -I ../../lang/haxe/libs/extlib -I ../../lang/haxe/libs/swflib -I ../../lang/haxe/libs/extc extc_stubs.obj zlib/zlib.lib shell32.lib"
+				ReBuildCommandLine="ocamake -g -all obfu9.vcproj extLib.cmxa extc.cmxa swfLib.cmxa -n as3.mli -n as3hl.mli -I ../../lang/haxe/libs/extlib -I ../../lang/haxe/libs/swflib -I ../../lang/haxe/libs/extc extc_stubs.obj zlib/zlib.lib shell32.lib"
+				Output="obfu9.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="swflib"
+			Filter="">
+			<File
+				RelativePath="..\..\lang\haxe\libs\swflib\as3.mli">
+			</File>
+			<File
+				RelativePath="..\..\lang\haxe\libs\swflib\as3hl.mli">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\dump.ml">
+		</File>
+		<File
+			RelativePath=".\obfu.ml">
+		</File>
+		<File
+			RelativePath=".\rand.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

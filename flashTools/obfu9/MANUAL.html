@@ -1,0 +1,293 @@
+<html>
+
+<head>
+<title>Motion-Twin Obfuscator Documentation</title>
+<style type="text/css">
+<!--
+
+	body {
+		text-align : center;
+		background-color : #eee;
+	}
+
+	.content {
+		padding : 10px;
+		margin : 0px auto;
+		text-align : justify;
+		width : 800px;
+		border : 1px solid black;
+		background-color : #fff;
+	}
+
+	p {
+		text-align : justify;
+		margin-left : 10px;
+		margin-right : 20px;
+	}
+
+	h1 {
+		text-align : center;
+	}
+
+	pre {
+		margin-left : 30px;
+		padding : 5px;
+		width : 600px;
+		background-color : #f5f5f5;
+		border : 1px dashed #aaa;
+	}
+
+	li {
+		margin-top : 10px;
+	}
+
+	li li {
+		margin-top : 0px;
+	}
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class="content">
+
+<h1>Motion-Twin Obfuscator</h1>
+
+<h2>Introduction</h2>
+
+<p>
+	Obfu is a tool dedicated to obfuscating ActionScript3 located into Flash9 SWF files.
+</p>
+
+<h2>SWF Bytecode</h2>
+
+<p>
+	In your project, each of your AS3 or haXe classes is getting compiled into what is called <em>Flash9 bytecode</em>. This is not the source code of your classes (it does not contain comments of instance) but contains enough informations to understand what your code is doing and how it is doing it.
+</p>
+
+<p>
+	Let's have a look as a simple example, with the following AS3 class :
+</p>
+
+<pre>
+package {
+    import flash.display.MovieClip;
+
+    public class Test extends MovieClip {
+
+    	public var magicPass : String = "hello";
+
+    	public function Test() {
+    	}
+
+    	private function checkPassword( str : String ) : Boolean {
+    	    return str == magicPass;
+    	}
+
+    }
+}
+</pre>
+
+<p>
+	Once compiled to <code>test.swf</code>, it is still possible to extract the informations stored in SWF format and get the following output :
+</p>
+
+<pre>
+protected::Test class Test extends flash.display.MovieClip {
+	function private::checkPassword(String) : Boolean
+	var magicPass : String = "hello"
+}
+
+function construct :
+	   0 this
+	   1 scope
+	   2 this
+	   3 constructsuper 0
+	   4 retvoid
+
+function private::checkPassword :
+	   0 this
+	   1 scope
+	   2 reg 1
+	   3 getlex magicPass
+	   4 eq
+	   5 ret
+</pre>
+
+<p>
+	Such output is called a <em>disassembly</em> and contains the information that is needed by the SWF to be able to run your program. As you can see, this contains all the information necessary to reconstruct the code as it was originally written.
+</p>
+
+<p>
+	This can have a very negative impact on the security of your application and your intellectual rights on the source code since almost everybody have somehow access to your source code by only using the SWF file.
+</p>
+
+<p>
+	In order to prevent that, there is one solution which is called <em>obfuscation</em>.
+</p>
+
+<h2>Obfuscation</h2>
+
+<p>
+	The idea of obfuscation is to prevent any people to extract meaningful bytecode from the SWF. But it's still important that the code continue to run the same as it was doing before. In order to do that there are several possibilities :
+</p>
+
+<p>
+	The first possibility is to manipulate the SWF format in order to create some cases that make the <em>disassembler</em> crash (the disassembler is the tool that extract disassambly output from SWF) while the Flash Player is still accepting to play the file.
+</p>
+
+<p>
+	Such methods are used by so-called SWF "protectors". Sadly, there is no perfect way to do that, since all disassemblers will come at some point with a solution to bypass your protection, and will then access the complete bytecode.
+</p>
+
+<p>
+	Only the second possibility is then working correctly. It consists in <em>renaming</em> all variables and classes in the bytecode. Here's for example obfuscation applied to the previous example bytecode :
+</p>
+
+<pre>
+protected::<b>J7</b> class <b>J7</b> extends flash.display.MovieClip {
+	function private::<b>rhjez</b>(String) : Boolean
+	var <b>t13</b> : String = "hello"
+}
+
+function construct :
+	   0 this
+	   1 scope
+	   2 this
+	   3 constructsuper 0
+	   4 retvoid
+
+function private::<b>rhjez</b> :
+	   0 this
+	   1 scope
+	   2 reg 1
+	   3 getlex <b>t13</b>
+	   4 eq
+	   5 ret
+</pre>
+
+<p>
+	This method of protection, without modifying the way the code actually runs, prevent people from actually understanding what your code is doing. If you have a lot of classes and variables, it becomes much more difficult since all the meaningful names are gone.
+</p>
+
+<p>
+	Please note that this does not protect the SWF to 100%. This is something you will never be able to get since the SWF needs to contain the code that will run on the client side. But <em>obfuscation</em> gives you a high level of security against people trying to stole your source code.
+</p>
+
+<h2>Usage</h2>
+
+<p>
+	Motion-Twin Obfuscator is a commandline utility. In order to run it, you need to open a commandline window (Start/Execute/<code>cmd</code> on Windows) and navigate to the place your SWF file is located. You can then run the following command to obfuscate your SWF :
+</p>
+
+<pre>
+obfu9 myfile.swf
+</pre>
+
+<p>
+	This will create a obfuscated version of your file which will be named <code>myfile_obfu.swf</code>. You can check the AS3 content of a SWF file by running the following command :
+</p>
+
+<pre>
+obfu9 -dump myfile.swf
+</pre>
+
+<p>
+	This will create a <code>myfile.as</code> file that will contain the SWF bytecode dissassembly. This way you can check by yourself that the obfuscation is correctly performed by comparing the dissassemblies of the original and obfuscated SWF files.
+</p>
+
+<h2>Keys</h2>
+
+<p>
+	Motion-Twin Obfuscator uses a specific mathematical hash function that is mathematicaly proven to be irreversible. This guarantee that the original source code cannot be retreived from the obfuscated version.
+</p>
+
+<p>
+	However when some user is able to understand for example that the obfuscated <code>r5e</code> variable correspond to the <code>width</code> name, he could be able to use this information on another obfuscated SWF.
+</p>
+
+<p>
+	This is for this reason that each SWF can have its own <em>obfuscation key</em> that will result in a totally different way of renaming the variables. You can use the following commandline options to change the obfuscation key :
+</p>
+
+<ul>
+<li><code>-key xxx</code> : specify your own key. It can contain any character</li>
+<li><code>-rndkey</code> : use a random key each time the SWF is obfuscated</li>
+</ul>
+
+<p>
+	Please be careful : if two SWF needs to share some datas, or if a SWF load another SWF and needs to access some of its variables, then it's necessary for these two SWF to be obfuscated with the same key or else they cannot understand each other anymore.
+</p>
+
+<h2>Known Issues</h2>
+
+<p>
+	Obfuscation works while renaming all variable and classes. However some variables and classes needs to be kept from renaming : this is the one Flash is using. For instance it would cause a problem if the <code>MovieClip</code> class would be renamed, since the Flash Player would not understand it anymore.
+</p>
+
+<p>
+	This is why Motion-Twin Obfuscator is only renaming classes and variables that you have declared as part of your source code. It uses smart algorithms to ensure that only the variables needed are obfuscated. However in some cases, this is not possible to tell. Look at the following AS3 code example :
+</p>
+
+<pre>
+package {
+    class Test {
+        public function foo( v : * ) : int {
+            return v.width;
+        }
+    }
+}
+</pre>
+
+<p>
+	In that case, the obfuscator have to decide if it will obfuscate the <code>width</code> field access or not. However it doesn't know if <code>v</code> will be either one of your class or a flash native class, since this information is only known at runtime.
+</p>
+
+<p>
+	In such case, the obfuscator will rename the variable. This can of course cause some issues with your SWF if the method was intended to work with flash native classes that will not have their <code>width</code> variable renamed.
+</p>
+
+<p>
+	In order to avoid such problems, it might be needed to <em>protect</em> some variables from being obfuscated.
+</p>
+
+<h2>Protection</h2>
+
+<p>
+	As described in the <em>Known Issues</em> section, it might be needed sometimes to protect some variables from being obfuscated. You might also for your own reasons prevent some variable names from being obfuscated.
+</p>
+
+<p>
+	In order to protect these variables, you will have to create a <em>configuration file</em>. This fill will list all variables that need to be protected when the SWF is obfuscated. You can list one-variable-per-line, such as the following example file shows :
+</p>
+
+<pre>
+width
+height
+x
+y
+</pre>
+
+<p>
+	In order to activate the configuration file, you need to use the <code>-config</code> commandline parameter while running the obfuscator :
+</p>
+
+<pre>
+	obfu9 -config variables.txt myfile.swf
+</pre>
+
+<p>
+	You can have several configuration files if you need. In order to activate them, simply use several time the <code>-config</code> commandline parameter.
+</p>
+
+<h2>Copyright</h2>
+
+<p>
+	<i>Copyright(C)2008 Motion-Twin</i>
+</p>
+
+</div>
+
+</body>
+</html>

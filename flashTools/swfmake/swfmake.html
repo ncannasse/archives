@@ -1,0 +1,137 @@
+<html>
+
+<head>
+<title>SWFMake Documentation</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<h2><center>SWFMake</center></h2>
+
+SWFMake est un outil permettant de manipuler des fichiers SWF. Il permet actuellement de fusionner plusieurs
+SWF en se basant sur les noms de linkage ce qui permet de séparer un projet en plusieurs FLA indépendants
+et de rassembler ensuite les différents SWF produits en un seul SWF final.<br>
+<br>
+Pour utiliser SWFMake, il faut tout d'abord écrire un fichier XML tel que celui-là :
+<br>
+<br>
+<table bgcolor="#eeeeff">
+<tr><td>
+<pre>
+
+  &lt;swf&gt;
+    &lt;base file="main.swf"/&gt;
+    &lt;include file="gfx.swf" link="*"/&gt;
+    &lt;include file="sounds.swf" link="loop"/&gt;
+    &lt;include file="sounds.swf" link="loop2"/&gt;&nbsp;&nbsp;&nbsp;
+    &lt;output file="full.swf"/&gt;
+  &lt;/swf&gt;
+
+</pre>
+</table>
+<br>
+et l'enregistrer dans un fichier nommé <code>swfmake.xml</code>.
+Ensuite il suffit de lancer la commande <code>swfmake.exe</code> dans le répertoire où se trouve
+le fichiers XML et les SWF :
+<ul>
+	<li>swfmake va utiliser le _root et les parametres (FPS,BgColor,...) de main.swf : il va donc
+		intégrer l'ensemble du fichier main.swf
+	<li>il va ensuite charger gfx.swf et ajouter tous les MovieClips, Boutons, Sons, etc... ayant un
+	nom de linkage (ainsi que leurs dépendances).
+	<li>il va ensuite charger sounds.swf et ajouter l'élément ayant un nom de linkage "loop" puis celui
+		ayant un nom de linkage "loop2"
+	<li>il va finalement rassembler toutes les données chargées et les enregistrer dans un fichier full.swf
+</ul>
+Ainsi si vous avez l'ensemble de votre code dans main.swf, vous pouvez faire des attachMovie (ou attachSound)
+en utilisant les noms de linkage présent dans gfx.swf ou sounds.swf. Le fichier full.swf devrait marcher
+parfaitement.<br>
+
+<h3>Obfuscation :</h3>
+
+L'obfuscation est trés simple, il suffit de modifier le fichier <code>swfmake.xml</code> de façon à paramétrer les fichiers contenant les variables protégées :
+<br><br>
+<table bgcolor="#eeeeff">
+<tr><td>
+<pre>
+
+  &lt;swf&gt;
+    &lt;base file="main.swf"/&gt;
+    &lt;obfu&gt;
+      &lt;protect file="flash7.v"/&gt;
+      &lt;protect file="special.v"/&gt;
+    &lt;/obfu&gt;
+    &lt;output file="main_obfu.swf"/&gt;&nbsp;&nbsp;&nbsp;
+  &lt;/swf&gt;
+
+</pre>
+</table>
+
+<h3>Motion-Types :</h3>
+
+Swfmake 1.1 permet aussi de lancer la compilation mtypes directement.
+<ul>
+<li/>le format 1.1 permet de spécifier plusieurs "output" successifs
+<li/>l'ordre des déclarations a de l'importance (il faut donc lancer mtypes avant de faire "include"
+<li/>vous devez avoir le chemin vers mtypes.exe dans votre variable d'environnement PATH.
+</ul>
+<table bgcolor="#eeeeff">
+<tr><td>
+<pre>
+
+  &lt;swf&gt;
+    &lt;mtypes file="code.swf"&gt;
+        &lt;classpath value="flash7"/&gt;
+        &lt;classpath value="lib"/&gt;
+        &lt;file value="Manager.mt"/&gt;
+        <font color="darkgreen">&lt;!-- inclus tous les fichiers du répertoires --&gt; </font>&nbsp;&nbsp;
+        &lt;dir value="my_sources"/&gt;
+    &lt;/mtypes&gt;
+    &lt;base file="main.swf"/&gt;
+    &lt;include file="code.swf"/&gt;
+    &lt;output file="full.swf"/&gt;
+  &lt;/swf&gt;
+
+</pre>
+</table>
+
+<h3>Picture Clips :</h3>
+
+Swfmake 1.2 permet désormais de créer des clips à partir d'un ensemble d'image, la syntaxe est la suivante :
+
+<table bgcolor="#eeeeff">
+<tr><td>
+<pre>
+
+  &lt;clip name="myclip"&gt;
+    &lt;pic file="pic01.png"/&gt;
+    &lt;pic file="pic02.png"/&gt;&nbsp;&nbsp;&nbsp;
+    &lt;pic file="pic03.png"/&gt;
+  &lt;/clip&gt;
+
+</pre>
+</table>
+<br>
+Cela va créer un clip avec un nom de <i>linkage</i> "myclip", composé de 3 frames contenant chacune une image. Pour intégrer de nombreuses images a la fois, il est possible d'utiliser la syntax "pic%all.png" qui va charger toutes les images : 01, 02, .... jusqu'a qu'un fichier ne sois pas trouvé.
+
+<h3>Xml :</h3>
+
+Swfmake 1.2 permet aussi d'ajouter des fichiers XML directement dans le SWF, avec vérification préalable de la syntaxe et des DTD éventuelles :
+
+<table bgcolor="#eeeeff">
+<tr><td>
+<pre>
+
+  &lt;xml file="myxml.xml" var="myvar"/&gt;
+
+</pre>
+</table>
+<br>
+Aprés cela il suffit d'accéder à <code>_root.myvar</code>.
+
+<br>
+<br>
+<i>Nicolas Cannasse</i><br>
+(c)2004-2005 MOTION-TWIN
+
+</body>
+</html>

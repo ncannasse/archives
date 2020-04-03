@@ -1,0 +1,34 @@
+The SOFTWARE indicates here all the files (programs, datas, and documentation)
+provided by Motion-Twin. The AGREEMENT is this document, including all the
+clauses that are accepted by the user when buying and using the SOFTWARE.
+
+YOU MAY
+
+- use the SOFTWARE an unlimited number of times within the AGREEMENT time limit
+
+- ask for support by email within the AGREEMENT time limit.
+
+- get free updates of the SOFTWARE within the AGREEMENT time limit
+
+YOU MAY NOT 
+
+- install the SOFTWARE on more that one computer at the same time.
+
+- use the SOFTWARE by more than one user at the same time.
+
+- use the SOFTWARE after the AGREEMENT time limit has exceeded
+
+The AGREEMENT time limit is fixed to one year, and can be extended if you,
+the user, reach an agreement with Motion-Twin. 
+
+Motion-Twin shall not be held responsible for any problem the usage of the
+SOFTWARE could raise as long as the SOFTWARE is working accordingly to the
+documentation provided with it.
+
+In case of disagreements that could not be solved by the user and Motion-Twin,
+the competent law is French law and the competent court to handle such
+disagreement is to be located in the city of Bordeaux, France.
+
+In case of Motion-Twin ceasing its activities, and in order to protect you,
+the SOFTWARE user might continue to use the SOFTWARE legaly over the time
+limit.

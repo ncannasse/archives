@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="swfmake"
+	ProjectGUID="{D893C07D-4B82-416F-87B3-D9FCA8B9F56E}"
+	RootNamespace="swfmake"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Native code|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -g swfmake.vcproj extlib.cmxa xml-light.cmxa extc.cmxa unix.cmxa"
+				ReBuildCommandLine="ocamake -g swfmake.vcproj -all extlib.cmxa xml-light.cmxa extc.cmxa unix.cmxa"
+				Output="swfmake.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Bytecode|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -lp -custom swfmake.vcproj extlib.cma xml-light.cma extc.cma"
+				ReBuildCommandLine="ocamake swfmake.vcproj -all xml-light.cma extc.cma"
+				Output="swfmake.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="SWFLIB"
+			Filter="">
+			<File
+				RelativePath="..\..\mtcvs\swflib\actionScript.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3.mli">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3code.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3hl.mli">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3hlparse.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3parse.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\png.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\png.mli">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swf.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swfParser.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swfPic.ml">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\obfu.ml">
+		</File>
+		<File
+			RelativePath=".\swfmake.ml">
+		</File>
+		<File
+			RelativePath=".\tools.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

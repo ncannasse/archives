@@ -1,0 +1,2 @@
+all:
+	ocamake -g -all obfu9.vcproj extLib.cmxa extc.cmxa swfLib.cmxa -n as3.mli -n as3hl.mli -I ../../lang/haxe/libs/extlib -I ../../lang/haxe/libs/swflib -I ../../lang/haxe/libs/extc extc_stubs.obj zlib/zlib.lib shell32.lib

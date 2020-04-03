@@ -1,0 +1,28 @@
+FILES=../../mtcvs/swflib/swf.ml ../../mtcvs/swflib/swfParser.ml ../../mtcvs/swflib/swfZip.ml ../../mtcvs/swflib/png.ml*  ../../mtcvs/swflib/swfPic.ml ../../mtcvs/swflib/actionScript.ml obfu.ml  swfmake.ml  tools.ml
+LIBS=extLib.cmxa extc.cmxa xml-light.cmxa str.cmxa unix.cmxa
+INCLUDES=-I /usr/local/lib/ocaml/3.08.3/extlib -I /usr/local/lib/ocaml/3.08/ -I /usr/lib/ocaml/3.08.3/
+
+all:
+	ocamlopt $(INCLUDES) -c ../../mtcvs/swflib/swf.ml 
+	ocamake -v -pp camlp4o -opt $(FILES) -lp -linkall -o swfmake.cmxa $(INCLUDES)
+	ocamake $(INCLUDES) -opt -o swfmake /usr/lib/libz.a $(LIBS) swfmake.cmxa
+
+install:
+	-cp -f swfmake ~/local/bin
+
+dist-libs:
+	-mkdir -p swfmake-libs
+	-cp -R lib swfmake-libs
+	-cp -R flash7 swfmake-libs
+	-rm -rf `find swfmake-libs -name "CVS" `
+	tar zcvf swfmake-libs.tgz swfmake-libs
+	-rm -rf swfmake-libs
+
+clean:
+	ocamake -clean $(FILES) main.ml
+	rm -f unix/*.o
+	rm -f unix/*.cmx
+
+distrib: install
+	cp swfmake ~/mnt/private/yota/mtools.unix/bin
+

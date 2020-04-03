@@ -1,0 +1,162 @@
+<html>
+
+<head>
+<title>Motion-Twin Obfuscator Documentation</title>
+<style type="text/css">
+<!--
+	p, td {
+		text-align : justify;
+		margin-left : 5px;
+	}
+
+	li {
+		margin-top : 10px;
+	}
+
+	li li {
+		margin-top : 0px;
+	}
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff">
+
+<h2><center>Motion-Twin Obfuscator</center></h2>
+
+<h3>Introduction</h3>
+
+<p>
+Obfu is a tool dedicated to obfuscating ActionScript bytecode located into SWF files. It takes one SWF as input, an (optional) obfuscation key and (optional) protected variable files and create a new SWF, identical to the input SWF except that all not
+protected variables names have been replaced by an obfuscated name.
+</p>
+
+<p>
+Obfuscation process is irreversible. Every <i>identifier string</i> found in the SWF is hashed with a irreversible
+proven mathematical function. For short variable names however, brute force is still a possible attack. In order to prevent
+this Obfu accepts an <i>obfuscation key</i> as parameter (using the <code>-key</code> parameter). Two SWF will be obfuscated
+in the same way if and only if they have the same obfuscation key. In order to ensure maximum security, one should use <code>-rndkey</code> to generate a random key everytime an obfuscation is done. If however several SWF needs to communicate between each other, there is several possibilities :
+</p>
+
+<ul>
+	<li>use the same keys (with <code>-key</code>) for the two SWF. This way they will be obfuscated the same way and thus a function <code>f</code> declared in the first SWF and called in the second will be correctly executed.</li>
+	<li><i>protect</i> the variables that need to be shared so they don't get obfuscated (see below).</li>
+</ul>
+
+<h3>Usage</h3>
+
+<p>
+Obfu is a commandline tool available for Windows : <code>obfu.exe</code>. It can be called from a DOS window or integrated with any tool that accepts to run commandline tools, offering this way better integration than a GUI oriented tool. Obfu basic usage is the following :
+</p>
+
+<pre>
+	obfu.exe myfile.swf
+</pre>
+
+<p>
+This command will create a new SWF : <code>myfile_obfu.swf</code> that will be the obfuscated version of myfile. A different output SWF can be specified using the <code>-o</code> commandline switch. Here's below a description of other commandline options available :
+</p>
+
+<p>
+<div style="{ margin-left : 30px }">
+
+<code>-key <i>key</i></code> : use an user specified key for obfuscation (see Introduction for explainations on keys).<br/>
+<code>-rndkey</code> : use a random generated key for obfuscation (see Introduction for explainations on keys).<br/>
+<code>-o <i>file</i></code> : specify the file to save the obuscated version of the input file.</br>
+<code>-vars <i>file</i></code> : specify a file which contains a protected variable list (see below).</br>
+<code>-d <i>directory</i></code> : specify an additionnal search directory that will be used to look for different files (such as variable list).<br/>
+
+</div>
+</p>
+
+<h3>Protected Variables</h3>
+
+<p>
+As explained in the Introduction, all <i>identifier strings</i> in the SWF are obfuscated. That means that every variable name or string found in the SWF that could correspond to an identifier name is obfuscated. An identifier name means that the string is only composed of letters, numbers and underscores and doesn't start with a number.
+</p>
+
+<p>
+That means that if you have the following code in your SWF : <code>button.text = "Yes"</code> then "button","text",and "Yes" are three possible identifier names and are thus candidate to be obfuscated. However there is a file named "flash7.v" that is automatically loaded by Obfu and that contains Flash Protected Identifiers, that means identifiers that should NOT be obfuscated. The identifier "text" is part of this list, so it will not be obfuscated, "button" is a variable name and you'll be happy about it being obfuscated. However "Yes" is a string that you obviously don't want to be obfuscated (please note that if the string was "Yes or No" the spaces would disqualify it as candidate for obfuscation). Since "Yes" is specific to your project, you maybe don't want to add it to the file "flash.v" so you can simply create a new text file, put "Yes" into it (without quotes) and use the <code>-vars</code> commandline option in order to include this list of variables as protected from obfuscation.
+</p>
+
+<p>
+As the "Yes" sample shows before, all variables that strings that could be mistaken by identifiers should be protected manually. One other way to do this without resorting on obfuscation protected variable lists is to change the code this way : <code>button.text = "$Yes".substring(1)</code>. Since "$Yes" is not a valid candidate for obfuscation, it will not be obfuscated, and the substring call will simply remove the first dollar at executation time.
+</p>
+
+<p>
+Two other cases when you want to protect variables is when you're getter parameters from HTML or when you're receiving/loading XML content. Every attribute and nodename that are corresponding to valid identifier strings should be protected since your input XML is obviously not obfuscated.
+</p>
+
+<p>
+One last important case is dynamic evals. Let's say for example that you have three clips e1, e2 and e3. You might want to write the following :
+</p>
+
+<pre>
+	for(i=1;i<3;i++)
+	    eval("e"+i)._x = 0;
+</pre>
+
+<p>
+This will not work anymore once obfucation is made. The reason is that "e" that will be obfuscated as ";(" for example, "e1" to "$*" and "e2" to "=}". That means that you don't have any more "e"+1 = "e1" since both "e" and "e1" are obfuscated independantly. If your code use such patterns, easy way is to protect all "e", "e1", "e2" and "e3" so they remain unchanged in obfuscated code.
+</p>
+
+<h2>Conflicts</h2>
+
+<p>
+In some cases, the hashed value of a variable "xx" can be the same as the hashed value of a variable "yy". This is called a conflict and will abort Obfu. In order to resolve this conflict, you'll have to specify a replacement name for one of the two variables. For example, if you want to replace the variable "xx" by "z124", add the following line to one of your protected variables file :
+</p>
+
+<pre>
+REPLACE=xx:z124
+</pre>
+
+<p>
+The replaced variable name will not be obfuscated, so be careful to choose an appropriate name.
+</p>
+
+<h2>License</h2>
+
+<p>
+A license can be obtained by contacting Motion-Twin staff at <a href="mailto:ncannasse@motion-twin.com?subject=Obfuscator%20License">ncannasse@motion-twin.com</a>. It includes one year usage license with full support by email. Here's below a license agreement for single user and computer. If you need several licenses or more informations please contact us.
+</p>
+
+<pre>
+	The SOFTWARE indicates here all the files (programs, datas, and documentation)
+	provided by Motion-Twin. The AGREEMENT is this document, including all the
+	clauses that are accepted by the user when buying and using the SOFTWARE.
+
+	YOU MAY
+
+	- use the SOFTWARE an unlimited number of times within the AGREEMENT time limit
+
+	- ask for support by email within the AGREEMENT time limit.
+
+	- get free updates of the SOFTWARE within the AGREEMENT time limit
+
+	YOU MAY NOT
+
+	- install the SOFTWARE on more that one computer at the same time.
+
+	- use the SOFTWARE by more than one user at the same time.
+
+	- use the SOFTWARE after the AGREEMENT time limit has exceeded
+
+	The AGREEMENT time limit is fixed to one year, and can be extended if you,
+	the user, reach an agreement with Motion-Twin.
+
+	Motion-Twin shall not be held responsible for any problem the usage of the
+	SOFTWARE could raise as long as the SOFTWARE is working accordingly to the
+	documentation provided with it.
+
+	In case of disagreements that could not be solved by the user and Motion-Twin,
+	the competent law is French law and the competent court to handle such
+	disagreement is to be located in the city of Bordeaux, France.
+
+	In case of Motion-Twin ceasing its activities, and in order to protect you,
+	the SOFTWARE user might continue to use the SOFTWARE legaly over the time
+	limit.
+</pre>
+
+<br/>
+<br/>
+<i>Copyright(C)2004 Motion-Twin</i>

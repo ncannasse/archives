@@ -1,0 +1,15 @@
+FILES=../../mtcvs/swflib/swf.ml ../../mtcvs/swflib/as3code.ml ../../mtcvs/swflib/as3parse.ml ../../mtcvs/swflib/as3hlparse.ml ../../mtcvs/swflib/swfParser.ml ../../mtcvs/swflib/png.ml*  ../../mtcvs/swflib/swfPic.ml ../../mtcvs/swflib/actionScript.ml dump.ml rand.ml obfu.ml
+LIBS=extLib.cmxa extc.cmxa
+INCLUDES=-I ../../../haxe.src/haxe/libs/extlib -I ../../../haxe.src/haxe/libs/extc -I ../../mtcvs/xml-light -I ../../../haxe.src/haxe/libs/swflib
+
+all:
+	ocamlopt $(INCLUDES) -c ../../mtcvs/swflib/as3.mli ../../mtcvs/swflib/as3hl.mli
+	ocamake -v -opt $(FILES) -lp -linkall -o obfu9.cmxa $(INCLUDES)
+	ocamake $(INCLUDES) -opt -o obfu9 ../../../haxe.src/haxe/libs/extc/extc_stubs.o /usr/lib/i386-linux-gnu/libz.a $(LIBS) obfu9.cmxa
+
+clean:
+	ocamake -clean $(FILES) main.ml
+	rm -f *.o
+	rm -f *.cmx
+	rm -f unix/*.o
+	rm -f unix/*.cmx

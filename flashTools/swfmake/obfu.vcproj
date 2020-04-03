@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="obfu"
+	ProjectGUID="{029CE7F4-27DC-4E1F-892F-65CA396C4ED7}"
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -lp -custom obfu.vcproj extLib.cma extc.cma swfLib.cma win32.cma"
+				Output="obfu.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake obfu.vcproj extLib.cmxa extc.cmxa swfLib.cmxa win32.cmxa"
+				ReBuildCommandLine="ocamake -all obfu.vcproj extLib.cmxa extc.cmxa swfLib.cmxa win32.cmxa"
+				Output="obfu.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath=".\obfu.ml">
+		</File>
+		<File
+			RelativePath=".\obfu_main.ml">
+		</File>
+		<File
+			RelativePath=".\protect.ml">
+		</File>
+		<File
+			RelativePath=".\tools.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
