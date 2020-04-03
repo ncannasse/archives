@@ -1,0 +1,98 @@
+
+[Version]
+Signature="$Chicago$"
+AdvancedINF=2.5
+
+[DefaultInstall]
+CopyFiles=dllFiles, HFiles, inffile
+AddReg=H.AddReg
+RegisterOCXs=RegisterOCXSection
+
+[DefaultUninstall]
+cleanup=1
+Delfiles=dllFiles, HFiles
+delreg=H.DelReg
+UnRegisterOCXs=UnRegisterOCXSection
+
+[strings]
+productname="Honsen"
+;	added for the win 98 cd install
+GUID = "{7E47C3F9-B809-48E2-88BF-745DED4C6414}"
+GUIDFACT = "{7E47C3F9-B809-48E2-88BF-745DED4C6414}"
+DefaultName = "Motion Twin Honsen"
+ComponentID = "Honsen"
+
+VersionNumber = "1,0,0,0"
+
+LocaleID = "EN"
+
+[RegisterOCXSection]
+%11%\mt\honsen\HonsenPlugin.ocx
+
+[UnRegisterOCXSection]
+%11%\mt\honsen\HonsenPlugin.ocx
+
+[H.AddReg]
+; 			shockwaveflash is used here the sync with the currently used CIF files on www.microsoft.com
+;			if we used shockwave for flash then durring the IE4 uninstall we would not get uninstalled
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"QuietDisplayName",,"%ProductName%"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"QuietUninstallString",,"RunDll32 advpack.dll,LaunchINFSection %17%\HonsenPlugin.inf,DefaultUninstall,5"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"RequiresIESysFile",,"4.70.0.1155"
+
+;	added for win 98 cd install
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%",,,"%DefaultName%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","ComponentID",,"%ComponentID%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","IsInstalled",1,01,00,00,00
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","Version",,"%VersionNumber%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","Locale",,"%LocaleID%"
+
+; Add mime type into IE accept header
+;HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Accepted Documents","flash",,"application/x-shockwave-flash"
+
+; Make sure it's enabled
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\%GUID%","Compatibility Flags",,"0"
+
+; 9/10/98  smp  added key for win98 uninstall from control panel...
+HKLM, "Software\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\Honsen","Installed",,1
+
+[H.DelReg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"QuietDisplayName",,"%ProductName%"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"QuietUninstallString",,"RunDll32 advpack.dll,LaunchINFSection %17%\HonsenPlugin.inf,DefaultUninstall,5"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Honsen,"RequiresIESysFile",,"4.70.0.1155"
+
+;	added for the win 98 cd install
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%",,,"%DefaultName%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","ComponentID",,"%ComponentID%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","IsInstalled",1,01,00,00,00
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","Version",,"%VersionNumber%"
+HKLM,"SOFTWARE\Microsoft\Active Setup\Installed Components\%GUID%","Locale",,"%LocaleID%"
+
+; Remove mime type from IE accept header
+;HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Accepted Documents","flash",,
+
+; 9/10/98  smp  added key for win98 uninstall from control panel...
+HKLM, "Software\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\Honsen","Installed",,0
+
+[SourceDisksNames]
+1="Honsen Files","HonsenPlugin.cab",1
+
+[SourceDisksFiles]
+HonsenPlugin.ocx=1
+
+[dllFiles]
+std.dll,,,33
+hslib.dll,,,33
+m3dse.dll,,,33
+gc.dll,,,33
+
+[HFiles]
+HonsenPlugin.ocx,,,33
+loading.hs,,,33
+
+[inffile]
+HonsenPlugin.inf,,,33
+
+[DestinationDirs]
+dllFiles=11, mt\honsen
+HFiles=11, mt\honsen
+inffile=17

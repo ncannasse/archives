@@ -1,0 +1,21 @@
+import sys, time
+from time import *
+
+def fibo(n):
+	if( n <= 1 ):
+		return 1
+	else:
+		return fibo(n - 2) + fibo(n - 1)
+		
+
+init = clock()
+ellapsed = 0
+cpt = 0
+res = 0
+
+while( ellapsed < 10):
+	cpt += 1
+	res += fibo(27)
+	ellapsed = clock() - init
+
+print "%s times fibo(27) in %s ms ==> %s ms for 1 loop\n" % (cpt, ellapsed * 1000, ellapsed * 1000 / cpt)

@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>M3DSE Help</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#ffffff">
+
+<h1>Extended Shaders :</h1>
+
+Ce document traite la façon dans les Vertex Shaders sont utilisés dans M3DSE.<br>
+<br>
+Normallement, un shader est un bout d'assembleur pour carte 3D qui ressemble à cela :
+<pre>
+	m4x4 oPos, v0, c0
+	dp3 r0, v3, c4
+	max r0, r0, c7
+	mul r1, r0, c5
+	add oD0, r1, c6
+	mov oT0, v6
+</pre>
+On associe normallement statiquement à ce shader les données (vi ou ci) suivantes :
+<ul>
+	<li>v0 : pos
+	<li>v3 : normal
+	<li>v6 : mapping coords
+	<li>c0-c3 : world matrix
+	<li>c4 : directional light vector
+	<li>c5 : directional light diffuse color
+	<li>c6 : ambient color
+	<li>c7 : (0,0,0,0) vector, pour maximiser les valeurs négatives
+</ul>
+Les vi indiquent des données qui proviennent de la stream, et les ci sont des constantes
+au sens ou elles resteront fixes pendant tout le rendu de cet objet.<br>
+Dans cet exemple, voici les instructions commentées qui sont effectuées :
+<pre>
+	multiplication du vecteur par la matrice du monde : changement de repere
+	calcul dans r0 du dot product entre la normale et la lumière directionnelle
+	r0 = max(r0,0) de façon a éviter les valeurs négatives qui vont créer des zones noires malgré la lumière ambiente
+	multiplication dans r1 du coefficient calculé entre 0 et 1 par la lumiere diffuse
+	couleur diffuse finale = couleur diffuse calculée + couleur ambiente
+	copie des coordonées de texture sans modification
+</pre>
+<br>
+Voici l'équivalent en version M3DSE :
+<pre>
+	m4x4 oPos, $VECT, #pos
+	dp3 r0, $NORM, #directional
+	max r0, r0, #zero
+	mul r1, r0, #directional_color
+	add oD0, r1, #ambient
+	mov oT0, $MAP0
+</pre>
+Les vertex d'entrée (vi) ont été remplacées par les nom des streams que l'on va utiliser ($name),
+et les constantes (ci) ont été remplacées par le nom de la constante que l'on souhaite calculer (#constant_name)
+<br><br>
+Lors de la validation du pipeline (voir la documentation sur le rendering pipeline) tous ces
+identifiants vont être automatiquement remplacés par leur équivalent (vi ou ci) de façon à :
+<ul>
+	<li>générer un shader valide
+	<li>vérifier que les streams que l'on utilise sont bien calculées par le pipeline
+	<li>ordonner la stream finale dans l'ordre ou elle va etre utilisée par le shader
+	<li>vérifier que ces noms de constantes existent
+	<li>connaitre les "constantes" que l'on va utiliser
+</ul>
+Ainsi, lors du rendu, il suffit juste de calculer les constantes que l'on va utiliser (et uniquement celle là)
+et de les positionner à l'index que la validation du pipeline leur a associé.
+<br>
+<br>
+<i>(c)2003 Motion-Twin</i>
+</body>
+</html>

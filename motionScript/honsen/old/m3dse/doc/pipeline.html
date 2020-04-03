@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>M3DSE Help</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#ffffff">
+
+<h1>Rendering Pipeline & Validation :</h1>
+
+Dans M3DSE, chaque objet 3D a ses propres propriétés parmi lesquelles:
+<ul>
+	<li>des données géométriques : voir le format de fichier MTW
+	<li>un rendering pipeline : ce document va parler de ce point
+	<li>le code de son shader : voir les Extended Shaders
+	<li>ses variables locales : voir la partie sur les Variables d'Objet
+	<li>un accès aux variables globales : idem
+</ul>
+<br>
+<h3>Vocabulaire :</h3>
+Faisons tout d'abord un point sur le vocabulaire utilisé:
+<ul>
+	<li><b>TAG</b> : il s'agit d'un identifiant 32 bits qui a généralement une signification littérale car il
+	est formé de 4 caractères alphanumériques. Il permet de référencer facilement des données dans
+	le format de fichier MTW. Par abus de langage, on appelle aussi TAG l'identifant + les données
+	associées dans le fichier MTW, mais le TAG reste principalement un entier 32 bits.<br>
+	<br>
+	<li><b>Stream</b> : il s'agit là aussi d'un mot passe-partout et ayant de nombreux sens. De la façon la
+	plus abstraite, une Stream est un buffer de données régulières dont on connait la structure exacte.
+	Ainsi une chaine de caractères en C est une stream.<br>
+	<br>
+	A l'exception près qu'une Stream au sens de M3DSE peut aussi être la composition de plusieurs autres
+	Streams. Prenons par exemple le TAG 'VECT' (ses données sont une Stream dont le format est spécifié
+	comme étant un triplé de flottant, c'est a dire que la stream contient un certain nombre de ces triplés).
+	Le TAG 'NORM' pour les normales suit la meme règle. Une stream dont les données comportent un vecteur et
+	sa normale sera donc une stream contenant les Stream VECT et NORM. (on fait ici un rapport direct entre
+	le nom du TAG et les données contenues dans la stream de ses données, cela permet de nommer les choses
+	de façon uniforme).
+</ul>
+De nombreux autres termes vont être présentés par la suite.
+
+<h3>Principes :</h3>
+
+Chaque objet possède donc initialement un ensemble de Streams qui correspondent aux données chargées
+depuis un fichier MTW (ou générées par un algorithme, peu importe). Il est à noter que ces données sont
+la plupart du temps en lecture seule car elles peuvent être partagées par plusieurs objets qui sont
+différentes instances dupliquées à l'origine du même objet.<br>
+<br>
+Pour effectuer le rendu, on souhaite pouvoir modifier des Streams (par exemple une animation de morphing qui
+modifie la géométrie), calculer de nouvelles Streams (comme la génération des normales) et aussi en supprimer
+(comme un calcul d'éclairage, qui utilise les normales puis peut les supprimer). On souhaite aussi pouvoir
+exécuter une partie du pipeline une unique fois (le calcul des normales est un bon exemple, il ne sert à rien
+de les calculer à chaque frame si la géométrie ne change pas) ou à chaque frame.<br>
+<br>
+Le rendering pipeline est donc composé d'une chaine de Renderer qui manipulent séquentiellement les Streams,
+chacun leur tour, dans l'ordre défini par l'utilisateur. Cette chaine est séparée en deux parties, la partie
+statique, qui ne sera executée qu'une fois et la partie dynamique qui sera exécutée à chaque frame. L'une voire
+les deux parties peuvent ne contenir aucun Renderer.<br>
+<br>
+Il faut ensuite vérifier que les Renderer effectuent bien des opérations valides, c'est à dire qu'ils ne lisent pas
+par exemple des Streams qui ne sont pas présentes, ou vérifier s'ils effectuent des opérations inutiles,
+comme la génération d'une Stream qui va être écrasée ensuite, ou non utilisée. Pour cela, on effectue ce que l'on
+appelle une Validation de l'objet.<br>
+<br>
+Par défaut, l'objet est donc créé dans un état dit "invalide" et l'utilisateur va manipuler son pipeline, ajouter
+des renderer, donner un code au shader, positionner ses variables, etc. Une fois cela effectué, il peut appeller
+Validate() qui va tester la validité du pipeline, et donc éventuellement rendre l'objet valide ou renvoyer un message
+d'erreur.<br>
+<br>
+Le pseudo-code suivant illustre le fonctionnement général :
+<pre>
+	o = new Object();
+	o.AddRenderer( calcul_normals );
+	o.AddRenderer( calcul_lightning );
+	o.SetDynamic( true );
+	o.AddRenderer( auto_rotation );
+	o.Validate();
+		| teste la compatibilité de l'intégralité du pipeline
+		| exécute la partie statique du rendu
+		| 	calcul_normals(o);
+		|	calcul_lightning(o);
+		| o.valid = true;
+	puis pour chaque frame:
+	o.Render();
+		| if( o.valid ) {
+		| 	exécute la partie dynamique du render
+		|		auto_rotation(o);
+		| 	draw(o);
+		| }
+</pre>
+
+<h3>Mise en Oeuvre :</h3>
+
+La façon dont le Rendering Pipeline gère les Streams doit rester tout à fait cachée de l'utilisateur, et ce pour plusieurs 
+raisons :
+<ul>
+	<li>certaines Streams ne peuvent pas être modifiées car elles sont partagées
+	<li>certaines Streams si elles sont placées sur le bus AGP ne peuvent pas être lues (juste écrite)
+	<li>pour permettre l'optimisation de la gestion des streams par le rendering pipeline
+</ul>
+
+Ainsi, un utilisateur souhaitant écrire un Renderer devra explicitement spécifier lors de la validation quelles sont les 
+Streams qu'il va lire et celles qu'il va écrire (ou supprimer). Voici un exemple en pseudo-code de ce que serait le Renderer 
+calc_normals.<br>
+<br>
+Petit rappel : les normales des vertex sont calculées en faisant la somme des normales des façes auquel ce vertex 
+"participe".
+<pre>
+	<font color='blue'>bool</font> CalcNormals::Validate( PipeLine p ) {
+		<font color='blue'>return</font> p.Read(VECT) && p.Read(INDX) && p.Write(NORM);
+	}
+
+	<font color='blue'>void</font> CalcNormals::Render( PipeLine p ) {
+		<font color='blue'>const</font> VECTOR *v = p.ReadStream(VECT);
+		<font color='blue'>const</font> WORD *i = p.ReadStream(INDX);
+		WriteStream&lt;VECTOR&gt; out = p.WriteStream(NORM);
+		<font color='green'>// read vector with indexes
+		// calculate vertex normal, write result to 'out'</font>
+	}
+</pre>
+Quelques remarques :
+<ul>
+	<li>Les Streams sont référencées par leur TAG
+	<li>La fonction Validate échoue si VECT ou INDX ne sont pas dans les données de l'objet
+	<li>La fonction Render ne peut bien sur que lire/écrire les Streams qui ont été déclarées lors de la Validation
+	<li>Le type des données contenues dans les stream (VECTOR, WORD) doit être conforme au type réellement contenu
+	dans la Stream (voir format MTW), le comportement est non spécifié dans le cas contraire.
+	<li><i>Les Streams étant systématiquement alignées en lecture, la classe ReadStream a été remplacée par un simple const *</i>
+</ul>
+
+<h3>Exemple de Rendere Pipeline :</h3>
+
+<pre>
+Morphing -> Calcul des Normales -> Calcul de l'eclairage
+</pre>
+<ul>
+	<li><i>Morphing</i>:<br>
+		Read : VECT + données de l'animation de Morph<br>
+		Write : VECT<br>
+		<br>
+	<li><i>Calcul des Normales</i>:<br>
+		Read : VECT + INDX<br>
+		Write : NORM<br>
+		<br>
+	<li><i>Calcul de l'éclairage</i>:<br>
+		Read : NORM + variables locales/globales sur l'éclairage<br>
+		Write : DIFF<br>
+		Delete : NORM<br>
+</ul>
+L'avantage est que tout le pipeline peut être en dynamique (le plus couteux en CPU), ou uniquement l'éclairage par exemple
+si l'on a un objet qui est "stoppé" pendant son Morphing sur une frame donnée, et que l'on souhaite continuer à calculer
+les lumières dynamiquement... le tout avec le même code du coté du Renderer bien entendu.
+
+<h3>Avantages :</h3>
+
+<ul>
+	<li>Séparation des différents Renderer
+	<li>Ajout de nouveaux Renderer possible (à combiner avec l'ajout de nouveaux TAG)
+	<li>Combinaisons des Renderer pour obtenir les effects voulus
+	<li>La partie optimisation des Streams est entièrement laissée au Rendering Pipeline
+	<li>La validation permet d'afficher de nombreux Warning de performances
+	<li>Si les Renderer ne font pas n'importe quoi, la Validation garantit le bon fonctionnement du pipeline et sa 
+cohérence
+	<li>Le basculement statique/dynamique est facile, on peut ainsi envisager qu'en cas de surcharge CPU, les "premiers" 
+renderer dynamiques ne sont executés que de temps en temps (cela donnerait des saccades dans l'animation par exemple).
+</ul>
+
+<br>
+<br>
+<i>(c)2003 Motion-Twin</i>
+</body>
+</html>

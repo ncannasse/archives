@@ -1,0 +1,185 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>MTS Math3D Library :</h1>
+
+<i>Cette Bibliothèque fait partie de la Bibliothèque Standard (Std), elle est donc automatiquement incluse dans tous les fichiers MTS.</i>
+
+<h3>Vector :</h3>
+
+Un vecteur représente un point ou une direction dans un espace 3D.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Vector()
+	<td>crée un nouveau vecteur.
+<tr bgcolor="#ffffff">
+	<td>new Vector(x,y,z)
+	<td>crée un nouveau vecteur.
+<tr bgcolor="#ffffff">
+	<td>_x
+	<td>coordonnée x du vecteur.
+<tr bgcolor="#ffffff">
+	<td>_y
+	<td>coordonnée y du vecteur.
+<tr bgcolor="#ffffff">
+	<td>_z
+	<td>coordonnée z du vecteur.
+<tr bgcolor="#ffffff">
+	<td>_length
+	<td>norme du vecteur.
+<tr bgcolor="#ffffff">
+	<td>+
+	<td>additionne deux vecteurs.
+<tr bgcolor="#ffffff">
+	<td>-
+	<td>soustrait deux vecteurs.
+<tr bgcolor="#ffffff">
+	<td>*
+	<td>multiplie le vecteur par un nombre ou le tranforme par une matrice.
+<tr bgcolor="#ffffff">
+	<td>/
+	<td>divise le vecteur par un nombre.
+<tr bgcolor="#ffffff">
+	<td>normalize()
+	<td>normalise le vecteur (lui donne une norme de 1).
+</table>
+
+<h3>Matrix :</h3>
+
+Une matrice représente une transformation 3D complète.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Matrix()
+	<td>crée une matrice identité.
+<tr bgcolor="#ffffff">
+	<td>new Matrix(m)
+	<td>crée une copie de la matrice m.
+<tr bgcolor="#ffffff">
+	<td>new Matrix(q)
+	<td>crée une matrice de rotation à partir du quaternion q.
+<tr bgcolor="#ffffff">
+	<td>new Matrix(t)
+	<td>crée une matrice à partir du TRS t.
+<tr bgcolor="#ffffff">
+	<td NOWRAP>new Matrix(vt,qr,vs)
+	<td>crée une matrice à partir du quaternion de rotation qr et des vecteurs de translation vt et de scale vs. Une valeur null pour chacun des trois arguments est acceptée.
+<tr bgcolor="#ffffff">
+	<td>*
+	<td>multiplie (compose) deux matrices.
+<tr bgcolor="#ffffff">
+	<td>inv()
+	<td>retourne l'inverse d'une matrice.
+<tr bgcolor="#ffffff">
+	<td>pos()
+	<td>retourne le vecteur position contenu dans la matrice.
+</table>
+
+<h3>Quaternion :</h3>
+
+Un quaternion représente une rotation 3D.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Quaternion()
+	<td>crée un nouveau quaternion.
+<tr bgcolor="#ffffff">
+	<td>new Quaternion(q)
+	<td>crée un copie d'un quaternion.
+<tr bgcolor="#ffffff">
+	<td>new Quaternion(v,a)
+	<td>crée un nouveau quaternion a partir d'un axe-vecteur v et d'un angle a.
+<tr bgcolor="#ffffff">
+	<td>new Quaternion(x,y,z)
+	<td>crée un nouveau quaternion avec des valeurs de rotation autour des axes x y et z.
+<tr bgcolor="#ffffff">
+	<td>*
+	<td>combine deux quaternions.
+<tr bgcolor="#ffffff">
+	<td>inv()
+	<td>inverse un quaternion.
+<tr bgcolor="#ffffff">
+	<td>to_matrix()
+	<td>retourne la matrice de rotation correspondante.
+</table>
+
+<h3>TRS :</h3>
+
+Un TRS (translation-rotation-scale) est une classe permettant de produire des matrices de façon
+simplifiée, en prenant en compte de façon séparée les 3 transformations de base.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new TRS()
+	<td>crée un nouveau TRS.
+<tr bgcolor="#ffffff">
+	<td>new TRS(t)
+	<td>crée un TRS avec un vecteur de translation initalisé à t.
+<tr bgcolor="#ffffff">
+	<td>new TRS(trs)
+	<td>crée une copie d'un TRS.
+<tr bgcolor="#ffffff">
+	<td NOWRAP>new TRS(vt,qr,vs)
+	<td>crée un TRS à partir du quaternion de rotation qr et des vecteurs de translation vt et de scale vs. Une valeur null pour chacun des trois arguments est acceptée.
+<tr bgcolor="#ffffff">
+	<td>_tx
+	<td>translation x.
+<tr bgcolor="#ffffff">
+	<td>_ty
+	<td>translation y.
+<tr bgcolor="#ffffff">
+	<td>_tz
+	<td>translation z.
+<tr bgcolor="#ffffff">
+	<td>_sx
+	<td>scale x.
+<tr bgcolor="#ffffff">
+	<td>_sy
+	<td>scale y.
+<tr bgcolor="#ffffff">
+	<td>_sz
+	<td>scale z.
+<tr bgcolor="#ffffff">
+	<td>_t
+	<td>le vecteur de translation.
+<tr bgcolor="#ffffff">
+	<td>_r
+	<td>le quaternion de rotation.
+<tr bgcolor="#ffffff">
+	<td>_s
+	<td>le vecteur de scale.
+<tr bgcolor="#ffffff">
+	<td>+ , *
+	<td>combine deux TRS.
+<tr bgcolor="#ffffff">
+	<td>to_matrix()
+	<td>calcule la matrice correspondant au TRS.
+</table>
+
+<h3>Fonctions Additionnelles :</h3>
+
+<i>Ces fonctions font partie de la Bibliothèque Math.</i>
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>vlerp(v1,v2,f)
+	<td>effectue une interpolation linéaire entre deux vecteurs v1 et v2 selon le coefficient f.
+<tr bgcolor="#ffffff">
+	<td>vdot(v1,v2)
+	<td>calcule le dot-product de deux vecteurs.
+<tr bgcolor="#ffffff">
+	<td>vcross(v1,v2)
+	<td>calcule le cross-product de deux vecteurs.
+<tr bgcolor="#ffffff">
+	<td>qslerp(q1,q2,f)
+	<td>effectue une interpolation sphérique entre deux quaternions q1 et q2 selon le coefficient f.
+</table>
+
+</body>
+</html>

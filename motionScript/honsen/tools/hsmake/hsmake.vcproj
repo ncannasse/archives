@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="hsmake"
+	ProjectGUID="{015CD9CA-6DBD-4366-8085-431F239F8F8B}"
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -lp -custom -o ../../bin/hsmake.exe hsmake.vcproj xml-light.cma extLib.cma extc.cma swfLib.cma "
+				ReBuildCommandLine="ocamake -all -lp -custom -o ../../bin/hsmake.exe hsmake.vcproj xml-light.cma extLib.cma extc.cma swfLib.cma "
+				Output="../../bin/hsmake.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake  -o ../../bin/hsmake.exe hsmake.vcproj xml-light.cmxa extLib.cmxa extc.cmxa swfLib.cmxa "
+				ReBuildCommandLine="ocamake -all -o ../../bin/hsmake.exe hsmake.vcproj xml-light.cmxa extLib.cmxa extc.cmxa swfLib.cmxa "
+				Output="../../bin/hsmake.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath=".\hsmake.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.mli">
+		</File>
+		<File
+			RelativePath=".\swf2mtv.ml">
+		</File>
+	</Files>
+	<Globals>
+		<Global
+			Name="DevPartner_IsInstrumented"
+			Value="0"/>
+	</Globals>
+</VisualStudioProject>

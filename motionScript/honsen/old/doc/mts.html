@@ -1,0 +1,229 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>MTS Documentation :</h1>
+
+<h3>Structures :</h3>
+<ul>
+	<li><b>for</b> : <br>
+		<code>for(i=0;i&lt;10;i++) { .... }</code>
+	<li><b>while</b> : <br>
+		<code>while <i>cond</i> { ... }</code><br>
+		<code>do { ... } while <i>cond</i> ;</code>
+	<li><b>if / else</b> : <br>
+		<code>if <i>cond</i> { ... }</code><br>
+		<code>if <i>cond</i> { ... } else { ... }</code>
+	<li><b>function</b> : <br>
+		<code>function <i>name</i>(x,y,z) { ... }</code>
+	<li><b>break</b> : <br>
+		<code>break;</code><br>
+		dans les <b>for</b> et <b>while</b>.
+	<li><b>return</b> : <br>
+		<code>return;</code><br>
+		<code>return <i>val</i>;</code><br>
+		dans une <b>function</b>.
+	<li><b>switch</b> : <br>
+		<i>pas encore implémenté.</i>
+</ul>
+
+<h3>Constantes :</h3>
+
+<ul>
+	<li><font color="blue"><code>null</code></font><br>
+		la valeur null est particulière et correspond à une variable non initialisée.<br><br>
+	<li><code>0 / 14 / -45 / 0xFF00</code> : Entier<br>
+		les entiers sont soumis aux opérations entières. Ainsi 10 / 3 = 3 (par contre 10 / 3.0 = 3.3333...).<br><br>
+	<li><code>1.2 / -0.004</code> : Flottants<br><br>
+	<li><code><font color="blue">true</font> / <font color="blue">false</font></code> : Entier<br>
+		les booléens correspondent aux entiers 1 et 0.<br><br>
+	<li><code><font color="darkred">"test"</font> / <font color="darkred">"a\n b\r c\t"</font></code> : String<br>
+		les chaines de caractères sont des objets.<br><br>
+	<li><code><font color="darkgreen">'Resource-name</font></code> : Resource<br>
+		une resource est déclarée de façon externe au fichier MTS, et utilisée dans le code ensuite. L'existence
+		de la resource est vérifiée au linkage. Son type, par contre, n'est pas vérifié.
+</ul>
+
+<h3>Variables :</h3>
+
+Toute variable est considérée comme globale <b>sauf</b> si :
+<ul>
+	<li>déclarée avec le mot-clé <b>var</b>
+	<li>est un paramètre d'une fonction
+</ul>
+
+<h3>References :</h3>
+
+Il est possible d'obtenir une référence sur une variable locale
+(pas sur une globale pour une question de performances) avec l'opérateur <code>&</code>.
+Les fonctions utilisant des références doivent les déclarer comme telles dans leurs arguments, auquel cas
+l'accés à la variable se fera automatiquement.<br>
+Exemple:
+<pre>
+	<font color="blue">function</font> f(&x,&y) {
+		x++;
+		y = <font color="darkred">"coucou"</font>;
+	}
+
+	<font color="blue">var</font> a = 0;
+	<font color="blue">var</font> b = 0;
+	f(&a,&b);
+	print(a,b); <font color="green">// affiche 1 et "coucou"</font>
+</pre>
+
+L'opérateur <code>:=</code> peut etre utilisé pour modifier le contenu d'une référence :
+<pre>
+	<font color="blue">var</font> x = 0;
+	addr = &x;
+	addr := 3; <font color="green">// modifie x</font>
+</pre>
+
+<i>A ajouter : un opérateur (ou une fonction ?) pour accéder en lecture au contenu d'une référence.</i>
+
+<h3>Objects :</h3>
+
+On declare une classe de la façon suivante :
+
+<pre>
+	<font color="blue">class</font> Point {
+
+		<font color="blue">function</font> Point() {
+			<font color="blue">this</font>.x = 0;
+			<font color="blue">this</font>.y = 0;
+		}
+
+		<font color="blue">function</font> Point(x,y) {
+			<font color="blue">this</font>.x = x;
+			<font color="blue">this</font>.y = y;
+		}
+
+		<font color="blue">function</font> to_string() {
+			<font color="blue">return</font> <font color="darkred">"&lt;point x="</font>+<font color="blue">this</font>.x+<font color="darkred">" y="</font>+<font color="blue">this</font>.y+<font color="darkred">"&gt;"</font>;
+		}
+	}
+</pre>
+
+On peut ensuite créer des objets de la façon suivante :
+
+<pre>
+	p = <font color="blue">new</font> Point();
+	p2 = <font color="blue">new</font> Point(1,2);
+</pre>
+
+Un objet peut avoir plusieurs constructeurs avec un nombre d'argument variable mais uniquement une seule fonction ou champ pour un nom donné.
+
+<h3>Héritage :</h3>
+
+Il est possible d'hériter d'un objet :
+
+<pre>
+	<font color="blue">class</font> Point3D <font color="blue">extends</font> Point {
+
+		<font color="blue">function</font> Point3D() {
+			<font color="blue">this</font>.x = 0;
+			<font color="blue">this</font>.y = 0;
+			<font color="blue">this</font>.z = 0;
+		}
+
+
+		<font color="blue">function</font> Point3D(x,y,z) {
+			<font color="blue">super</font>(x,y);
+			<font color="blue">this</font>.z = 0;
+		}
+
+		<font color="blue">function</font> to_string() {
+			<font color="blue">return super</font>.to_string() + <font color="darkred">"z = "</font>+<font color="blue">this</font>.z;
+		}
+
+	}
+</pre>
+
+Les méthodes peuvent etre redéfinies (surcharge). Après surcharge ou dans le constructeur,
+les méthodes de la superclasse sont accéssibles à la Java via le mot-clé <i>super</i>.
+
+<h3>Methodes spécifiques :</h3>
+
+<ul>
+	<li><b>to_string</b> : la methode to_string d'un objet renvoie sa representation sous forme d'une chaine de charactères.<br>
+	<br>
+	<li><b>propriétés</b> : les champs précédés d'un underscore ( _ ) sont des <i>propriétés</i> remplacées par des appels à get/set :
+		<pre>	p._x += 3;</pre>
+		est donc équivalent à :
+		<pre>	p.set_x( p.get_x() + 3 );</pre>
+		<i>Note:</i> il est important que les methodes <i>set_*</i> renvoie la nouvelle valeur de façon à pouvoir faire par exemple :
+		<pre>	x = p._x++;</pre>
+	<li><b>tableaux</b> : les accés aux tableaux avec [] sont remplacés par des appels à at/set_at :
+		<pre>	a[3] += <font colore="darkred">"c"</font>;</pre>
+		est donc équivalent à
+		<pre>	a.set_at(3, a.at(3) + <font colore="darkred">"c"</font> );</pre>
+		(meme remarque que dans les propriétés sur la valeur de retour de la méthode set_at).<br>
+		<br>
+	<li><b>getter / setter</b> : les champs précédés d'un dollar ( $ ) sont remplacés par des appels à get/set particuliers :
+		<pre>	p.$score += 3;</pre>
+		est donc équivalent à :
+		<pre>	p.set( p.get(id(<font color="darkred">"$score"</font>)) + 3, id(<font color="darkred">"$score"</font>) );</pre>
+		<i>Note:</i> la fonction <code>id</code> transforme une chaine de charactère en un entier la représentant (hashage).<br>
+		<br>
+	<li><b>operator overloading</b> : il est possible de redefinir les opérations <b>+</b>, <b>-</b>, <b>*</b> et <b>/</b> en implémentant les
+		méthodes <code>__add</code>, <code>__sub</code>, <code>__mult</code> et <code>__div</code>. Ainsi si <code>o</code>
+		est un objet, le code suivant :
+		<pre>	o += 4;</pre>
+		sera donc équivalent à :
+		<pre>	o = o.__add(4);</pre>
+		<i>Note:</i> il n'est pas conseillé de faire des modifications de l'objet dans ces méthodes, renvoyer une copie
+		modifiée est plus sûr. De plus, le code suivant : <code>o * 3</code> est bien équivalent à <code>o.__mult(3)</code>
+		mais <code>3 * o</code> renvoie <code>null</code> (pas de commutativité).
+</ul>
+
+<h3>Multiple fichiers :</h3>
+
+<ul>
+	<li><b>Fonction <code>main()</code>:</b><br><br>
+		Si une fonction <code>main</code> prenant 0 arguments est déclarée parmi les fichiers, elle sera appellée une fois l'ensemble
+		des initilisations effectuées. Si il en existe plusieures, un message d'erreur s'afficher lors du <i>linkage</i>.<br>
+		<br>
+	<li><b>Includes :</b> <br><br>
+		<code><b>#include</b> "<i>mon_fichier.mts</i>"</code>: inclus le fichier comme si l'on faisait un copier-coller.<br>
+		<br>
+	<li><b>Namespaces :</b><br><br>
+		A chaque fichier (<i>toto.mts</i>) correspond un module dont la premiere lettre est mise en majuscule (<i>Toto</i>). On peut
+		acceder aux fonctions/variables définies dans ce fichier en mettant le nom de module (namespace) devant le nom de la variable
+		(<i>Toto.f(x)</i> appelle la fonction <i>f</i> dans le fichier <i>toto.mts</i>).<br>
+		<br>
+	<li><b>Import:</b>
+		<ul>
+			<li><code>import Module;</code> : a la suite de cette instruction, toutes les fonctions définies dans <i>module.mts</i>
+			sont maintenant utilisable dans le fichier courant sans la nécessité de préciser le <i>Namespace</i>. En revanche, la
+			compilation de <i>module.mts</i> doit précéder celle du fichier courant (le fichier <i>module.mto</i> doit exister).<br>
+			<br>
+			<li><code>import Module.f(x,y);</code> : cela permet d'importer uniquement la fonction <i>f</i> définie dans <i>module.mts</i>.
+			De plus, <i>module.mts</i> n'a pas besoin d'être compilé avant le fichier courant. Cependant il faut préciser le nom de chaque
+			fonction/variable importée et définir avec précision son nombre d'arguments.
+		</ul>
+</ul>
+
+<h3>Compilation :</h3>
+
+<i>La compilation n'est plus nécessaire car elle est effectuée automatiquement par l'outil hsmake.exe</i>
+
+<ul>
+	<li>pour compiler :
+	<pre>	mts -c *.mts</pre> va compiler chaque fichier "mts" en un fichier "mto" correspondant.<br>
+	<br>
+	<li>pour linker : une fois la compilation terminée, il faut rassembler les différents fichiers "mto" en un fichier
+	unique :
+	<pre>	mts -l <i>output_file</i> *.mto</pre>
+	le paramètre <code>-ldbg</code> peut aussi être ajouté pour conserver les noms des variables et des fonctions.
+	Il est possible de rajouter plusieurs fichiers de resources avec l'option <code>-r <i>fichier</i></code>.<br>
+	<br>
+	<li>pour voir le bytecode généré :
+	<pre>	mts -d <code>file.mto</code></pre>
+</ul>
+
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>La Bibliothèque 2D :</h1>
+
+Rendu 2D bitmap : pour afficher des sprites en 2D, il existe deux classes : Sprite et Group. Sprite permet d'afficher un bitmap à un endroit donné,
+de changer sa taille, sa couleur et sa position. Group permet de regrouper plusieurs Sprites, de les afficher dans un ordre déterminé par leur "depth" et
+deur faire faire effectuer des rotations, des redimentionnements, et autres transformations.
+<br>
+<br>
+<i>Cette Bibliothèque fait partie de la Bibliothèque Standard (Std), elle est donc automatiquement incluse dans tous les fichiers MTS.</i>
+
+<h3>Group :</h3>
+
+Il existe deux types de groupes : les groupes principaux et les sous-groupes. Un groupe principal est crée avec une valeur <i>z</i> donnée
+(comprise entre 0 et 1). Il permettra d'afficher un ensemble de Sprites qui auront tous cette même valeur <i>z</i> ce qui permettra d'intercaller
+plusieures plans de Sprites avec des objets 3D (ces derniers passant devant ou derrière les plans de sprites selon leur <i>z</i>).<br>
+<br>
+Un sous-groupe par contre permet simplement de regrouper des Sprites et de leur faire effectuer des transformations simultanément. Un sous-groupe
+doit forcement appartenir à un groupe principal ou à un autre sous-groupe.<br>
+<br>
+Au sein d'un groupe, les Sprites et les sous-Groupes sont triés d'aprés leur "depth" (priorité d'affichage), ceux ayant
+la plus grande depth étant affichés les premiers. Plusieurs Sprites et sous-Groupes peuvent avoir la même depth, auquel
+cas l'affichage donne la priorité au dernier élément ajouté.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Group(z)
+	<td>crée un nouveau groupe principal avec la valeur z.
+<tr bgcolor="#ffffff">
+	<td>new Group(g)
+	<td>crée un nouveau sous-groupe et l'ajoute au groupe g.
+<tr bgcolor="#ffffff">
+	<td>_x
+	<td>lis ou écris la position x du groupe.
+<tr bgcolor="#ffffff">
+	<td>_y
+	<td>lis ou écris la position y du groupe.
+<tr bgcolor="#ffffff">
+	<td>_visible
+	<td>permet de savoir si le groupe est visible ou de changer sa visibilité.
+<tr bgcolor="#ffffff">
+	<td>_depth
+	<td>lis ou écris la priorité d'affichage du groupe.
+<tr bgcolor="#ffffff">
+	<td>_color
+	<td>lis ou écris le masque de couleur du groupe.
+<tr bgcolor="#ffffff">
+	<td>_alpha
+	<td>lis ou écris le coefficient de transparence du groupe (entre 0 et 1).
+<tr bgcolor="#ffffff">
+	<td>_parent
+	<td>(lecture seulement) : retourne le groupe parent du sous-groupe, ou <code>null</code> si c'est un groupe principal.
+<tr bgcolor="#ffffff">
+	<td>remove()
+	<td>détruit le groupe, tous ses sous-groupes et tous les sprites qui y ont été ajoutés.
+<tr bgcolor="#ffffff">
+	<td>_xscale
+	<td>lis ou écris le facteur de redimentionnement horizontal.
+<tr bgcolor="#ffffff">
+	<td>_yscale
+	<td>lis ou écris le facteur de redimentionnement vertical.
+<tr bgcolor="#ffffff">
+	<td>_rotation
+	<td>lis ou écris l'angle (en radians) de rotation du groupe : tous les sous-élements effectueront une rotation
+		par rapport au point (0,0) du groupe.
+<tr bgcolor="#ffffff">
+	<td>_z
+	<td>lis ou écris le <i>z</i> d'un groupe principal.
+</table>
+
+<h3>Sprite :</h3>
+
+Un sprite permet d'afficher une image bitmap a un emplacement donné.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Sprite(g)
+	<td>crée un nouveau sprite et l'ajoute au groupe g.
+<tr bgcolor="#ffffff">
+	<td>_x
+	<td>lis ou écris la position x du sprite.
+<tr bgcolor="#ffffff">
+	<td>_y
+	<td>lis ou écris la position y du sprite.
+<tr bgcolor="#ffffff">
+	<td>_visible
+	<td>permet de savoir si le sprite est visible ou de changer sa visibilité.
+<tr bgcolor="#ffffff">
+	<td>_depth
+	<td>lis ou écris la priorité d'affichage du sprite.
+<tr bgcolor="#ffffff">
+	<td>_color
+	<td>lis ou écris le masque de couleur du sprite.
+<tr bgcolor="#ffffff">
+	<td>_alpha
+	<td>lis ou écris le coefficient de transparence du sprite (entre 0 et 1).
+<tr bgcolor="#ffffff">
+	<td>_parent
+	<td>(lecture seulement) : retourne le groupe parent du sprite.
+<tr bgcolor="#ffffff">
+	<td>remove()
+	<td>détruit le sprite.
+<tr bgcolor="#ffffff">
+	<td>_width
+	<td>lis ou écris la taille horizontale du sprite.
+<tr bgcolor="#ffffff">
+	<td>_height
+	<td>lis ou écris la taille verticale du sprite.
+<tr bgcolor="#ffffff">
+	<td>_tu _tv _tu2 _tv2
+	<td>lis ou écris les coordonnées de textures (voir ci dessous) du sprite.
+<tr bgcolor="#ffffff">
+	<td>_bitmap
+	<td>lis ou écris l'image utilisée par le sprite. (null ou une resource de type PIC)
+</table>
+<br>
+L'image affichée par le sprite correspond à une portion de son image _bitmap. Pour selectionner cette portion, on utilise
+les coordonnées de textures (tu,tv) et (tu2,tv2), comprises entre 0 et 1. Ainsi (0,0)-(1,1) correspond à l'intégralité de l'image et
+(0.5,0)-(1,0.5) correspond au quart en haut à droite de l'image.
+
+<h3>Text :</h3>
+
+Un texte est affiché comme un sprite, il doit être contenu à l'interieur d'un groupe.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Text(g)
+	<td>crée un nouveau texte et l'ajoute au groupe g.
+<tr bgcolor="#ffffff">
+	<td>_x
+	<td>lis ou écris la position x du texte.
+<tr bgcolor="#ffffff">
+	<td>_y
+	<td>lis ou écris la position y du texte.
+<tr bgcolor="#ffffff">
+	<td>_visible
+	<td>permet de savoir si le texte est visible ou de changer sa visibilité.
+<tr bgcolor="#ffffff">
+	<td>_depth
+	<td>lis ou écris la priorité d'affichage du texte.
+<tr bgcolor="#ffffff">
+	<td>_color
+	<td>lis ou écris le masque de couleur du texte.
+<tr bgcolor="#ffffff">
+	<td>_alpha
+	<td>lis ou écris le coefficient de transparence du texte (entre 0 et 1).
+<tr bgcolor="#ffffff">
+	<td>_parent
+	<td>(lecture seulement) : retourne le groupe parent du texte.
+<tr bgcolor="#ffffff">
+	<td>remove()
+	<td>détruit le texte.
+<tr bgcolor="#ffffff">
+	<td>_text
+	<td>lis ou modifie la chaine de caractères affichée.
+<tr bgcolor="#ffffff">
+	<td>_font
+	<td>lis ou modifie la font avec lequel le texte est affiché. Une valeur de null rends le texte invisible. La font est null par défaut.
+</tr>
+</table>
+
+<br>
+<br>
+<br>
+</body>
+</html>

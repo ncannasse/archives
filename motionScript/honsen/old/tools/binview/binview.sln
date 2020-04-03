@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "binview", "binview.vcproj", "{2C265236-7013-455E-A402-8A837B01CFFE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F} = {EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "m3dse", "..\..\m3dse\m3dse.vcproj", "{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{2C265236-7013-455E-A402-8A837B01CFFE}.Debug.ActiveCfg = Debug|Win32
+		{2C265236-7013-455E-A402-8A837B01CFFE}.Debug.Build.0 = Debug|Win32
+		{2C265236-7013-455E-A402-8A837B01CFFE}.Release.ActiveCfg = Release|Win32
+		{2C265236-7013-455E-A402-8A837B01CFFE}.Release.Build.0 = Release|Win32
+		{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}.Debug.ActiveCfg = Debug|Win32
+		{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}.Debug.Build.0 = Debug|Win32
+		{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}.Release.ActiveCfg = Release|Win32
+		{EDA090D9-7171-4CAB-8C03-D2017C6CBB8F}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

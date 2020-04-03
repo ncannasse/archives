@@ -1,0 +1,167 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,API Reference-->docapiref.html,Std library-->#)
+<div id="text">
+<h1>MTS Standard Library :</h1>
+
+<h3>Standard functions :</h3>
+
+<table>
+<tr>
+	<td class="prem">print(...)
+	<td>display values in the log window.
+<tr>
+	<td class="prem">display(...)
+	<td>display value in graphic window (erased at each frame).
+<tr>
+	<td class="prem">random(x)
+	<td>return a random value between 0 and (x-1) included.
+<tr>
+	<td class="prem">int(x)
+	<td>truncate x into an integer if float, or converts the string to an integer.
+<tr>
+	<td class="prem">number(x)
+	<td>convert the string into a number (float or int).
+<tr>
+	<td class="prem">to_string(x)
+	<td>convert x into a string.
+<tr>
+	<td class="prem">compare(x,y)
+	<td>return 0 if x = y , -1 if x < y , 1 if x > y or null if x and y are not comparable.
+<tr>
+	<td class="prem">_width
+	<td>return Honsen clip width in pixels.
+<tr>
+	<td class="prem">_height
+	<td>return Honsen clip height in pixels..
+<tr>
+	<td class="prem">time()
+	<td>return elapsed time in millisecond since clip start.
+<tr>
+	<td class="prem">tick_time()
+	<td>return elapsed cpu time in millisecond since clip start.
+<tr>
+	<td class="prem">set_main(f)
+	<td>change the MotionScript function called in the main loop.
+</table>
+
+<h3>List :</h3>
+
+A linked list is very efficient for add push and remove operations. It is better to use it rather than an array
+in case of intensive use of theses functions. On the other hand, a list cannot be accessed using indexes ( with [n] ).
+
+<table>
+<tr>
+	<td class="prem">new List()
+	<td>create a new empty list.
+<tr>
+	<td class="prem">add(x)
+	<td>add an element at the end of the list.
+<tr>
+	<td class="prem">push(x)
+	<td>add an element at the beginning of the list.
+<tr>
+	<td class="prem">remove(x)
+	<td>remove an element of the list. return true if x was found, null else.
+<tr>
+	<td class="prem">pop()
+	<td>remove and return first list element.
+<tr>
+	<td class="prem">_length
+	<td>(read only) return number of elements in the list.
+<tr>
+	<td class="prem">iter(f,o)
+	<td>call f(x1,o) f(x2,o) ... f(xN,o) with x1..xN the elements of the list.
+<tr>
+	<td class="prem">find(f)
+	<td>call f function with each element of the list in parameter until f returns not null.
+<tr>
+	<td class="prem">to_array()
+	<td>return array containing same elements.
+</table>
+
+<h3>Array :</h3>
+
+An array is very efficient for index access ( with [n] ) when its length is greater than n (in other case, the array automatically
+grows up but looses performances ).
+
+<table>
+<tr>
+	<td class="prem">new Array()
+	<td>create a new empty array.
+<tr>
+	<td class="prem">new Array(n)
+	<td>create a new array of size n.
+<tr>
+	<td class="prem">new Array(x,y)
+	<td>create a new bi dimentional array of size x, y.
+<tr>
+	<td class="prem">new Array(x,y,z)
+	<td>create a new tri dimentional array of size x, y et z.
+<tr>
+	<td class="prem">_length
+	<td>(read) return array size, (write) modify array size.
+<tr>
+	<td class="prem">[n]
+	<td>access in read or write at array element at index n.
+<tr>
+	<td class="prem">concat(...)
+	<td>add parameters to array. If one of the parameters is an array, its contents is added.
+<tr>
+	<td class="prem">sub(start,len)
+	<td>return a sub-array from start to start + len.
+<tr>
+	<td class="prem">sort(f_compare)
+	<td>sort arrays elements according to the comparaison function passed in parameter.
+<tr>
+	<td class="prem">to_list()
+	<td>return a list containing same elements.
+</table>
+
+<h3>String :</h3>
+
+A string is an object.
+
+<table>
+<tr>
+	<td class="prem">new String()
+	<td>create a new empty string.
+<tr>
+	<td class="prem">new String(s)
+	<td>create a new string, copy of s.
+<tr>
+	<td class="prem">[n]
+	<td>(read only) return character at position n in the string.
+<tr>
+	<td class="prem">_length
+	<td>(read only) return the string length.
+<tr>
+	<td class="prem">sub(start,len)
+	<td>return a substring in the form of a new string.
+		if <code>len = null</code> returns <code>s.sub(start,s._length-start)</code>.
+</table>
+
+<h3>Event :</h3>
+
+An event is a function called at regular interval.
+
+<table>
+<tr>
+	<td class="prem">new Event(f,t)
+	<td>create a new event which will call f function each t milliseconds.
+<tr>
+	<td class="prem">start()
+	<td>start event execution. By default, an event is stopped.
+<tr>
+	<td class="prem">stop()
+	<td>stop the event execution. It can be restarted later.
+<tr>
+	<td class="prem">running()
+	<td>return true if event is started, false if not.
+<tr>
+	<td class="prem">_time
+	<td>(read and write) : read/modify event execution time interval, in milliseconds. This time have to be positive.
+<tr>
+	<td class="prem">_callback
+	<td>(read and write) : read/modify event function called at each interval. This function cannot be null.
+</table>
+
+</div>

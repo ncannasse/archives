@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="hsxedit"
+	ProjectGUID="{04F7CA3E-6238-4E0B-B1A2-8C3FB323976E}"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -opt hsxedit.dsp extlib.cmxa xml-light.cmxa win32.cmxa unix.cmxa osiris.cmxa -o ..\..\bin\hsxedit.exe"
+				ReBuildCommandLine="ocamake -opt hsxedit.dsp extlib.cmxa xml-light.cmxa win32.cmxa unix.cmxa osiris.cmxa -o ..\..\bin\hsxedit.exe -all"
+				Output="..\..\bin\hsxedit.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake hsxedit.dsp win32.cma osiris.cma xml-light.cma unix.cma extlib.cma -o ..\..\bin\hsxedit.exe"
+				ReBuildCommandLine="ocamake hsxedit.dsp win32.cma osiris.cma xml-light.cma unix.cma extlib.cma -o ..\..\bin\hsxedit.exe -all"
+				Output="..\..\bin\hsxedit.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath="..\..\common\hsx.ml">
+		</File>
+		<File
+			RelativePath="hsxedit.ml">
+		</File>
+		<File
+			RelativePath="interface.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.mli">
+		</File>
+		<File
+			RelativePath="..\..\common\path.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\tree.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\tree.mli">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

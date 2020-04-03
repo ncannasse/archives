@@ -1,0 +1,110 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,API Reference-->docapiref.html,controls -->#)
+<div id="text">
+<h1>Controls :</h1>
+
+<h3>Key :</h3>
+
+A <code>Key</code> Object represents a keyboard key or a mouse button.
+
+<table>
+<tr>
+	<td class="prem">new Key(name)
+	<td>create a new key corresponding to the keyname "name" (see below the keyname table).
+<tr>
+	<td class="prem">new Key(code)
+	<td>create a new key corresponding to the keycode "code" (these codes are not ASCII codes).
+<tr>
+	<td class="prem">name()
+	<td>return the key name, or null if no name correspond.
+<tr>
+	<td class="prem">code()
+	<td>return the key code.
+<tr>
+	<td class="prem">is_pressed()
+	<td>determine if the key have just been pressed.
+<tr>
+	<td class="prem">is_down()
+	<td>determine if the key is actually pressed.
+<tr>
+	<td class="prem">is_released()
+	<td>determine if the key have just been released.
+<tr>
+	<td class="prem">time()
+	<td>return ellapsed time (in milliseconds) since the key was pressed (or 0 if the key is actually released).
+<tr>
+	<td class="prem">_repeat
+	<td>read/modify necessary time before automatic key repetition. If negative, the key will nerver be repeated.
+</table>
+
+<h3>Mouse :</h3>
+
+
+<code>Mouse</code> object is a global object part of the standard library (Std).
+If you define another global with the same name, you will always be abble to access the mouse with Std.mouse.
+
+<table>
+<tr>
+	<td class="prem">_x
+	<td>(read only) return mouse x coordinate. It corresponds to an integer number of pixels distance of the upper left corner of the clip.
+<tr>
+	<td class="prem">_y
+	<td>(read only) return mouse y coordinate. It corresponds to an integer number of pixels distance of the upper left corner of the clip.
+<tr>
+	<td class="prem">left
+	<td>left mouse button : it is a <code>Key</code> type object.
+<tr>
+	<td class="prem">right
+	<td>right mouse button : it is a <code>Key</code> type object.
+<tr>
+	<td class="prem">middle
+	<td>middle mouse button : it is a <code>Key</code> type object.
+</table>
+
+<h3>Key table :</h3>
+
+Here are some key names defined whatever the keyboard type is:
+
+<table>
+<tr><td><b>Code :</b><td><b>Key name:</b>
+<tr><td>-<td>A...Z
+<tr><td>-<td>0...9
+<tr><td>1<td>ESC
+<tr><td>14<td>BACKSPACE
+<tr><td>28<td>ENTER
+<tr><td>29<td>LCTRL
+<tr><td>42<td>LSHIFT
+<tr><td>54<td>RSHIFT
+<tr><td>56<td>LALT
+<tr><td>57<td>SPACE
+<tr><td>71<td>NUM7
+<tr><td>72<td>NUM8
+<tr><td>73<td>NUM9
+<tr><td>75<td>NUM4
+<tr><td>76<td>NUM5
+<tr><td>77<td>NUM6
+<tr><td>79<td>NUM1
+<tr><td>80<td>NUM2
+<tr><td>81<td>NUM3
+<tr><td>82<td>NUM0
+<tr><td>83<td>NUMDOT
+<tr><td>7392<td>NUMENTER
+<tr><td>7648<td>RCTRL
+<tr><td>13792<td>NUMDIV
+<tr><td>14560<td>RALT
+<tr><td>18400<td>HOME
+<tr><td>18656<td>UP
+<tr><td>18912<td>PGUP
+<tr><td>19424<td>LEFT
+<tr><td>19936<td>RIGHT
+<tr><td>20448<td>END
+<tr><td>20704<td>DOWN
+<tr><td>20960<td>PGDOWN
+<tr><td>21216<td>INS
+<tr><td>21472<td>DEL
+<tr><td>23520<td>LWIN
+<tr><td>23776<td>RWIN
+<tr><td>65535<td>MOUSELEFT
+<tr><td>65534<td>MOUSERIGHT
+<tr><td>65533<td>MOUSEMIDDLE
+</table>
+</div>

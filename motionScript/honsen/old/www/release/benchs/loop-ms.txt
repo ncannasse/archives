@@ -1,0 +1,13 @@
+init = tick_time();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 10000; i++)
+		for(j = 0; j < 10; j++)
+			res = i + j;
+	ellapsed = tick_time() - init;
+}
+t = ellapsed * 1.0 / cpt;
+print(cpt + " times in " + ellapsed + " ms ==> " + t + " ms for 1 loop\n");

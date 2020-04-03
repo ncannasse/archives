@@ -1,0 +1,16 @@
+<honsen width="400" height="300" bgcolor="0xFFFFFF" fps="40">
+	<font face="Times New Roman" size="40" italic="true" res="Message"/>
+	<font face="Times New Roman" size="20" italic="true" res="Count"/>
+	<pic file="map\de.jpg"/>
+	<pic file="map\casino.jpg" res="Bg"/>
+	<mtw file="mesh\dalle.mtw">
+		<id name="Plane" res="Dalle"/>
+	</mtw>
+	<mtw file="mesh\de.mtw">
+		<id name="Cube" res="Dice"/>
+	</mtw>
+	<mts file="count.mts"/>
+	<mts file="cube.mts"/>
+	<mts file="game.mts"/>
+	<mts file="main.mts"/>
+</honsen>

@@ -1,0 +1,171 @@
+
+$HEADER(Home-->/,Developers-->developers.html,Tutorials-->tutorials.html,3D and controls-->#)
+
+<div id="text">
+
+<h1>3D and controls</h1>
+
+In this tutorial you will learn basics to import a mesh in Honsen, move the camera and use keyboard.
+
+<h1>HSX file</h1>
+
+As seen in <a href="tutos2.html">previous tutorial</a>, you have to make an hsx file that describes all
+the ressources you want to use.<br>
+Your mesh is a ressource, so is its texture.</br>
+So add red lines to your hsx file:
+
+<pre>
+	&lt;honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="main.mts"/&gt;
+	    <font color="red">&lt;pic file="tanookiSkin.jpg"/&gt;
+	    &lt;mtw file="tan.mtw"&gt;
+	    	&lt;id name="Tan" res="Tan"/&gt;
+	    &lt;/mtw&gt;</font>
+	&lt;/honsen&gt;
+</pre>
+
+<b>File</b> is always the name and path of physical ressource.<br>
+<i>mtw</i> tag need a subtag called <i>id</i>. This subtag take a <b>name</b> (the name of the mesh in the mtw file) and a <b>res</b>
+(the name of the ressource to use in the program).<br>
+
+
+<h1>MTS file</h1>
+
+First, create a function called <i>update</i> with no parameters and make it the main loop of the application.<br>
+To import a mesh, we will use the <code>Mesh</code> class.Try this code to importe the mesh called <i>Tan</i> in the hasx file:
+
+<mts>
+	myMesh = new Mesh('Tan);
+</mts>
+
+It's enough to see the mesh in the window ! (even the main loop is not necessary)
+<center><img src="tutos/screen3-1.gif" /></center>
+As you can see the mesh is very far away and we don't see it very well.<br>
+Let's set the camera position and target to have a good view of our mesh !<br>
+The camera in Honsen is a global that you can access with <code>_camera</code>.
+
+<table>
+<tr>
+<td>
+To perfectly understand how to place the camera, you should
+know the general orientation of an Honsen scene. The picture above illustrate it.
+<td><img src="tutos/3Daxes.gif" />
+</table>
+
+As a mesh is placed in (0,0,0) by default, we have to put our camera in (0,10,1) to be in front of the mesh, and the camera target
+has to be (0,0,1) to look at the mesh (our model is about 2 hight, that's why we put both z to 1). Default light came from negative y,
+we choose to set the camera position in (0,-10,1) to have better illumination.
+This 2 lines do the job:
+
+<mts>
+	camera._pos = new Vector(0,-10,1);
+	camera._target = new Vector(0,0,1);
+</mts>
+
+Now you can see this.
+
+<center><img src="tutos/screen3-2.gif" /></center>
+
+Our model is well in the range of the camera but not in the good orientation (because we inverse y axis for ligthening).
+Just add this line to turn him in the good direction.
+
+<mts>
+	myMesh.rot(0, 0, pi);
+</mts>
+
+The goal of this operation is to rotate the mesh of pi radians around the z-axis.
+Here is the result.
+
+<center><img src="tutos/screen3-3.gif" /></center>
+
+Better no ?
+<br>
+Another solution could have been letting camera in front of the mesh and mesh in basic orientation. Good illumination could be
+obtained by moving the light position in the scene accessing the light global variable in this way for exemple.
+<mts>
+light._direction = new Vector(0, 1, -2);
+</mts>
+
+
+<h1>Take control</h1>
+
+Now it's time to add some interactions possibility to our example.<br>
+Honsen provides a powerfull support for keyboard and mouse events.<br>
+Simply declare key listeners in this way.
+
+<mts>
+	left = new Key("LEFT");
+	right = new Key("RIGHT");
+</mts>
+
+and in the main loop you can test the state of your keys.
+For example, the <code>is_down()</code> function return <i>true</i> if the key is actually down.
+Many others functions can be used to handle keyboard as you can see in the documentation.
+Add this lines to your main loop to handle the left and right keys.
+
+<mts>
+	if(left.is_down()) {
+		rotate_cam(0,0,0.1);
+	}
+	if(right.is_down()) {
+		rotate_cam(0,0,-0.1);
+	}
+</mts>
+
+The function <code>rotate_cam(x,y,z)</code> is not implemented and you have to do it.
+Here is his code.
+
+<mts>
+	function rotate_cam(x, y, z) {
+		var q = new Quaternion(x, y, z);
+		camera._pos *= q.to_matrix();
+	}
+</mts>
+
+This function will transform the position of the camera by a matrix corresponding to a rotation
+of x around x-axis, y around y-axis and z around z-axis.<br>
+
+In fact, in the example, the camera will rotate around the origine z-axis and as its target does not
+change, it seems its turns around the mesh (which is in (0,0,0).
+<br>
+<br>
+At the end of the tutorial, your mts file should looks like that:
+
+<mts>
+	import Math;
+
+	function rotate_cam(x, y, z) {
+		var q = new Quaternion(x, y, z);
+		camera._pos *= q.to_matrix();
+	}
+
+	function update() {
+		if(left.is_down()) {
+			rotate_cam(0,0,0.1);
+		}
+		if(right.is_down()) {
+			rotate_cam(0,0,-0.1);
+		}
+	}
+
+	myMesh = new Mesh('Tan);
+	myMesh.rot(0, 0, pi);
+
+	camera._pos = new Vector(0,-10,1);
+	camera._target = new Vector(0,0,1);
+
+	left = new Key("LEFT");
+	right = new Key("RIGHT");
+
+	set_main(update);
+</mts>
+
+
+<br>
+<br>
+At this point you have enough knowledge on Honsen to start making your first game using 2D or 3D features and basic keyboard controls.
+To have it more realistic, maybe you will need to animate your 3D models.
+<br>
+Next step, you will learn <a href="tutos4.html">how to animate a mesh and control this animation</a>.
+
+</div>

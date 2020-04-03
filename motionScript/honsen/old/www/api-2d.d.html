@@ -1,0 +1,164 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,API Reference-->docapiref.html,2D library-->#)
+<div id="text">
+<h1>2D library :</h1>
+
+2D bitmap rendering : to display 2D sprites, two classes are available : Sprite and Group. Sprite allow you to draw a bitmap at a precise point
+and to change its size, color and position. Group allow to gather many Sprites, draw them in a "depth" determined order and make them rotate,
+resize or other transformations.
+<br>
+<br>
+<i>This library is part of Standard (Std) library, so it is automatically included in all MTS files.</i>
+
+<h3>Group :</h3>
+
+Two groups types are present : principal groups and sub-groups. A prncipal group is created with a specified <i>z</i> value
+(between 0 and 1). It will allow to display a group of Sprites each with the same <i>z</i> value in order to intercalate many Sprites planes
+with 3D objects (this ones are drawn behind or in front of Sprites planes depending of their <i>z</i>) value.<br>
+<br>
+On the other hand, a sub-group simply allow to gather Sprites to transform them simultaneously. A sub-group must belong to a principal group
+or another sub-group.<br>
+<br>
+In a same group, Sprites and sub-groups are sorted by "depht" (drawing priority), those with tallest depth being first drawn.
+Many Sprites and sub-groups can have the same depth, in this case drawing priority is given to the last added.
+
+<table>
+<tr>
+	<td class="prem">new Group(z)
+	<td>create a new principal group with z value.
+<tr>
+	<td class="prem">new Group(g)
+	<td>create a new sub-group and add it to g.
+<tr>
+	<td class="prem">_x
+	<td>read or write x group postition.
+<tr>
+	<td class="prem">_y
+	<td>read or write y group postition.
+<tr>
+	<td class="prem">_visible
+	<td>allow to know if the group is visible and to change its visibility.
+<tr>
+	<td class="prem">_depth
+	<td>read or write group drawing priority.
+<tr>
+	<td class="prem">_color
+	<td>read or write group color mask.
+<tr>
+	<td class="prem">_alpha
+	<td>read or write group transparency coeficient (between 0 and 1).
+<tr>
+	<td class="prem">_parent
+	<td>(read only) : return the sub-group parent group or <code>null</code> if it is a principal group.
+<tr>
+	<td class="prem">remove()
+	<td>destroy the group, all its sub-groups and sprites added to.
+<tr>
+	<td class="prem">_xscale
+	<td>read or write horizontal scale factor.
+<tr>
+	<td class="prem">_yscale
+	<td>read or write vertical scale factor.
+<tr>
+	<td class="prem">_rotation
+	<td>read or write group rotation angle (radian) : all sub-elements of the group will do a rotation
+		refering to group (0,0) point.
+<tr>
+	<td class="prem">_z
+	<td>read or write <i>z</i> value of a principal group.
+</table>
+
+<h3>Sprite :</h3>
+
+A Sprite allow to draw a bitmap picture at a given site.
+
+<table>
+<tr>
+	<td class="prem">new Sprite(g)
+	<td>create a new sprite and add it to g group.
+<tr>
+	<td class="prem">_x
+	<td>read or write x sprite coordinate.
+<tr>
+	<td class="prem">_y
+	<td>read or write y sprite coordinate.
+<tr>
+	<td class="prem">_visible
+	<td>allow to know if the sprite is visible and to change its visibility.
+<tr>
+	<td class="prem">_depth
+	<td>read or write sprite drawing priority.
+<tr>
+	<td class="prem">_color
+	<td>read or write sprite color mask.
+<tr>
+	<td class="prem">_alpha
+	<td>read or write sprite transparency coeficient (between 0 and 1).
+<tr>
+	<td class="prem">_parent
+	<td>(read only) : return sprite parent group.
+<tr>
+	<td class="prem">remove()
+	<td>destroy the sprite.
+<tr>
+	<td class="prem">_width
+	<td>read or write horizontal sprite size.
+<tr>
+	<td class="prem">_height
+	<td>read or write vertical sprite size.
+<tr>
+	<td class="prem">_tu _tv _tu2 _tv2
+	<td>read or write sprite textures coordinate (see below).
+<tr>
+	<td class="prem">_bitmap
+	<td>read or write sprite picture used. (null or PIC resource type)
+</table>
+<br>
+Picture displayed by the sprite correspond to a part of its _bitmap picture. To select this part, we use textures coordinates
+(tu,tv) and (tu2,tv2), between 0 and 1. So (0,0)-(1,1) correspond to the full picture and (0.5,0)-(1,0.5) correspond to the upper right
+picture quarter.
+
+<h3>Text :</h3>
+
+A text is displayed as a sprite, it must be included in a group.
+
+<table>
+<tr>
+	<td class="prem">new Text(g)
+	<td>create a new text and add it to g group.
+<tr>
+	<td class="prem">_x
+	<td>read or write x text coordinate.
+<tr>
+	<td class="prem">_y
+	<td>read or write y text coordinate.
+<tr>
+	<td class="prem">_visible
+	<td>allow to know if the text is visible and to change its visibility.
+<tr>
+	<td class="prem">_depth
+	<td>read or write text drawing priority.
+<tr>
+	<td class="prem">_color
+	<td>read or write text color mask.
+<tr>
+	<td class="prem">_alpha
+	<td>read or write text transparency coeficient (between 0 and 1).
+<tr>
+	<td class="prem">_parent
+	<td>(read only) : return text parent group.
+<tr>
+	<td class="prem">remove()
+	<td>destroy the text.
+<tr>
+	<td class="prem">_text
+	<td>read or write displayed string.
+<tr>
+	<td class="prem">_font
+	<td>read or modify font used to display text. null value make the text invisible. Default font is null.
+</tr>
+</table>
+
+<br>
+<br>
+<br>
+</div>

@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>M3DSE Help</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#ffffff">
+
+<h1>Idées :</h1>
+
+Ce fichier rassemble certain nombres d'idées liées a M3DSE qui pourront être abordées, étudiées ou simplement écartées.
+L'état de chaque idée sera conservée, avec les conclusions qui en ont été tirées éventuellement.
+
+<br>
+<table border="0" cellspacing="1" cellpadding="5">
+<tr bgcolor="#FFC770"><td>
+	Framework de test de performances
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	Le document publié par NVidia et intitulé "Graphics Performance : Balancing the Rendering Pipeline" indique les
+	différentes causes qui peuvent être liées à la limitation des performances. Cela peut être l'envoi de trop de données sur
+	le bus AGP, ou une trop grande taille des textures, etc. Le document propose des méthodes pour trouver de quel
+	type de ralentissement il s'agit (par exemple : si diminuer la taille des textures double le FPS, alors utiliser le
+	mipmapping peut aider...).<br>
+	Il serait donc interessant d'avoir des parametres de compilation (#ifdef) dans le moteur 3D qui permettraient de
+	tester ces différents points (par exemple #define TEST_TEXTURE_SIZE va compiler une version du moteur 3D ou la taille
+	des textures sera réduite de moitié).
+</tr>
+<tr bgcolor="#FFC770"><td>
+	Performances 1 VS N Stream Sources
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	Le rendering Pipeline utilise plusieurs Streams, et copie parfois les données "à la main" de façon a obtenir
+	une unique stream au final. Les problèmes de non alignement de la mémoire lors de la copie peuvent peut-etre
+	couter plus cher que le fait de donner plusieurs StreamsSources à DirectX. A tester...
+</tr>
+
+<tr bgcolor="#FFC770"><td>
+	Automatic CPU Balancing
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	En cas de ralentissements dus au CPU (comment les détecter ?) on peut basculer automatiquement un certain nombre
+	de Renderer de dynamique à statique. On peut aussi envisager le cas pour des objets éloignés, qui n'ont pas besoin
+	d'un calcul d'animation ou d'éclairage chaque frame (en on-t-il carrement besoin parfois ?). Il faudrait peut-etre
+	envisagé la possibilité de définir des Renderer "pseudo-dynamiques" dont la fréquence d'appel dépends de certains
+	paramètres (il y aura surement des Renderer que l'on ne voudra pas basculer en statique)
+</tr>
+
+<tr bgcolor="#FFC770"><td>
+	Bone 2 Morph
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	Les Bone sont certainement plus couteux que le Morphing, car ils impliquent beaucoup plus de calcul. Il serait
+	interessant de voir si certaines animations en bone ne peuvent pas être converties en animation de Morph la plus
+	proche, en essayant de générer le minimum de keyframe tout en gardant une animation identique à X%. A noter que
+	cela empêche par la suite la composition Morph+Bone.
+</tr>
+
+<tr bgcolor="#FFC770"><td>
+	Partial Morph
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	Dans certains cas, seulement une partie de l'objet est morphéé, le reste de la géométrie reste constante au cours
+	du temps. Optimiser le morph de façon à gagner en taille de fichier et en calcul CPU. Cela permet aussi de jouer
+	plusieures animations de Morph sur différentes parties du corps qui n'ont pas de vertex en commun.
+</tr>
+
+<tr bgcolor="#FFC770"><td>
+	MTW Editor
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	<b>
+	Un editeur de fichier MTW, pour l'instant sans mode graphique. Permet d'explorer a gauche au moyen d'un arbre façon
+	explorateur les différents TAG. Ces derniers sont affichés ainsi que certaines informations ( taille ou plutot % de
+	la taille totale du fichier, le nom de l'objet, etc.. ). Possibilité d'appliquer des algorithmes : supprimer des TAG,
+	changer le nom des objets et des animations, etc.
+	</b>
+</tr>
+
+<tr bgcolor="#FFC770"><td>
+	Hit Cache Index Optimize
+</tr>
+<tr bgcolor="#FFFFFF"><td>
+	<b>
+	Les indexes dans le VertexBuffer peuvent etre optimisés. En effet une carte video a un certain nombre de vertexes en
+	cache (4 ou 6 il me semble, cela varie selon les modeles) et plus le cache est utilisé, plus le rendu est performant.
+	Un algorithme appliqué lors de l'export peut permettre de "trier" les vertex de façon a avoir une liste d'indexes qui
+	optimize au mieux l'utilisation du cache de la carte video.
+	</b>
+</tr>
+
+<tr bgcolor="#FFC770">
+	<td colspan="3">&nbsp;
+</tr>
+</table>
+
+<br>
+<br>
+<i>(c)2003 Motion-Twin</i>
+</body>
+</html>

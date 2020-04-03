@@ -1,0 +1,194 @@
+<html>
+<head>
+<title>M3DSE Help</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+<body bgcolor="#ffffff">
+<h1>*TW File Format :</h1>
+Ce format de fichier répond à plusieurs besoins comme la possibilité d'étendre
+facilement le format, et une grande simplicité dans le traitement d'un fichier,
+une structure hiérarchique, ainsi que la possibilité d'ignorer des informations
+dont le format est inconnu, sans pour autant échouer dans la lecture du fichier.
+<h3>Structure du fichier:</h3>
+<pre>
+FILE := HEADER + TAGLEN + TAG*
+
+HEADER := 'MTW2' : 4 chars, type du fichier et version
+
+TAG := TAGID + TAGDATA
+
+TAGID := 4 alphanum chars : A-Z a-z 0-9
+	les chiffres sont considérés comme à la fois MAJ et MIN
+	suivant la case, on distingue différents type de TAGS :
+	| 'AAAA' : STD
+	| 'Abbb' : GROUP
+	| 'bAAA' : IDENT
+	| 'bbbb' : NUMBER
+
+TAGDATA := suivant le type du TAGID :
+	| STD    -> TAGLEN + TAGBUFFER
+	| GROUP  -> TAGLEN + TAGLIST
+	| IDENT  -> pas de données
+	| NUMBER -> 32-bits
+
+TAGLEN := 32-bits : la taille des données qui suivent
+
+TAGBUFFER := buffer de taille TAGLEN bytes
+
+TAGLIST := TAG*, la somme des données est égale a TAGLEN
+</pre>
+<h3>Index des Tags, fichier MTW:<br>
+</h3>
+
+Les fichiers MTW décrivent des ressources graphiques, telles que les Mesh, avec leurs géométries
+mais aussi les informations permettant de les texturer ou de les animer(ex: squelette).
+
+<table border="0" cellpadding="5" cellspacing="1">
+	<tr>
+	    <td bgcolor="#CCCCCC"><b>TAGID:</b></td>
+	    <td bgcolor="#CCCCCC"><b>Size Infos:</b></td>
+	    <td bgcolor="#CCCCCC"><b>Description:</b></td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"><center>&lt;Reserved Tags&gt; </center></td>
+	</tr>
+	<tr>
+	    <td bgcolor="#FFFFFF"><code>Root</code></td>
+    	<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">After reading a file, the parser return a <code>Root</code>
+		GROUP Tag containing all parsed tags.</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"> <center>&lt;Root sub-Tags&gt; </center></td>
+	</tr>
+	<tr>
+	  <td bgcolor="#FFFFFF"><code>Objt</code></td>
+	  <td bgcolor="#FFFFFF">-</td>
+	  <td bgcolor="#FFFFFF">Object GROUP Tag</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"> <center>&lt;Object sub-Tags&gt; </center></td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>NAME</code></td>
+		<td bgcolor="#FFFFFF">0 ending 8-bit string</td>
+		<td bgcolor="#FFFFFF">Object Name</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>flag</code></td>
+		<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">32 bit-flags for storing properties</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>VECT</code></td>
+		<td bgcolor="#FFFFFF">NVects * 12 bytes</td>
+		<td bgcolor="#FFFFFF">3-FLOAT Vector - Geometry Data</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>MAP0</code></td>
+		<td bgcolor="#FFFFFF">NMaps * 8</td>
+		<td bgcolor="#FFFFFF">2-FLOAT - Mapping Coordinates</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>INDX</code></td>
+		<td bgcolor="#FFFFFF">(NFaces * 3) * 2</td>
+		<td bgcolor="#FFFFFF">WORD indexes - Geometry Indexes</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>MID0</code></td>
+		<td bgcolor="#FFFFFF">(NFaces * 3) * 2</td>
+		<td bgcolor="#FFFFFF">WORD indexes - Mapping Indexes</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>TEX0</code></td>
+		<td bgcolor="#FFFFFF">string</td>
+		<td bgcolor="#FFFFFF">Texture Filename for <code>MAP0</code></td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>SKEL</code></td>
+		<td bgcolor="#FFFFFF">NVects * NInfluences * 8 bytes</td>
+		<td bgcolor="#FFFFFF">2-WORD, 1-FLOAT - Index of Bone influences on Vertex. NInfluences can be different
+		for each vertex. vertex index, bone index, weight</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>RPOS</code></td>
+		<td bgcolor="#FFFFFF">NBones * 28 bytes</td>
+		<td bgcolor="#FFFFFF">7-FLOAT - Skeleton Rest Position: location(Vector) and rotation (Quaternion)</td>
+	</tr>
+
+</table>
+
+<br>
+<h3>Index des Tags, fichier ATW:<br>
+</h3>
+
+Les fichiers ATW décrivent des animations pouvant etre appliquées à des objets graphiques (contenus dans
+les fichiers MTW).
+
+<table border="0" cellpadding="5" cellspacing="1">
+	<tr>
+	    <td bgcolor="#CCCCCC"><b>TAGID:</b></td>
+	    <td bgcolor="#CCCCCC"><b>Size Infos:</b></td>
+	    <td bgcolor="#CCCCCC"><b>Description:</b></td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"><center>&lt;Reserved Tags&gt; </center></td>
+	</tr>
+	<tr>
+	    <td bgcolor="#FFFFFF"><code>Root</code></td>
+    	<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">After reading a file, the parser return a <code>Root</code>
+		GROUP Tag containing all parsed tags.</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"> <center>&lt;Root sub-Tags&gt; </center></td>
+	</tr>
+	<tr>
+	  	<td bgcolor="#FFFFFF"><code>Anim</code></td>
+	  	<td bgcolor="#FFFFFF">-</td>
+	  	<td bgcolor="#FFFFFF">Animation GROUP data</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFCC66"> <center>&lt;Animation sub-Tags&gt; </center></td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>sKEL</code></td>
+		<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">Identification tag of bone animations</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>NAME</code></td>
+		<td bgcolor="#FFFFFF">0 ending 8-bit string</td>
+		<td bgcolor="#FFFFFF">Animation Name</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>nfrm</code></td>
+		<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">Total number of frames</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>Fram</code></td>
+		<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">Frame Data</td>
+	</tr>
+	<tr>
+		<td colspan="3" bgcolor="#FFC770"> <center>&lt;Frame sub-Tags&gt; </center></td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>frnb</code></td>
+		<td bgcolor="#FFFFFF">-</td>
+		<td bgcolor="#FFFFFF">Frame Number</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF"><code>DATA</code></td>
+		<td bgcolor="#FFFFFF">NBones * 28 bytes</td>
+		<td bgcolor="#FFFFFF">7-FLOAT - Skeleton Position at this key frame: location(Vector) and rotation (Quaternion)</td>
+	</tr>
+</table>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p> <i>(c)2003 Motion-Twin</i> </p>
+</body>
+</html>

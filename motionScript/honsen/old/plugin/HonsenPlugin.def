@@ -1,0 +1,9 @@
+; HonsenPlugin.def : déclare les paramètres de module.
+
+LIBRARY      "HonsenPlugin.OCX"
+
+EXPORTS
+	DllCanUnloadNow     PRIVATE
+	DllGetClassObject   PRIVATE
+	DllRegisterServer   PRIVATE
+	DllUnregisterServer PRIVATE

@@ -1,0 +1,131 @@
+
+$HEADER(Home-->/,Developers-->developers.html,Tutorials-->tutorials.html,3D Manipulation-->#)
+
+<div id="text">
+
+<h1>3D Manipulation</h1>
+
+This tutorial introduce animations in Honsen. You will learn how to add an animation to a mesh and how to control it.
+
+<h1>HSX file</h1>
+
+First add the animation at the list of ressources to use in your hsx file (red lines).
+
+<pre>
+	&lt;honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="main.mts"/&gt;
+	    &lt;pic file="tanookiSkin.jpg"/&gt;
+	    &lt;mtw file="tan.mtw"&gt;
+	    	&lt;id name="Tan" res="Tan"/&gt;
+	    &lt;/mtw&gt;
+	    <font color="red">&lt;atw file="tan.atw"&gt;
+	    	&lt;id name="Action" res="Action"/&gt;
+	    &lt;/atw&gt;</font>
+	&lt;/honsen&gt;
+</pre>
+
+<i>atw</i> tag works exactly as the <i>mtw</i> tag you just see in <a href="tutos3.html">the previous tutorial</a>.
+
+
+<h1>MTS file</h1>
+
+We have to create an animation for our mesh so use the <code>Anim</code> class. Simply create an object <i>anim</i> with the mesh in parameter
+and set its <code>_anim</code> field to the ressource of the animation;
+
+<mts>
+	anim = new Anim(myMesh);
+	anim._anim = 'Action;
+</mts>
+
+If you try your application now, you will see the model running.
+<br>
+<center><img src="tutos/screen4-1.gif" /></center>
+<br>
+By default, animations are started, they are looping and playing at 25 frames per second.<br>
+You have control on all this parameters and so you can do what you want with your animation.<br>
+
+<h1>Controlling animations</h1>
+
+To act on our animation, we will add some key listeners:
+
+<mts>
+	aKey = new Key("A");
+	pKey = new Key("P");
+	mKey = new Key("M");
+</mts>
+
+And then, in the main loop, we handle them to change properties of the animation.
+
+<mts>
+	if(aKey.is_pressed()) {
+		if(anim.is_playing())
+			anim.stop();
+		else
+			anim.play();
+	}
+	if(pKey.is_down()) {
+		anim._speed += 0.01;
+	}
+	if(mKey.is_down()) {
+		anim._speed -= 0.01;
+	}
+</mts>
+
+This application allow you to stop/resume the animation using the "a" key and to speed it up or down with "p" and "m" keys.
+<br>
+Here is the full code.
+
+<mts>
+import Math;
+
+function rotate_cam(x, y, z) {
+	var q = new Quaternion(x, y, z);
+	camera._pos *= q.to_matrix();
+}
+
+function update() {
+	if(left.is_down()) {
+		rotate_cam(0,0,0.1);
+	}
+	if(right.is_down()) {
+		rotate_cam(0,0,-0.1);
+	}
+	if(aKey.is_pressed()) {
+		if(anim.is_playing())
+			anim.stop();
+		else
+			anim.play();
+	}
+	if(pKey.is_down()) {
+		anim._speed += 0.01;
+	}
+	if(mKey.is_down()) {
+		anim._speed -= 0.01;
+	}
+
+}
+
+myMesh = new Mesh('Tan);
+myMesh.rot(0, 0, pi);
+
+anim = new Anim(myMesh);
+anim._anim = 'Action;
+
+camera._pos = new Vector(0,-10,1);
+camera._target = new Vector(0,0,1);
+
+left = new Key("LEFT");
+right = new Key("RIGHT");
+
+aKey = new Key("A");
+pKey = new Key("P");
+mKey = new Key("M");
+
+set_main(update);
+</mts>
+
+<br>
+<br>
+You now have done all the tutorials teaching you bases of Honsen programming. You can take a look to the
+<a href="samples.html">games exemples</a> to have a better vision on how to use all the features we have seen in tutorials.
+</div>

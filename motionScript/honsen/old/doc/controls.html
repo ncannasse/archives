@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Controls :</h1>
+
+<h3>Key :</h3>
+
+Un object <code>Key</code> représente une touche du clavier ou un boutton de la souris.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Key(name)
+	<td>crée une nouvelle Key correspondant au nom de la touche "name" (voir la table ci-dessous pour connaitre les noms des touches).
+<tr bgcolor="#ffffff">
+	<td>new Key(code)
+	<td>crée une nouvelle Key correspondant au code de touche "code" (ces codes ne correspondent pas aux codes ASCII).
+<tr bgcolor="#ffffff">
+	<td>name()
+	<td>retourne le nom de la touche, ou null si aucun nom correspondant.
+<tr bgcolor="#ffffff">
+	<td>code()
+	<td>retourne le code de la touche.
+<tr bgcolor="#ffffff">
+	<td>isPressed()
+	<td>détermine si la touche viens juste d'être appuyée.
+<tr bgcolor="#ffffff">
+	<td>isDown()
+	<td>détermine si la touche est actuellemetn appuyée.
+<tr bgcolor="#ffffff">
+	<td>isReleased()
+	<td>détermine si la touche viens juste d'être relachée.
+<tr bgcolor="#ffffff">
+	<td>time()
+	<td>renvoie le temps écoulé (en millisecondes) depuis que la touche est appuyée (ou 0 si la touche est actuellement relachée).
+<tr bgcolor="#ffffff">
+	<td>_repeat
+	<td>renvoie ou modifie le temps nécessaire avant la répétition automatique de la touche. Si négatif, la touche ne sera jamais répétée.
+</table>
+
+<h3>Mouse :</h3>
+
+<i>L'objet <code>mouse</code> est un objet global faisant partie de la bibliothèque Std.
+Si vous définisez une globale du même nom, vous pourrez toujours y acceder avec le namespace Std.mouse.</i>
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>_x
+	<td>(lecture seulement) renvoie la position x de la souris. C'est le nombre entier de pixels par rapport au coin en haut à gauche du clip.
+<tr bgcolor="#ffffff">
+	<td>_y
+	<td>(lecture seulement) renvoie la position y de la souris. C'est le nombre entier de pixels par rapport au coin en haut à gauche du clip.
+<tr bgcolor="#ffffff">
+	<td>left
+	<td>le boutton gauche de la souris : c'est un objet de type <code>Key</code>.
+<tr bgcolor="#ffffff">
+	<td>right
+	<td>le boutton droit de la souris : c'est un objet de type <code>Key</code>.
+<tr bgcolor="#ffffff">
+	<td>middle
+	<td>le boutton du millieu de la souris : c'est un objet de type <code>Key</code>.
+</table>
+
+<h3>Table des touches :</h3>
+
+Voici quelques noms de touche qui sont fixés quel quel soit le type de clavier :
+
+<table>
+<tr bgcolor="#ffffff"><td><b>Code :</b><td><b>Nom de touche:</b>
+<tr bgcolor="#ffffff"><td>-<td>A...Z
+<tr bgcolor="#ffffff"><td>-<td>0...9
+<tr bgcolor="#ffffff"><td>1<td>ESC
+<tr bgcolor="#ffffff"><td>14<td>BACKSPACE
+<tr bgcolor="#ffffff"><td>28<td>ENTER
+<tr bgcolor="#ffffff"><td>29<td>LCTRL
+<tr bgcolor="#ffffff"><td>42<td>LSHIFT
+<tr bgcolor="#ffffff"><td>54<td>RSHIFT
+<tr bgcolor="#ffffff"><td>56<td>LALT
+<tr bgcolor="#ffffff"><td>57<td>SPACE
+<tr bgcolor="#ffffff"><td>71<td>NUM7
+<tr bgcolor="#ffffff"><td>72<td>NUM8
+<tr bgcolor="#ffffff"><td>73<td>NUM9
+<tr bgcolor="#ffffff"><td>75<td>NUM4
+<tr bgcolor="#ffffff"><td>76<td>NUM5
+<tr bgcolor="#ffffff"><td>77<td>NUM6
+<tr bgcolor="#ffffff"><td>79<td>NUM1
+<tr bgcolor="#ffffff"><td>80<td>NUM2
+<tr bgcolor="#ffffff"><td>81<td>NUM3
+<tr bgcolor="#ffffff"><td>82<td>NUM0
+<tr bgcolor="#ffffff"><td>83<td>NUMDOT
+<tr bgcolor="#ffffff"><td>7392<td>NUMENTER
+<tr bgcolor="#ffffff"><td>7648<td>RCTRL
+<tr bgcolor="#ffffff"><td>13792<td>NUMDIV
+<tr bgcolor="#ffffff"><td>14560<td>RALT
+<tr bgcolor="#ffffff"><td>18400<td>HOME
+<tr bgcolor="#ffffff"><td>18656<td>UP
+<tr bgcolor="#ffffff"><td>18912<td>PGUP
+<tr bgcolor="#ffffff"><td>19424<td>LEFT
+<tr bgcolor="#ffffff"><td>19936<td>RIGHT
+<tr bgcolor="#ffffff"><td>20448<td>END
+<tr bgcolor="#ffffff"><td>20704<td>DOWN
+<tr bgcolor="#ffffff"><td>20960<td>PGDOWN
+<tr bgcolor="#ffffff"><td>21216<td>INS
+<tr bgcolor="#ffffff"><td>21472<td>DEL
+<tr bgcolor="#ffffff"><td>23520<td>LWIN
+<tr bgcolor="#ffffff"><td>23776<td>RWIN
+<tr bgcolor="#ffffff"><td>65535<td>MOUSELEFT
+<tr bgcolor="#ffffff"><td>65534<td>MOUSERIGHT
+<tr bgcolor="#ffffff"><td>65533<td>MOUSEMIDDLE
+</table>
+
+</body>
+</html>

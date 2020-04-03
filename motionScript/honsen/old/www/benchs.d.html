@@ -1,0 +1,86 @@
+
+$HEADER(Home-->/,Developers-->developers.html,Benchmarks-->#)
+
+<div id="text">
+
+	<h1>Benchmarks results</h1>
+
+	<p>
+	Here are the performance results we obtain on many tests and many languages.
+	Each test was ran in loop for aproximatively 10 seconds.
+	The results presents a performance index based on the Motion Script loop time.
+	An index superior to one means better performances.
+	</p>
+
+	<table border="0" cellpadding="5" cellspacing="1">
+		<tr>
+			<td><b></b></td>
+			<td><center><b>Motion Script</b></center></td>
+			<td><center><b>Action Script</b></center></td>
+			<td><center><b>Python</b></center></td>
+			<td><center><b>Java</b></center></td>
+		</tr>
+		<tr>
+			<td><b>Function calls :</b><br/>
+			10 000 to a very simple function just returning his argument</td>
+			<td><center><b>1</b><a href="benchs/calls-ms.txt">[src]</a></center></td>
+			<td><center><b>0.02</b><a href="benchs/calls-as.txt">[src]</a></center></td>
+			<td><center><b>0.33</b><a href="benchs/calls-python.txt">[src]</a></center></td>
+			<td><center><b>112</b><a href="benchs/calls-java.txt">[src]</a></center></td>
+		</tr>
+		<tr>
+			<td><b>Fibonacci : </b><br/>
+			at order 27</td>
+			<td><center><b>1</b><a href="benchs/fibo-ms.txt">[src]</a></center></td>
+			<td><center><b>0.03</b><a href="benchs/fibo-as.txt">[src]</a></center></td>
+			<td><center><b>0.31</b><a href="benchs/fibo-python.txt">[src]</a></center></td>
+			<td><center><b>40</b><a href="benchs/fibo-java.txt">[src]</a></center></td>
+		</tr>
+		<tr>
+			<td><b>Floating point computation : </b><br/>
+			100 000 multiplications and divisions by 1.00001</td>
+			<td><center><b>1</b><a href="benchs/float-ms.txt">[src]</a></center></td>
+			<td><center><b>0.08</b><a href="benchs/float-as.txt">[src]</a></center></td>
+			<td><center><b>0.74</b><a href="benchs/float-python.txt">[src]</a></center></td>
+			<td><center><b>19</b><a href="benchs/float-java.txt">[src]</a></center></td>
+		</tr>
+		<tr>
+			<td><b>Loops : </b><br/>
+			two nested loops, inner one of 10 iterations, outer one of 10 000</td>
+			<td><center><b>1</b><a href="benchs/loop-ms.txt">[src]</a></center></td>
+			<td><center><b>0.03</b><a href="benchs/loop-as.txt">[src]</a></center></td>
+			<td><center><b>0.41</b><a href="benchs/loop-python.txt">[src]</a></center></td>
+			<td><center><b>57</b><a href="benchs/loop-java.txt">[src]</a></center></td>
+		</tr>
+		<tr>
+			<td><b>Array access : </b><br/>
+			write 10 000 elements in an array and read them back</td>
+			<td><center><b>1</b><a href="benchs/table-ms.txt">[src]</a></center></td>
+			<td><center><b>0.04</b><a href="benchs/table-as.txt">[src]</a></center></td>
+			<td><center><b>0.67</b><a href="benchs/table-python.txt">[src]</a></center></td>
+			<td><center><b>139</b><a href="benchs/table-java.txt">[src]</a></center></td>
+		</tr>
+	</table>
+
+	<h1>Conclusion</h1>
+	<p>
+	If we jump fast to conclusions, we can say that :
+	</p>
+	<ul>
+	<li>MotionScript is 25 times faster than ActionScript</li>
+	<li>MotionScript is 2.3 times faster than Python</li>
+	<li>Java is faster than MotionScript (Just-In-Time helps here)</li>
+	</ul>
+	<p>
+	HOWEVER, theses benchmarks are micro-benchmarks, and should be taken with care. Jumping
+	to false conclusions is easy, but what we can say without a doubt is that :
+	</p>
+	<ul>
+	<li>MotionScript and Python are two efficient languages</li>
+	<li>ActionScript is very very slow</li>
+	<li>Java JIT works well on the machine we did the benchmarks</li>
+	</ul>
+
+</div>
+
+

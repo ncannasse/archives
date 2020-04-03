@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="maxtwin2"
+	ProjectGUID="{EFE5A0A0-0A30-4A73-A006-28053AB9CF08}"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/LD "
+				Optimization="0"
+				OptimizeForProcessor="2"
+				AdditionalIncludeDirectories="c:\3dsmax4\maxsdk\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EXPORTER"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Debug/maxtwin2.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="core.lib geom.lib gfx.lib mesh.lib maxutil.lib maxscrpt.lib paramblk2.lib d3dx8.lib"
+				OutputFile=".\Debug\maxtwin2.dle"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="c:\3dsmax4\maxsdk\lib"
+				ModuleDefinitionFile=".\maxtwin.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Debug/maxtwin2.pdb"
+				SubSystem="2"
+				BaseAddress="0x3ea50000"
+				ImportLibrary=".\Debug/maxtwin2.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/maxtwin2.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="copy"
+				CommandLine="copy Debug\maxtwin2.dle &quot;d:\3dsmax6\plugins\&quot; &gt;NUL"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1036"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\Release"
+			IntermediateDirectory=".\Release"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/LD "
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				OptimizeForProcessor="2"
+				AdditionalIncludeDirectories="c:\3dsmax4\maxsdk\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXPORTER"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Release/maxtwin2.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="core.lib geom.lib gfx.lib mesh.lib maxutil.lib maxscrpt.lib paramblk2.lib d3dx8.lib"
+				OutputFile=".\Release\maxtwin2.dle"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="c:\3dsmax4\maxsdk\lib"
+				ModuleDefinitionFile=".\maxtwin.def"
+				ProgramDatabaseFile=".\Release/maxtwin2.pdb"
+				SubSystem="2"
+				SetChecksum="TRUE"
+				BaseAddress="0x3ea50000"
+				ImportLibrary=".\Release/maxtwin2.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/maxtwin2.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy Release\maxtwin2.dle &quot;d:\3dsmax6\plugins\&quot; &gt;NUL
+copy Release\maxtwin2.dle ..\..\bin
+"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1036"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="MaxTwin2"
+			Filter="">
+			<File
+				RelativePath="DllEntry.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EXPORTER;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXPORTER;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="maxtwin.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EXPORTER;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXPORTER;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="maxtwin.h">
+			</File>
+			<File
+				RelativePath="maxtwin_obj.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EXPORTER;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXPORTER;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="maxtwin_obj.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="">
+			<File
+				RelativePath="maxtwin.def">
+			</File>
+			<File
+				RelativePath="res\maxtwin.rc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="res"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="res"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="LIB"
+			Filter="">
+			<File
+				RelativePath="..\..\common\mtw.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EXPORTER;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXPORTER;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\common\mtw.h">
+			</File>
+			<File
+				RelativePath="..\..\common\wlist.h">
+			</File>
+			<File
+				RelativePath="..\..\common\wstring.h">
+			</File>
+			<Filter
+				Name="MAXSDK"
+				Filter="">
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\acolor.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\actiontable.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\animtbl.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\appio.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\assert1.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\baseinterface.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\bitarray.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\box2.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\box3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\buildver.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\captypes.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\channels.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\cmdmode.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\color.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\coreexp.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\custcont.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\dbgprint.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\dpoint3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\euler.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\evuser.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\excllist.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\export.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\gencam.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\genhier.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\genlight.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\genshape.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\geom.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\geomlib.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\gfloat.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\gfx.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\gfxlib.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\gutil.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\hitdata.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\hold.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\icolorman.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ifnpub.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\impapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\impexp.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\impexpintf.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\imtl.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\inode.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\INodeGIProperties.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\interval.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ioapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\iparamb.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\iparamb2.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\iparamm.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ipipelineclient.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ipoint2.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ipoint3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\istdplug.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\itreevw.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\lockid.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\log.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\matrix2.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\matrix3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\max.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\maxapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\maxcom.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\maxtess.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\maxtypes.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mesh.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\meshlib.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mnbigmat.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mncommon.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mnmath.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mnmesh.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\MNNormalSpec.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\modstack.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mouseman.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\mtl.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\namesel.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\nametab.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\object.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\objmode.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\paramtype.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\patch.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\patchlib.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\patchobj.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\plugapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\plugin.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\point2.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\point3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\point4.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\polyobj.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\polyshp.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ptrvec.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\quat.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\random.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\ref.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\render.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\renderelements.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\rtclick.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\sbmtlapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\sceneapi.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\sfx.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\shape.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\shphier.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\shpsels.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\snap.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\soundobj.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\spline3d.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\stack.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\stack3.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\stdmat.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\strbasic.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\strclass.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\svcore.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\systemutilities.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\tab.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\templt.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\trig.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\triobj.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\udmia64.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\units.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\utilexp.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\utilintf.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\utillib.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\vedge.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\Program Files\3dsmax5\maxsdk\include\winutil.h">
+				</File>
+			</Filter>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

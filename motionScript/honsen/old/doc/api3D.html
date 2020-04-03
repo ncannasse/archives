@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>La Bibliothèque 3D :</h1>
+
+<h3>Mesh:</h3>
+Un mesh est un objet 3D.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Mesh(r)
+	<td>ajoute un nouvel objet 3D à la scène, r désigne une resource d'objet.
+<tr bgcolor="#ffffff">
+	<td>new Mesh(r,p)
+	<td>ajoute un nouvel objet 3D, r désigne une resource d'objet et p le Mesh parent.
+<tr bgcolor="#ffffff">
+	<td>_visible
+	<td>lis/modifie la visibilité de l'objet.
+<tr bgcolor="#ffffff">
+	<td>_pos
+	<td>lis/modifie la position de l'objet : cette position est une Matrice, néanmoins un TRS peut être écris dans _pos (il sera automatiquement convertis).
+<tr bgcolor="#ffffff">
+	<td>_color
+	<td>lis/modifie la couleur de l'objet.
+<tr bgcolor="#ffffff">
+	<td>_alpha
+	<td>lis/modifie la transparence de l'objet.
+<tr bgcolor="#ffffff">
+	<td>_texture
+	<td>lis/modifie la texture de l'objet (une valeur de null permet de supprimer la texture).
+<tr bgcolor="#ffffff">
+	<td>_parent
+	<td>(lecture seulement) : retourne l'objet parent du Mesh, ou null si pas de parent.
+<tr bgcolor="#ffffff">
+	<td>remove()
+	<td>supprime le mesh de la scene.
+<tr bgcolor="#ffffff">
+	<td>move(x,y,z)
+	<td>déplace le mesh (modifie _pos).
+<tr bgcolor="#ffffff">
+	<td>scale(f)
+	<td>change la taille du mesh (modifie _pos).
+<tr bgcolor="#ffffff">
+	<td>rot(x,y,z)
+	<td>fait tourner le mesh (modifie _pos).
+</table>
+
+<h3>Camera:</h3>
+
+La camera est accédée grace a la globale <code>camera</code> (ou <code>Std.camera</code>).
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>_pos
+	<td>le vecteur-position de la camera.
+<tr bgcolor="#ffffff">
+	<td>_target
+	<td>le vecteur-cible de la camera.
+<tr bgcolor="#ffffff">
+	<td>_proj
+	<td>la matrice de projection.
+<tr bgcolor="#ffffff">
+	<td>_roll
+	<td>la valeur de roll de la camera (en radians)
+<tr bgcolor="#ffffff">
+	<td>_zoom
+	<td>la valeur de zoom actuelle (revient à 1 à chaque modification de pos).
+</table>
+
+</body>
+</html>

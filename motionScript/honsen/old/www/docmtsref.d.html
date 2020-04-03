@@ -1,0 +1,218 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,MotionScript Reference-->#)
+
+<div id="text">
+<h1>MotionScript Language Reference :</h1>
+
+<h3>Structures :</h3>
+<ul>
+	<li><b>for</b> : <br>
+		<code>for(i=0;i&lt;10;i++) { .... }</code>
+	<li><b>while</b> : <br>
+		<code>while <i>cond</i> { ... }</code><br>
+		<code>do { ... } while <i>cond</i> ;</code>
+	<li><b>if / else</b> : <br>
+		<code>if <i>cond</i> { ... }</code><br>
+		<code>if <i>cond</i> { ... } else { ... }</code>
+	<li><b>function</b> : <br>
+		<code>function <i>name</i>(x,y,z) { ... }</code>
+	<li><b>break</b> : <br>
+		<code>break;</code><br>
+		in <b>for</b> and <b>while</b>.
+	<li><b>return</b> : <br>
+		<code>return;</code><br>
+		<code>return <i>val</i>;</code><br>
+		in a <b>function</b>.
+	<li><b>switch</b> : <br>
+		<i>not yet implemented.</i>
+</ul>
+
+<h3>Constants :</h3>
+
+<ul>
+	<li><font color="blue"><code>null</code></font><br>
+		null value is particular and corresponds to a non-initialised variable.<br><br>
+	<li><code>0 / 14 / -45 / 0xFF00</code> : Integer<br>
+		Integers are subjected to integers operations. Thus 10 / 3 = 3 (but 10 / 3.0 = 3.3333...).<br><br>
+	<li><code>1.2 / -0.004</code> : Floatting points<br><br>
+	<li><code><font color="blue">true</font> / <font color="blue">false</font></code> : Integers<br>
+		Booleans corresponds to integers 0 and 1.<br><br>
+	<li><code><font color="darkred">"test"</font> / <font color="darkred">"a\n b\r c\t"</font></code> : String<br>
+		Strings are objects.<br><br>
+	<li><code><font color="darkgreen">'Resource-name</font></code> : Resource<br>
+		a resource is declared outside the MTS file, and then used in the code. Its existence is checked at linking.
+		Not type checking is done.
+</ul>
+
+<h3>Variables :</h3>
+
+All variables are globals <b>expect</b> if :
+<ul>
+	<li>declared with key word <b>var</b>
+	<li>is a function parameter
+</ul>
+
+<h3>References :</h3>
+
+You can obtain a reference on a local variable (not globals ones for performances purpose) with operator <code>&</code>.
+Functions using references have to declare it in their arguments, in this case, variable acces is automatic.<br>
+For exemple:
+<mts>
+	function f(&x,&y) {
+		x++;
+		y = "hello";
+	}
+
+	var a = 0;
+	var b = 0;
+	f(&a,&b);
+	print(a,b); // display 1 and "hello"
+</mts>
+
+<code>:=</code> operator can be used to modify a reference contents:
+<mts>
+	var x = 0;
+	addr = &x;
+	addr := 3; // modify x
+</mts>
+
+<i>Missing for now: an operator (or a function) to get read access to the a reference contents.</i>
+
+<h3>Objects :</h3>
+
+A class is declared in this way :
+
+<mts>
+	class Point {
+
+		function Point() {
+			this.x = 0;
+			this.y = 0;
+		}
+
+		function Point(x,y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		function to_string() {
+			return "&lt;point x="+this.x+" y="+this.y+"&gt;";
+		}
+	}
+</mts>
+
+Then you create objects in this way :
+
+<mts>
+	p = new Point();
+	p2 = new Point(1,2);
+</mts>
+
+An object cab have many constructors with different number of arguments but only one function or field with the same name.
+
+<h3>Heritage :</h3>
+
+It is possible to herit from an object :
+
+<mts>
+	class Point3D extends Point {
+
+		function Point3D() {
+			this.x = 0;
+			this.y = 0;
+			this.z = 0;
+		}
+
+
+		function Point3D(x,y,z) {
+			super(x,y);
+			this.z = 0;
+		}
+
+		function to_string() {
+			return super.to_string() + "z = "+this.z;
+		}
+
+	}
+</mts>
+
+Methods can be overloaded. After overloading, superclass methods are accessible with the key word <i>super</i> as in Java.
+
+<h3>Specific methods :</h3>
+
+<ul>
+	<li><b>to_string</b> : to_string method return his string representation.<br>
+	<br>
+	<li><b>properties</b> : fields preceded by an underscore ( _ ) are <i>properties</i> replaced by get/set calls :
+		<mts>	p._x += 3;</mts>
+		is equivalent to :
+		<mts>	p.set_x( p.get_x() + 3 );</mts>
+		<i>Notice:</i> it is important that methods <i>set_*</i> return the new value to allow this kind of things :
+		<mts>	x = p._x++;</mts>
+	<li><b>arrays</b> : arrays access with [] are replaced with at/set_at calls :
+		<mts>	a[3] += "c";</mts>
+		is equivalent to
+		<mts>	a.set_at(3, a.at(3) + "c" );</mts>
+		(same notice as set_at method return).<br>
+		<br>
+	<li><b>getter / setter</b> : fields preceded by a dollar ( $ ) are replaced with particular get/set calls :
+		<mts>	p.$score += 3;</mts>
+		is equivalent to :
+		<mts>	p.set( p.get(id("$score")) + 3, id("$score") );</mts>
+		<i>Notice:</i> function <code>id</code> transform a string into a corresponding integer.<br>
+		<br>
+	<li><b>operator overloading</b> : you can overload operations <b>+</b>, <b>-</b>, <b>*</b> et <b>/</b> coding the following methods
+		<code>__add</code>, <code>__sub</code>, <code>__mult</code> et <code>__div</code>. So if <code>o</code>
+		is an object, following code :
+		<mts>	o += 4;</mts>
+		is equivalent to :
+		<mts>	o = o.__add(4);</mts>
+		<i>Notice:</i> it is note advise to make objects modifications in this methods, returning a mofified copy is safer.
+		Moreover, following code : <code>o * 3</code> is equivalent to <code>o.__mult(3)</code>
+		but <code>3 * o</code> return <code>null</code> (no commutation).
+</ul>
+
+<h3>Multiple files:</h3>
+
+<ul>
+	<li><b>Function <code>main()</code>:</b><br><br>
+		If a <code>main</code> function with 0 arguments is declared among the files, it will be called after initialisations done.
+		If there is many ones, an error message will be displayed at <i>linking</i>.<br>
+		<br>
+	<li><b>Includes :</b> <br><br>
+		<code><b>#include</b> "<i>my_file.mts</i>"</code>: include the file as if we do a copy/paste.<br>
+		<br>
+	<li><b>Namespaces :</b><br><br>
+		At each file (<i>toto.mts</i>) correspond a module with the first character put in uppercase (<i>Toto</i>). You can access to the
+		functions/variables defined in this file adding the module name (namespace) before the variable/function name
+		(<i>Toto.f(x)</i> call <i>f</i> function in the file <i>toto.mts</i>).<br>
+		<br>
+	<li><b>Import:</b>
+		<ul>
+			<li><code>import Module;</code> : after this instruction, all functions defined in  <i>module.mts</i> are now usable in current file
+			without need of the <i>Namespace</i>. On the other hand, <i>module.mts</i> compilation have to be done before curent file's one
+			(<i>module.mto</i> file have to exist).<br>
+			<br>
+			<li><code>import Module.f(x,y);</code> : allow to just import <i>f</i> function defined in <i>module.mts</i>.
+			Moreover, <i>module.mts</i> have no need to be compiled before current file. However you have to specify the name of each
+			function/variable importated and define its arguments count.
+		</ul>
+</ul>
+
+<h3>Compilation :</h3>
+
+<i>Compilation is no more necessary because hsmake.exe tool do it automaticaly</i>
+
+<ul>
+	<li>to compile :
+	<mts>	mts -c *.mts</mts> will compile each "mts" file into an "mto" file.<br>
+	<br>
+	<li>to link : after compilation you have to gather "mto" files in one single file :
+	<mts>	mts -l <i>output_file</i> *.mto</mts>
+	parameter <code>-ldbg</code> can be added to preserve variables and functions names.
+	You can add many ressources files withe the option <code>-r <i>file</i></code>.<br>
+	<br>
+	<li>to see generated bytecode :
+	<mts>	mts -d <code>file.mto</code></mts>
+</ul>
+
+</div>

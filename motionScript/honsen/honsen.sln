@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hsmake", "tools\hsmake\hsmake.vcproj", "{015CD9CA-6DBD-4366-8085-431F239F8F8B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "honsen_dll", "src\honsen_dll.vcproj", "{94DA466F-8F9F-4242-A832-D84EB940A4E7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "honsen", "src\honsen.vcproj", "{D42EAC49-00DC-4A9B-8D00-3DFA5B299C1C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{015CD9CA-6DBD-4366-8085-431F239F8F8B}.Debug.ActiveCfg = Debug|Win32
+		{015CD9CA-6DBD-4366-8085-431F239F8F8B}.Debug.Build.0 = Debug|Win32
+		{015CD9CA-6DBD-4366-8085-431F239F8F8B}.Release.ActiveCfg = Release|Win32
+		{015CD9CA-6DBD-4366-8085-431F239F8F8B}.Release.Build.0 = Release|Win32
+		{94DA466F-8F9F-4242-A832-D84EB940A4E7}.Debug.ActiveCfg = Debug|Win32
+		{94DA466F-8F9F-4242-A832-D84EB940A4E7}.Debug.Build.0 = Debug|Win32
+		{94DA466F-8F9F-4242-A832-D84EB940A4E7}.Release.ActiveCfg = Release|Win32
+		{94DA466F-8F9F-4242-A832-D84EB940A4E7}.Release.Build.0 = Release|Win32
+		{D42EAC49-00DC-4A9B-8D00-3DFA5B299C1C}.Debug.ActiveCfg = Debug|Win32
+		{D42EAC49-00DC-4A9B-8D00-3DFA5B299C1C}.Debug.Build.0 = Debug|Win32
+		{D42EAC49-00DC-4A9B-8D00-3DFA5B299C1C}.Release.ActiveCfg = Release|Win32
+		{D42EAC49-00DC-4A9B-8D00-3DFA5B299C1C}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

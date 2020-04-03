@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>Honsen Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Honsen Tutorial :</h1>
+
+<h3>Les Fichiers :</h3>
+
+Quelques indications sur les différents formats de fichiers utilisés par Honsen:
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>.hsx (<i>equiv .fla</i>)
+	<td>Le Bibliothèque d'un clip honsen : elle décris quels fichiers vont être ajoutés au clip, l'ordre de leur chargement,
+		les fichiers sources qui vont être executés, etc. <i>(voir ci-dessous la description du format HSX)</i>
+<tr bgcolor="#ffffff">
+	<td>.hs (<i>equiv .swf</i>)
+	<td>Le fichier HS est un Clip Honsen. Il contiens toutes les informations nécessaires à son execution et peut etre lancé avec le Player Honsen.
+<tr bgcolor="#ffffff">
+	<td>.mts (<i>equiv .as</i>)
+	<td>Un fichier MTS contiens du code source Motion-Script.
+<tr bgcolor="#ffffff">
+	<td>.mto
+	<td>Une fois compilé, le fichier MTS produit un fichier MTO du même nom.
+<tr bgcolor="#ffffff">
+	<td>.mtw
+	<td>Un fichier MTW est exporté depuis 3DSMax : il s'agit d'un objet 3D pouvant contenir des animations. Il peut être ajouté à la Bibliothèque.
+<tr bgcolor="#ffffff">
+	<td>.jpg .png
+	<td>Les fichiers JPEG et PNG sont des images qui peuvent être ajoutées à la Bibliothèque et serviront de texture pour les modèles 3D ou
+		d'image pour afficher les sprites.
+</table>
+
+<h3>La Bibliothèque :</h3>
+
+La Bibliothèque rassemble tous les éléments nécessaires à la création d'un clip HS. Elle est décrite dans un fichier au format HSX :
+
+<pre>
+	&lt;honsen width="400" height="300" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="test.mts"/&gt;
+	    &lt;pic file="particule.png" name="Particule"/&gt;
+	    &lt;mtw file="cube.mtw"&gt;
+	    	&lt;id object="cube3D" name="Cube"/&gt;
+	    &lt;/mtw&gt;
+	    &lt;font face="Times New Roman" size="16" bold="true" italic="false" name="Times16"/&gt;
+	&lt;/honsen&gt;
+</pre>
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>width
+	<td>la longueur en pixels du clip Honsen.
+<tr bgcolor="#ffffff">
+	<td>height
+	<td>la hauteur en pixels du clip Honsen.
+<tr bgcolor="#ffffff">
+	<td>bgcolor
+	<td>la couleur (RGB) de fond du clip Honsen.
+<tr bgcolor="#ffffff">
+	<td>fps
+	<td>la vitesse d'execution de la boucle main (code Motion-Script).
+<tr bgcolor="#ffffff">
+	<td>mts
+	<td>un fichier source Motion-Script est ajouté à la Bibliothèque.
+<tr bgcolor="#ffffff">
+	<td>pic
+	<td>une image est ajoutée à la Bibliothèque.
+<tr bgcolor="#ffffff">
+	<td>mtw
+	<td>un objet 3D est ajouté à la Bibliothèque.
+<tr bgcolor="#ffffff">
+	<td>font
+	<td>un nom de font est ajouté à la Bibliothèque. Pour ajouter une font qui n'est pas une font système, il faut définir l'attribut "file":
+	le fichier correspondant sera automatiquement ajouté la Bibliothèque.
+<tr bgcolor="#ffffff">
+	<td><i>name</i>
+	<td>le champ "name" pour les fichiers "pic", et "font" désigne un nom de resource qui permettra par la suite d'accéder au données
+		depuis Motion-Script <i>(voir l'aide Motion-Script sur les resources)</i>.<br>
+		pour les fichiers "mtw", cette resource doit être attachée à un objet 3D contenu dans le fichier.
+</table>
+
+<h3>Créer un Clip :</h3>
+
+Une fois la Bibliothèque au format HSX créee, l'outil <code>hsmake.exe</code> permet de créer le Clip Honsen correspondant. Pour cela,
+il suffit d'éxecuter <code>hsmake <i>file.hsx</i></code>. Si tout se passe bien, un fichier <code>file.hs</code> est crée qui pourra
+être lu avec le Player Honsen. Sinon, un message erreur est affiché.
+
+L'outil <code>hsmake.exe</code> effectue les tâches suivantes :
+<ol>
+	<li>vérifie la validité du fichier HSX
+	<li>vérifie l'existence et le format de tous les fichiers de la bibliothèque
+	<li>compile tous les fichiers Motion-Script de la bibliothèque
+	<li>rassemble les fichiers MTO compilés en un fichier MTX
+	<li>crée un clip HS qui rassemble tous les fichiers de la bibliothèque
+</ol>
+
+<h3>Lire un Clip :</h3>
+
+Une fois le clip HS crée, il suffit de lancer le Player Honsen (<code>hsrun.exe</code>) pour l'exécuter.
+
+</body>
+</html>

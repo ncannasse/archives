@@ -1,0 +1,2 @@
+@CABARC.EXE -s 6144 N HonsenPlugin.cab loading.hs HonsenPlugin.inf ..\..\bin\HonsenPlugin.ocx ..\..\bin\gc.dll ..\..\bin\m3dse.dll ..\..\bin\std.dll ..\..\bin\hslib.dll
+@signcode.exe -spc cert.spc -v mykey HonsenPlugin.cab

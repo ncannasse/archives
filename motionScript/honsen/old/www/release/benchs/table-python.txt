@@ -1,0 +1,20 @@
+import sys, time
+from time import *
+
+
+init = clock()
+ellapsed = 0
+cpt = 0
+res = 0
+tab = range(10000)
+
+
+while( ellapsed < 10):
+	cpt += 1
+	for i in range(10000):
+		tab[i] = i
+	for i in range(10000):
+		res = tab[i]
+	ellapsed = clock() - init
+
+print "%s times in %s ms ==> %s ms for 1 loop\n" % (cpt, ellapsed * 1000, ellapsed * 1000 / cpt)

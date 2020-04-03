@@ -1,0 +1,9 @@
+2005-05-?? : honsen 2.01
+	added textures, PNG support
+	fixed ambient problem
+	added zlib compression
+	untransformed meshes
+	Clip and ClipPlayer for SWF textures
+
+2005-05-13 : honsen 2.0
+	initial release

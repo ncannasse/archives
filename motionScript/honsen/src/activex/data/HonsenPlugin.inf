@@ -1,0 +1,47 @@
+
+[Version]
+Signature="$Chicago$"
+AdvancedINF=2.5
+
+[DefaultInstall]
+CopyFiles=HonsenFiles, inffile
+RegisterOCXs=RegisterOCXSection
+
+[DefaultUninstall]
+cleanup=1
+Delfiles=HonsenFiles
+UnRegisterOCXs=UnRegisterOCXSection
+
+[strings]
+productname="Honsen"
+DefaultName = "Motion-Twin Honsen"
+ComponentID = "Honsen"
+
+VersionNumber = "1,0,0,0"
+
+LocaleID = "EN"
+
+[RegisterOCXSection]
+%11%\mt\honsen\honsen_activex.ocx
+
+[UnRegisterOCXSection]
+%11%\mt\honsen\honsen_activex.ocx
+
+[SourceDisksNames]
+1="Honsen Files","HonsenPlugin.cab",1
+
+[SourceDisksFiles]
+honsen_activex.ocx=1
+
+[HonsenFiles]
+mtsvm.dll,,,33
+honsen.dll,,,33
+gc.dll,,,33
+honsen_activex.ocx,,,33
+
+[inffile]
+HonsenPlugin.inf,,,33
+
+[DestinationDirs]
+HonsenFiles=11, mt\honsen
+inffile=17

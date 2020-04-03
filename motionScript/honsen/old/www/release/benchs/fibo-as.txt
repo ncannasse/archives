@@ -1,0 +1,20 @@
+function fibo(n) {
+	if(n <= 1)
+		return 1;
+	else
+		return fibo(n-2) + fibo(n-1);	
+}
+
+init = getTimer();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+
+while(ellapsed < 10000){
+	cpt++;
+	res += fibo(27);
+	ellapsed = getTimer() - init;
+}
+
+t = ellapsed / cpt;
+stop();

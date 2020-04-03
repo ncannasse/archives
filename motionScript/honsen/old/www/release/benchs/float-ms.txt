@@ -1,0 +1,15 @@
+init = tick_time();
+ellapsed = 0;
+cpt = 0;
+res = 1.0;
+
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 100000; i++){
+		res *= 1.00001;
+		res /= 1.00001;
+	}
+	ellapsed = tick_time() - init;
+}
+t = ellapsed * 1.0 / cpt;
+print(cpt + " times in " + ellapsed + " ms ==> " + t + " ms for 1 loop\n");

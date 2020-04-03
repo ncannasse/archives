@@ -1,0 +1,69 @@
+Honsen 2.0 TODO :
+-----------------
+- full collision detection
+- vectX support
+- more tools for editing
+- HS signatures
+- network scripting API
+- JPEG2000 support
+- "Properties" : objet MTS serializé dans le MTW
+- passages de parametres depuis HTML
+
+Honsen 1.0 TODO :
+-----------------
+- complete web site
+X MTW/ATW viewer
+X HS compression
+X enable texture wrapping
+- memory leaks (pc julien)
+- revoir les fonts
+? collisions
+- CAB signature
+- nice loading.hs
+X restaurer PRINT
+- tester TRACE sous IE (disable)
+X grosse update MTS (pour Mtypes & mod_mts)
+
+Honsen 0.4 - 2004/07/27 :
+-------------------------
+- maxtwin2
+- blender plugin
+- many bugfixes
+- animations : bones
+- added vectX *not integrated*
+- added solid *not integrated*
+- fixed multithread issues (contexts)
+- added IE plugin
+
+Honsen 0.3 - 2003/11/14 :
+-------------------------
+- added font+text support
+- added inheritence (extends + super) for MotionScript
+- added Mesh
+- tools : HSXEdit , BinView
+- many bugfixes
+
+Honsen 0.2 - 2003/11/05 :
+-------------------------
+- added config
+- added HSLib : Key + mouse
+- added Std.set_main + FPS in HSX
+- fixed GC memory handling
+- fixed GC *bug* (framebuffer in roots)
+- fixed timing
+
+Honsen 0.1 - 2003/10/22 :
+-------------------------
+- added M3DSE
+- Std : Matrix Quaternion Vector TRS Camera
+- Api2D : Sprite Vector
+- objects operator overloading
+- resources handling
+- primitives static
+
+Honsen 0.0 - 2003/10/12 :
+-------------------------
+- hsmake
+- player hsrun (no M3DSE)
+- libraries Std and Math
+- namespaces and modules import

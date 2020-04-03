@@ -1,0 +1,150 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,Honsen Reference-->#)
+
+<div id="text">
+<h1>Honsen Reference :</h1>
+
+<h3>Files :</h3>
+
+Some indications on different files formats used by Honsen (flash equivalent):
+
+<table>
+<tr>
+	<td class="prem">.hsx
+	<td width="85%">Honsen clip library : describes which files will be added to the clip, their loading order,
+		sources files to be executed, etc. <i>(see below HSX format description)</i>
+<tr>
+	<td class="prem">.hs
+	<td>The HS file is an Honsen Clip. It contains all the informations necessary to its execution and can be ran with the Honsen player.
+<tr>
+	<td class="prem">.mts
+	<td>An MTS file contains Motion-Script source code.
+<tr>
+	<td class="prem">.mto
+	<td>It's the compiled version of an MTS file (with the same name).
+<tr>
+	<td class="prem">.mtw
+	<td>An MTW file is exported from your 3D modeling software (Blender for example) <a href="file-format.html">[html]</a>: it contains 3D objects.
+	It could be added to the library.
+<tr>
+	<td class="prem">.atw
+	<td>An ATW file is also exported from your 3D modeling software and describe animations of your models <a href="file-format.html">[html]</a>. It could also be added to the library.
+<tr>
+	<td class="prem">.jpg .png
+	<td>JPEG and PNG files are pictures you can add to the library to be used as textures for your meshes or pictures for your sprites.
+</table>
+
+<h3>The Library :</h3>
+
+Library gathers all elements an HS clip need to be created. It is described in an XML format (HSX file) :
+
+<pre>
+	&lt;honsen width="400" height="300" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="test.mts"/&gt;
+	    &lt;pic file="particule.png" res="Particule"/&gt;
+	    &lt;mtw file="cube.mtw"&gt;
+	    	&lt;id name="cube3D" res="Cube"/&gt;
+	    &lt;/mtw&gt;
+	    &lt;atw file="anim\tan.atw"&gt;
+			&lt;id name="Action" res="Walk"/&gt;
+		&lt;/atw&gt;
+	    &lt;font face="Times New Roman" size="16" bold="true" italic="false" res="Times16"/&gt;
+	&lt;/honsen&gt;
+</pre>
+
+<table>
+<tr>
+	<td class="prem">width
+	<td width="85%">Honsen clip width in pixels.
+<tr>
+	<td class="prem">height
+	<td>Honsen clip height in pixels.
+<tr>
+	<td class="prem">bgcolor
+	<td>Honsen clip RGB background color.
+<tr>
+	<td class="prem">fps
+	<td>main loop execution speed (Motion-Script code).
+<tr>
+	<td class="prem">mts
+	<td>a Motion-Script source file is added to the library.
+<tr>
+	<td class="prem">pic
+	<td>a picture is added to the library.
+<tr>
+	<td class="prem">mtw
+	<td>a 3D object is added to the library.
+<tr>
+	<td class="prem">atw
+	<td>an animation is added to the library.
+<tr>
+	<td class="prem">font
+	<td>a font name is added to the library. To add a non-system font, you must define the attribute "file": the corresponding will be
+	automatically added to the library.
+<tr>
+	<td class="prem"><i>res</i>
+	<td>the "res" field for "pic" and "font" indicate a resource name allowing to access data from Motion-Script
+	<i>(see Motion-Script help on resources for more details)</i>.<br>
+		for "mtw" and "atw", this resource have to be associated with a 3D object or an animation contained in the file.
+</table>
+
+<h3>Export 3D Objects :</h3>
+
+For now, you can use the Blender script to export your objects from Blender to MTW file format.<br>
+The script is very easy to use :
+<ol>
+<li>copy it to your Blender scripts directory and then refresh Blender script menu.</li>
+<li>A new entry appears named Honsen MTW, click it and the script begin.</li>
+<li>Visual interface allow you to export the object, by clicking "Export Mesh" button, or animations, by choosing it in the rollup menu and
+clicking "Export Animation(s)".</li>
+<li>The "update" button allow you to refresh script data when you changed the 3D scene and didn't close the script.</li>
+<li>Exported files are at MTW format for objects and ATW format for animations and can be directly used in your library file.</li>
+</ol>
+
+<h3>View your MTW and ATW files :</h3>
+
+To help you to easily visualize your MTW and ATW files, we have an usefull viewer included in the SDK.
+<br/>
+You can open an MTW file or an HS file from the viewer to see a tree of the tags it contains and a 3D visualization of the scene.<br>
+In the case of an MTW file, you can :
+<ul>
+	<li>manipulate the camera around the object it contains, using the mouse or arrow keys
+	<li>load animations for the object it contains and play them, simply clicking the corresponding animation icon
+	<li>change scene background color
+</ul>
+Files loaded in the viewer are automatically reloaded if they change on disk which allows you to modify them and see changes in real-time.
+
+<h3>Create a Clip :</h3>
+
+Once you have created an HSX clip library, <code>hsmake.exe</code> tool allows you to create a corresponding Honsen Clip. Just execute
+<code>hsmake <i>file.hsx</i></code> to do this. If no error occurs, a <code>file.hs</code> file is created and would be readable with the
+Honsen player. If not, an error message is displayed.
+
+The <code>hsmake.exe</code> tool do the following job :
+<ol>
+	<li>check HSX file validity
+	<li>check if all files in library are present and well formated
+	<li>compile every Motion-Script files included in the library
+	<li>create an HS clip gathering all files of the library
+</ol>
+
+<h3>Read a Clip :</h3>
+
+Once the HS Clip is created, simply launch Honsen palyer (<code>hsrun.exe</code>) to execute it.
+<code>hsrun.exe</code> is the standalone Honsen clip player and allow you to test and debug you application on your local computer.
+<br>
+
+<h3>Display a Clip on a web page :</h3>
+
+To publish an Honsen application on your website, you just have to insert a specific tag in the HTML source of your page :
+<pre>
+	&lt;OBJECT WIDTH="100%" HEIGHT="100%"
+	   CLASSID="CLSID:7E47C3F9-B809-48E2-88BF-745DED4C6414"
+	   CODEBASE="http://www.honsen.org/plugin/HonsenPlugin.cab"&gt;
+	   &lt;param name="honsenURL" value="main.hs" /&gt;
+	&lt;/OBJECT&gt;
+</pre>
+The exemple above, will display the <code>main.hs</code> Honsen Clip in the entire browser window.
+The <code>CLASSID</code> is the ActiveX Honsen identifiant, you must use this one.
+The <code>CODEBASE</code> is the web location of the plugin in the case the user have to download it. The location given
+here might change in the future.
+</div>

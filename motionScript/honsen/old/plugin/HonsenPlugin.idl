@@ -1,0 +1,52 @@
+// HonsenPlugin.idl : source de la bibliothèque de types pour le projet de contrôle ActiveX.
+
+// Ce fichier sera traité par l'outil Compilateur MIDL pour
+// produire la bibliothèque de types (HonsenPlugin.tlb) qui deviendra une ressource dans
+// HonsenPlugin.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(958F3F6D-EF8D-4C52-A28A-54BF526E6810), version(1.0),
+  helpfile("HonsenPlugin.hlp"),
+  helpstring("Module de contrôle ActiveX HonsenPlugin"),
+  control ]
+library activeXtestLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Dispinterface principale pour CactiveXtestCtrl
+
+	[ uuid(8D62FB73-ABE7-4FBB-A32C-B6A347FFF947),
+	  helpstring("Dispinterface pour HonsenPlugin Control")]
+	dispinterface _DactiveXtest
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Dispinterface d'événement pour CactiveXtestCtrl
+
+	[ uuid(7A81ABDA-7A1C-489D-A926-6463748AE321),
+	  helpstring("Interface d'événement pour HonsenPlugin Control") ]
+	dispinterface _DactiveXtestEvents
+	{
+		properties:
+			//  L'interface d'événement n'a pas de propriété
+
+		methods:
+	};
+
+	//  Informations de classe pour CactiveXtestCtrl
+
+	[ uuid(7E47C3F9-B809-48E2-88BF-745DED4C6414),
+	  helpstring("HonsenPlugin Control"), control ]
+	coclass HonsenPlugin
+	{
+		[default] dispinterface _DactiveXtest;
+		[default, source] dispinterface _DactiveXtestEvents;
+	};
+
+};

@@ -1,0 +1,267 @@
+
+$HEADER(Home-->/,Developers-->developers.html,Tutorials-->tutorials.html,Fonts and sprites-->#)
+
+<div id="text">
+
+<h1>Fonts and sprites</h1>
+
+Here we will see how to use fonts to diplay text in the main 3D window and extend it to sprites utilisation.
+
+<h1>HSX file :</h1>
+
+First update your hsx file made in <a href="tutos1.html">first tutorial</a> this way:
+<pre>
+	&lt;honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="main.mts"/&gt;
+	    <font color="red">&lt;font face="Atlantis" size="40" italic="true" file="CW_ATLAN.ttf" res="Atlantis"/&gt;</font>
+	&lt;/honsen&gt;
+</pre>
+
+A new ressource is necessary to use fonts: the <b>font</b> ressource here in red.
+Each kind of ressources has its proper options and you have to set them correclty.
+For a font:
+<table>
+<tr>
+	<td>face
+	<td>the real name of the font in its file.
+<tr>
+	<td>size
+	<td>size of the font you want to use.
+<tr>
+	<td>italic
+	<td>whether the font will be display in italic or not.
+<tr>
+	<td>bold
+	<td>whether the font will be display in bold or not.
+<tr>
+	<td>file
+	<td>name and path of the file containing the font.
+<tr>
+	<td>res
+	<td>name of the ressource, the name you will use to call this ressource in your code.
+</table>
+
+
+<h1>MTS file</h1>
+
+Printing in the 3D view is a little harder than in the log window. The following code do the job:
+<mts>
+	myGroup = new Group(0.0002);
+	myGroup._x = _width/2;
+	myGroup._y = _height/2;
+
+	myText = new Text(myGroup);
+	myText._text = "Hello World !!!";
+	myText._color = 0x000000;
+	myText._font = 'Atlantis;
+	myText._x = -100;
+	myText._y = -2;
+</mts>
+
+Very simply, we first create a group to contain the text.
+
+<mts>
+	myGroup = new Group(0.0002);
+	myGroup._x = _width/2;
+	myGroup._y = _height/2;
+</mts>
+
+In Honsen, every 2D ressources (text, sprite..) have to be pack in a group.<br>
+A group can translate, rotate or scale and its transformations are also applyed to the ressources it contains.
+This way you can transform many objects at the same time if they are in the same group.<br>
+In the example, we have translate the group in the middle of the screen ( <code>_width</code> and  <code>_height</code>
+are globals set respectively to the width and the height of the window you specify in the hsx file ) modifying its
+<code>_x</code> and  <code>_y</code> coordonates.<br>
+<br>
+
+Then we create the text we want to display.
+
+<mts>
+	myText = new Text(myGroup);
+	myText._text = "Hello World !!!";
+	myText._color = 0x000000;
+	myText._font = 'Atlantis;
+	myText._x = -100;
+	myText._y = -2;
+</mts>
+
+When we create a text we have to specify the group to put it in, here the group we just create before (<i>myGroup</i>).<br>
+Then set the text to fit what you need. Many fields are essential such as :
+
+<ul>
+<li><code>_text</code> that will contain the real text
+<li><code>_font</code> that is the ressource to use as font for this text (ressource name are always preceded by a quote (') )
+</ul>
+
+And others are optional :
+
+<ul>
+<li><code>_color</code> the color of the text, an <i>int</i> of the form 0xRRGGBB with RR, GG, BB in the range [00, FF]
+<li><code>_x</code> the x coordinate of the text in the group coordinates system
+<li><code>_y</code> the y coordinate of the text in the group coordinates system
+<li><code>_alpha</code> the transparrency of the text in range [0, 1]
+<li> ...
+</ul>
+<br>
+
+Compile using hsmake and you see something like that<br>
+<center><img src="tutos/screen2-1.gif" /></center>
+
+<br>
+OK it works !<br>
+But maybe you are searching for the main loop of the application...in fact there is no !<br>
+Now let's have some fun with our text and define a main loop.<br>
+
+<h3>The main loop :</h3>
+
+To have Honsen loop on a function and so create an interactive application, you just have to call the function
+<code>set_main(loop_function)</code> with, in parameter, the function you want to use as main loop. <br>
+For example, add this line in the end of your mts file:
+<mts>
+	set_main(update);
+</mts>
+
+and at the beggining of the program, define the function <code>update()</code> in this way:
+
+<mts>
+	function update() {
+
+	}
+</mts>
+
+Now, the function <code>update()</code> will be called by Honsen at the rate you specify in your hsx file.<br>
+To illustrate its works, we are going to make the text zoom, spin and change color along the time.<br>
+We need two vectors to store the colors we want to interpolate, declare them global, just before our text:
+<mts>
+	c1 = new Vector(255,0,0);
+	c2 = new Vector(0,0,255);
+</mts>
+
+Its the only thing we need outside the main loop.<br>
+In the function <code>update()</code> we will calculate a coefficient with the <code>cos(x)</code> function and
+the <code>time()</code> function. The <code>time()</code> function returns the time in millisecond ellapsed since
+the beginning of the application.<br>
+We also compute the interpolation between the two vectors using the <code>vlerp(v1, v2, coef)</code> function.
+<code>vlerp</code> and <code>cos</code> are part of the math module so we need to import it at the beginning of the file:
+
+<mts>
+	import Math;
+</mts>
+
+Last step is to set at each turn the new value of <code>_color, _rotation, _xscale, _yscale</code> fields of the group or the text.
+<br>
+At the end you should have a mts file containing something like that:
+
+<mts>
+	import Math;
+
+	function update() {
+		ct = cos(time());
+		c = vlerp(c1, c2, (ct+1)/2);
+
+		myText._color = int(c._x)*65536 + int(c._y)*256 + int(c._z);
+		myGroup._rotation += 0.1;
+		myGroup._xscale = ct + 2;
+		myGroup._yscale = ct + 2;
+	}
+
+	c1 = new Vector(255,0,0);
+	c2 = new Vector(0,0,255);
+
+	myGroup = new Group(0.0002);
+	myGroup._x = _width/2;
+	myGroup._y = _height/2;
+
+	myText = new Text(myGroup);
+	myText._text = "Hello World !!!";
+	myText._color = 0x000000;
+	myText._font = 'Atlantis;
+	myText._x = -100;
+	myText._y = -2;
+
+	set_main(update);
+</mts>
+
+If you compile and run this you will see your text zooming, spinning and progressively go from red to blue !
+<center><img src="tutos/screen2-2.gif" /></center>
+
+<h3>Using Sprites :</h3>
+
+We are going to add spinning circles on the screen using the sprite api.
+First we have to add the ressource we want to use as sprite in the hsx file.
+
+<pre>
+	&lt;honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="main.mts"/&gt;
+	    &lt;font face="Atlantis" size="40" italic="true" file="CW_ATLAN.ttf" res="Atlantis"/&gt;
+	    <font color="red">&lt;pic file="particule.png" res="Particule"/&gt;</font>
+	&lt;/honsen&gt;
+</pre>
+
+The <i>res</i> field is also used to reference the ressource from the script.
+<br>
+Two little functions to manage our sprites along the time:
+<mts>
+function update_sprite(s, p) {
+	var a = s.ang + s.aspeed;
+	var d = s.dist;
+	s.ang = a;
+	s._x = Math.cos(a)*d;
+	s._y = Math.sin(a)*d;
+}
+
+function gen_sprite() {
+	var s = new Sprite(spriteGroup);
+	s.ang = random(360)*Math.pi/180;
+	s.dist = random(_width)/2;
+	s.aspeed = random(10)/100.0;
+	s._width = 10;
+	s._height = 10;
+	s._color = random(0xFFFFFF);
+	s._bitmap = 'Particule;
+	s._alpha = 0.2;
+	sprites.add(s);
+}
+</mts>
+
+First one is only math stuff to compute the next position of a sprite. <br>
+Second is more interessant. <code>gen_sprite</code> generate a sprite, computing and giving him a variation
+angle and a distance to the group.
+It also fill important fields of sprite class like width and height, color or alpha. Finaly it sets the bitmap
+field with the ressource we choose: Particule.<br>
+<br>
+As <code>Text</code>, a <code>Sprite</code> need a <code>Group</code> to be created in.<br>
+<br>
+Other useful parametters you can modify are:
+<ol>
+<li>depth: the drawing priority order of the sprite</li>
+<li>tu, tv, tu2, tv2: uv coordinates in the ressource used to choose drawing only a particular region of the
+picture used as ressource</li>
+</ol>
+
+uv coordinates are proportions of the global size.Set to (0, 0) (1, 1), it represents the full picture.
+Set to (0.5, 0) (1, 0.5), it represents the right upper quarter of the picture.<br>
+<br>
+Just add those lines to your code to have some sprite spinning on the screen.
+<mts>
+	spriteGroup = new Group(0.0002);
+	spriteGroup._x = _width/2;
+	spriteGroup._y = _height/2;
+
+	sprites = new List();
+	for(i=0;i<100;i++)
+		gen_sprite();
+</mts>
+
+And this line in your update function
+<mts>
+	sprites.iter(update_sprite, null);
+</mts>
+
+<br>
+<br>
+You are now familiar with 2D features of Honsen and ready to pass to 3D.
+<br>
+Next step, you will learn <a href="tutos3.html">how to create a mesh in Honsen and basic keyboards controls</a>.
+
+</div>

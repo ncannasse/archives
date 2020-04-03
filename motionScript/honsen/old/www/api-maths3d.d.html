@@ -1,0 +1,178 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,API Reference-->docapiref.html,3D maths-->#)
+<div id="text">
+<h1>MTS Math3D Library :</h1>
+
+<i>This library is part of Standard (Std) library, so it is automatically included in all MTS files.</i>
+
+<h3>Vector :</h3>
+
+Vector represents a point or a direction in 3D space.
+
+<table>
+<tr>
+	<td class="prem">new Vector()
+	<td>create a new vector.
+<tr>
+	<td class="prem">new Vector(x,y,z)
+	<td>create a new vector.
+<tr>
+	<td class="prem">_x
+	<td>x vector coordinate.
+<tr>
+	<td class="prem">_y
+	<td>y vector coordinate.
+<tr>
+	<td class="prem">_z
+	<td>z vector coordinate.
+<tr>
+	<td class="prem">_length
+	<td>vector normalises.
+<tr>
+	<td class="prem">+
+	<td>add two vectors.
+<tr>
+	<td class="prem">-
+	<td>substract two vectors.
+<tr>
+	<td class="prem">*
+	<td>multiply the vector by a number or transform it by a matrix.
+<tr>
+	<td class="prem">/
+	<td>divide the vector by a number.
+<tr>
+	<td class="prem">normalize()
+	<td>normalize the vector.
+</table>
+
+<h3>Matrix :</h3>
+
+A matrix is a full representation of a 3D transformation.
+
+<table>
+<tr>
+	<td class="prem">new Matrix()
+	<td>create an identity matrix.
+<tr>
+	<td class="prem">new Matrix(m)
+	<td>create a copy of the matrix m.
+<tr>
+	<td class="prem">new Matrix(q)
+	<td>create a rotation matrix from the quaternion q.
+<tr>
+	<td class="prem">new Matrix(t)
+	<td>create a matrix from the TRS t (see below for a description of TRS).
+<tr>
+	<td class="prem">new Matrix(vt,qr,vs)
+	<td>create a matrix from the quaternion qr the translation vector vt and the scale vector vs
+	(each value of this vector is the scale factor along an axis). Each argument accepts a null value.
+<tr>
+	<td class="prem">*
+	<td>multiply (compose) two matrix.
+<tr>
+	<td class="prem">inv()
+	<td>return matrix inverse.
+<tr>
+	<td class="prem">pos()
+	<td>return the position vector included in the matrix.
+</table>
+
+<h3>Quaternion :</h3>
+
+A quaternion represents a 3D rotation.
+
+<table>
+<tr>
+	<td class="prem">new Quaternion()
+	<td>create a new quaternion.
+<tr>
+	<td class="prem">new Quaternion(q)
+	<td>create a copy of the quaternion.
+<tr>
+	<td class="prem">new Quaternion(v,a)
+	<td>create a new quaternion from an angle a and a vector v representing the rotation axis.
+<tr>
+	<td class="prem">new Quaternion(x,y,z)
+	<td>create a new quaternion with rotation values around x, y and z axis.
+<tr>
+	<td class="prem">*
+	<td>combine two quaternions.
+<tr>
+	<td class="prem">inv()
+	<td>inverse a quaternion.
+<tr>
+	<td class="prem">to_matrix()
+	<td>return corresponding rotation matrix.
+</table>
+
+<h3>TRS :</h3>
+
+A TRS (translation-rotation-scale) is a class allowing simplified matrix building, taking into account the three basics transformations separatly.
+
+<table>
+<tr>
+	<td class="prem">new TRS()
+	<td>create a new TRS.
+<tr>
+	<td class="prem">new TRS(t)
+	<td>create a new TRS with its translation vector initialised to t.
+<tr>
+	<td class="prem">new TRS(trs)
+	<td>create a copy of a TRS.
+<tr>
+	<td class="prem">new TRS(vt,qr,vs)
+	<td>create a TRS from the quaternion qr the translation vector vt and the scale vector vs. Each argument accepts a null value.
+<tr>
+	<td class="prem">_tx
+	<td>access to the translation x value.
+<tr>
+	<td class="prem">_ty
+	<td>access to the translation y value.
+<tr>
+	<td class="prem">_tz
+	<td>access to the translation z value.
+<tr>
+	<td class="prem">_sx
+	<td>access to the scale x value.
+<tr>
+	<td class="prem">_sy
+	<td>access to the scale y value.
+<tr>
+	<td class="prem">_sz
+	<td>access to the scale z value.
+<tr>
+	<td class="prem">_t
+	<td>read/write translation vector.
+<tr>
+	<td class="prem">_r
+	<td>read/write rotation quaternion.
+<tr>
+	<td class="prem">_s
+	<td>read/write scale vector.
+<tr>
+	<td class="prem">+ , *
+	<td>combine two TRS.
+<tr>
+	<td class="prem">to_matrix()
+	<td>compute the TRS corresponding matrix.
+</table>
+
+<h3>Additional functions :</h3>
+
+<i>This functions are part of the math library.</i>
+
+<table>
+<tr>
+	<td class="prem">vlerp(v1,v2,f)
+	<td>do a linear interpolation between two vectors v1 and v2 according to f coefficient.
+<tr>
+	<td class="prem">vdot(v1,v2)
+	<td>compute the dot-product of the two vectors.
+<tr>
+	<td class="prem">vcross(v1,v2)
+	<td>compute the two vectors cross-product.
+<tr>
+	<td class="prem">qslerp(q1,q2,f)
+	<td>do a spherical interpolation between two quaternions q1 and q2 according to f coefficient.
+</table>
+
+</div>

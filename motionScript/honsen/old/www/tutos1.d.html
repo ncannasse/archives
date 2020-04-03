@@ -1,0 +1,53 @@
+
+$HEADER(Home-->/,Developers-->developers.html,Tutorials-->tutorials.html,Hello World-->#)
+
+<div id="text">
+
+<h1>Hello World : first Honsen application</h1>
+
+This document will teach you how to create your first Honsen application (typical "Hello World")
+very easily.
+
+<h1>HSX file</h1>
+
+First of all, you will need to create a library file (.hsx) to set basic options of your application
+and indicate which ressources to use.
+<pre>
+	&lt;honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40"&gt;
+	    &lt;mts file="main.mts"/&gt;
+	&lt;/honsen&gt;
+</pre>
+
+Only one ressource is needed for this example:
+<ol>
+	<li><code>&lt;mts file="main.mts"/&gt;</code> gives the path and name of the only file we are using (main.mts)
+</ol>
+
+Options sets in <code>&lt;honsen /&gt;</code> are generals options of the application.<br>
+Here we ask Honsen to run the main loop at 40 frames per second in a window of 800 pixels
+large and 600 pixels hight on a white baground.
+
+<h1>MTS file</h1>
+
+An mts file is a code file and so the main file of your aplication. <br>
+You can have unlimited number of mts files to describe your application but in this example we will only have one (main.mts as we specified in the hsx file). <br>
+Here comes the code you need to display "Hello World !!!" in a log window.
+<mts>
+	print("Hello World");
+</mts>
+
+At this point you have a runnable Honsen application. Just compile your hsx file using hsmake tool and then run the hs file just
+created by the compilation using hsrun tool.
+
+You should have something like that on your screen<br>
+<center><img src="tutos/screen1-1.gif" /></center>
+
+
+<br>
+<br>
+You just have made your first Honsen application and now you have understood the way it works. You can start writting your own
+application but maybe you first want to learn more on other interesting features explained in next tutorials.
+<br>
+Next step, you will see <a href="tutos2.html">how to play whith fonts and sprites in Honsen</a>.
+
+</div>

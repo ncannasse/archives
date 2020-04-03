@@ -1,0 +1,19 @@
+function fibo(n) {
+	if(n <= 1)
+		return 1;
+	else
+		return fibo(n-1) + fibo(n-2);
+}
+
+init = tick_time();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+do{
+	cpt++;
+	res += fibo(27);
+	ellapsed = tick_time() - init;
+}while(ellapsed < 10000);
+
+t = ellapsed * 1.0 / cpt * 1.0
+print(cpt + " times fibo(27) in " + ellapsed + " ms ==> " + t + " ms for 1 loop\n");

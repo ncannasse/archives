@@ -1,0 +1,50 @@
+// honsen_activex.idl : source de la bibliothèque de types pour le projet de contrôle ActiveX.
+
+// Ce fichier sera traité par l'outil Compilateur MIDL pour
+// produire la bibliothèque de types (honsen_activex.tlb) qui deviendra une ressource dans
+// honsen_activex.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(9ACC075A-EDE1-4B0E-8F4D-D3AD89153ABA), version(1.0),
+  helpfile("honsen_activex.hlp"),
+  helpstring("Module de contrôle ActiveX honsen_activex"),
+  control ]
+library honsen_activexLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Dispinterface principale pour CHonsenPluginCtrl
+
+	[ uuid(FC55D090-25DB-425A-B42F-5074C619BCCF),
+	  helpstring("Dispinterface pour HonsenPlugin Control")]
+	dispinterface _Dhonsen_activex
+	{
+		properties:
+		methods:
+	};
+
+	//  Dispinterface d'événement pour CHonsenPluginCtrl
+
+	[ uuid(D16FC0AD-E137-4A09-A7D2-80B39B4EAAD5),
+	  helpstring("Interface d'événement pour HonsenPlugin Control") ]
+	dispinterface _Dhonsen_activexEvents
+	{
+		properties:
+			//  L'interface d'événement n'a pas de propriété
+
+		methods:
+	};
+
+	//  Informations de classe pour CHonsenPluginCtrl
+
+	[ uuid(0F334BAB-D558-403A-9D71-6C6F65A4FEB3),
+	  helpstring("HonsenPlugin Control"), control ]
+	coclass honsen_activex
+	{
+		[default] dispinterface _Dhonsen_activex;
+		[default, source] dispinterface _Dhonsen_activexEvents;
+	};
+
+};

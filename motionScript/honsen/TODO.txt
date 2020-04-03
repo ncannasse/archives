@@ -1,0 +1,54 @@
+Honsen TODO
+-----------
+
+Vect :
+------
+	- masks
+	- improve quality and speed of lines
+	- bitmaps fills : repeat and smooth flags
+	- colored bitmaps : need cache, same as gradients
+	- drawing API
+	- API functions :
+		swapDepths(int)
+		_color & _alpha property
+		getBounds()
+		setMask(mc)
+		hitTest ?
+
+3D :
+----
+	X light engine from M3DSE
+	X model loading
+	X model color
+	X maths apis
+	X camera
+	X lights
+	X alpha
+	X textures
+	X mesh builder
+	X textures resources
+	X png support with alpha
+	X unstransformed meshes (2D api)
+	X vector textures
+	X point-sprites
+	- hittests
+	- animations
+
+Others :
+--------
+	X events KeyB & Mouse
+	X integrate and Test IE plugin
+	X write Mozilla plugin
+		- installer .exe (XPI is not very easy to install)
+		X fix opengl stack overflow on window resize
+	X controls sous IE
+	X controls sous Mozilla
+	X disable GC warnings
+	X APIs MotionTypes
+	X fixed zoom on IE/Mozilla
+	X integration mtypes / hsmake
+	X compression ZLIB
+	- Linux port
+	- test IE/Mozilla url 404 / invalid hs file
+	- files formats documentation
+	- security : inifinites loop ? limited memory ?

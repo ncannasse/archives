@@ -1,0 +1,18 @@
+function call2(i){
+	return i;
+}
+
+init = getTimer();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 10000; i++)
+		res = call2(i);
+	ellapsed = getTimer() - init;
+}
+
+t = ellapsed / cpt;
+stop();

@@ -1,0 +1,15 @@
+init = getTimer();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 10000; i++)
+		for(j = 0; j < 10; j++)
+			res = i + j;
+	ellapsed = getTimer() - init;
+}
+
+t = ellapsed / cpt;
+stop();

@@ -1,0 +1,49 @@
+<honsen width="800" height="600" bgcolor="0xFFFFFF" fps="40">
+	<font face="Times New Roman" size="40" italic="true" res="Speed"/>
+	<font face="Times New Roman" size="20" italic="false" res="Score"/>
+	<pic file="map\water.jpg" wrap="true"/>
+	<pic file="map\tanookiSkin.jpg"/>
+	<pic file="map\sky.jpg"/>
+	<pic file="map\land.jpg"/>
+	<pic file="map\altitude.png" res="Alti"/>
+	<mtw file="mesh\skybox.mtw">
+		<id name="Cube" res="SkyBox"/>
+	</mtw>
+	<mtw file="mesh\tan.mtw">
+		<id name="Tan" res="Delta"/>
+	</mtw>
+	<mtw file="mesh\cliff.mtw">
+		<id name="Cube" res="Normal_area"/>
+	</mtw>
+	<mtw file="mesh\icy.mtw">
+		<id name="Cube" res="Icy_area"/>
+	</mtw>
+	<mtw file="mesh\glue.mtw">
+		<id name="Cube" res="Glue_area"/>
+	</mtw>
+	<mtw file="mesh\cliff.mtw">
+		<id name="Cube" res="Cliff"/>
+	</mtw>
+	<mtw file="mesh\banana.mtw">
+		<id name="Cube" res="Banana"/>
+	</mtw>
+	<mtw file="mesh\apple.mtw">
+		<id name="Sphere" res="Apple"/>
+	</mtw>
+	<mtw file="mesh\mer.mtw">
+		<id name="Plane" res="Surf2"/>
+	</mtw>
+
+	<atw file="anim\tan.atw">
+		<id name="Action" res="Action"/>
+	</atw>
+
+	<mts file="count.mts"/>
+	<mts file="altimetre.mts"/>
+	<mts file="level.mts"/>
+	<mts file="levels.mts"/>
+	<mts file="fruit.mts"/>
+	<mts file="area.mts"/>
+	<mts file="perso.mts"/>
+	<mts file="main.mts"/>
+</honsen>

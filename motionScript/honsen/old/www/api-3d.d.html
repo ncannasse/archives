@@ -1,0 +1,95 @@
+$HEADER(Home-->/,Developers-->developers.html,Documentation-->docs.html,API Reference-->docapiref.html,3D library-->#)
+<div id="text">
+<h1>3D library :</h1>
+
+<h3>Mesh:</h3>
+A mesh is a 3D object.
+
+<table>
+<tr>
+	<td class="prem">new Mesh(r)
+	<td>add a new 3D object to the scene, r indicate an object resource.
+<tr>
+	<td class="prem">new Mesh(r,p)
+	<td>add a new 3D object to the scene, r indicate an object resource and p the parent mesh.
+<tr>
+	<td class="prem">_visible
+	<td>read/modify the object visibility.
+<tr>
+	<td class="prem">_pos
+	<td>read/modify the object position : this position is a matrix, nevertheless a TRS could be written in _pos (it will be automatically convert to a matrix).
+<tr>
+	<td class="prem">_color
+	<td>lread/modify the object color.
+<tr>
+	<td class="prem">_alpha
+	<td>read/modify the object transparency.
+<tr>
+	<td class="prem">_texture
+	<td>read/modify the object texture (a null value allow to destroy the texture).
+<tr>
+	<td class="prem">_parent
+	<td>(read only) : return the parent object of the Mesh or null if there is no.
+<tr>
+	<td class="prem">remove()
+	<td>delete the mesh from the scene.
+<tr>
+	<td class="prem">move(x,y,z)
+	<td>move the mesh (modify _pos).
+<tr>
+	<td class="prem">scale(f)
+	<td>change mesh size (modify _pos).
+<tr>
+	<td class="prem">rot(x,y,z)
+	<td>rotate the mesh (modify _pos).
+<tr>
+	<td class="prem">_shader
+	<td>read/write the vertex shader used to display this mesh. Shader is a string containing assembly code
+	(Honsen supports shaders up to v1.1).
+<tr>
+	<td class="prem">has_tag(t)
+	<td>return true if the mesh contains the t tag and false else (see MTW file format for more details on tags).
+</table>
+
+<h3>Camera:</h3>
+
+<code>camera</code> globale give you access to the camera (or <code>Std.camera</code>).
+
+<table>
+<tr>
+	<td class="prem">_pos
+	<td>position vector of the camera.
+<tr>
+	<td class="prem">_target
+	<td>camera target vector.
+<tr>
+	<td class="prem">_world
+	<td>general world matrix.
+<tr>
+	<td class="prem">_proj
+	<td>the projection matrix.
+<tr>
+	<td class="prem">_roll
+	<td>read/modify the camera roll value (radians)
+<tr>
+	<td class="prem">_zoom
+	<td>read/modify actual zoom value (back to one at each _pos modification).
+</table>
+
+<h3>Light:</h3>
+
+<code>light</code> globale give you access to the light illuminating the scene.
+
+<table>
+<tr>
+	<td class="prem">_direction
+	<td>read/write light direction vector.
+<tr>
+	<td class="prem">_color
+	<td>read/write light color on 6 bits(RGB).
+<tr>
+	<td class="prem">_ambient
+	<td>read/write world ambient color on 6 bits(RGB).
+</table>
+
+</div>

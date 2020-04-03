@@ -1,0 +1,2 @@
+@ocaml publish.ml
+@pause

@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>MTS Documentation</title>
+<link rel='stylesheet' href='style.css'/>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>MTS Standard Library :</h1>
+
+<h3>Fonctions standard :</h3>
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>print(...)
+	<td>affiche des valeurs dans la fenêtre de log.
+<tr bgcolor="#ffffff">
+	<td>display(...)
+	<td>affiche des valeurs dans la fenêtre graphique (effacées chaque frame).
+<tr bgcolor="#ffffff">
+	<td>random(x)
+	<td>renvoie un entier entre 0 et (x-1) inclus.
+<tr bgcolor="#ffffff">
+	<td>int(x)
+	<td>tronque x en entier si flottant, ou convertis la chaine de charactères en entier.
+<tr bgcolor="#ffffff">
+	<td>number(x)
+	<td>convertis la chaine de charactères en nombre (float ou int).
+<tr bgcolor="#ffffff">
+	<td>to_string(x)
+	<td>convertis x en chaine de charactères.
+<tr bgcolor="#ffffff">
+	<td>compare(x,y)
+	<td>retourne 0 si x = y , -1 si x < y , 1 si x > y ou null si x et y ne sont pas comparables.
+<tr bgcolor="#ffffff">
+	<td>_width
+	<td>retourne la longueur en pixels du clip.
+<tr bgcolor="#ffffff">
+	<td>_height
+	<td>retourne la hauteur en pixels du clip honsen.
+<tr bgcolor="#ffffff">
+	<td>time()
+	<td>retourne le temps écoulé depuis le démarrage du clip.
+<tr bgcolor="#ffffff">
+	<td>set_main(f)
+	<td>change la fonction MotionScript qui sera appellée dans la boucle principale.
+</table>
+
+<h3>List :</h3>
+
+Une liste chainée est trés efficace pour les opérations add, push et remove. Il est donc préférable
+d'utiliser une liste plutot qu'un Array dans les cas ou ces opérations sont beaucoup utilisées.
+Une liste par contre ne peut pas être accédée par index ( avec [n] ).
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new List()
+	<td>crée une nouvelle liste vide.
+<tr bgcolor="#ffffff">
+	<td>add(x)
+	<td>ajoute un élément à la fin de la liste.
+<tr bgcolor="#ffffff">
+	<td>push(x)
+	<td>ajoute un élément au début de la liste.
+<tr bgcolor="#ffffff">
+	<td>remove(x)
+	<td>supprime un élement de la liste. renvoie true si x était dans la liste, null sinon.
+<tr bgcolor="#ffffff">
+	<td>pop()
+	<td>supprime et retourne le premier element de la liste.
+<tr bgcolor="#ffffff">
+	<td>_length
+	<td>(lecture) renvoie le nombre d'élements de la liste.
+<tr bgcolor="#ffffff">
+	<td>iter(f,o)
+	<td>appelle f(x1,o) f(x2,o) ... f(xN,o) avec x1..xN étant les éléments de la liste.
+<tr bgcolor="#ffffff">
+	<td>find(f)
+	<td>appelle la fonction f avec chacun des éléments de la liste jusqu'à ce que f retourne non null.
+<tr bgcolor="#ffffff">
+	<td>to_array()
+	<td>retourne le tableau contenant les mêmes éléments.
+</table>
+
+<h3>Array :</h3>
+
+Un tableau est trés efficace pour les accés par index ( avec [n] ), surtout quand la taille du tableau est superieure à n
+(dans le cas contraire, le tableau se redimentionne automatiquement mais cela à un coup en performances).
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Array()
+	<td>crée un nouveau tableau vide.
+<tr bgcolor="#ffffff">
+	<td>new Array(n)
+	<td>crée un nouveau tableau de taille n.
+<tr bgcolor="#ffffff">
+	<td>new Array(x,y)
+	<td>crée un nouveau tableau à deux dimensions de tailles x et y.
+<tr bgcolor="#ffffff">
+	<td>new Array(x,y,z)
+	<td>crée un nouveau tableau à trois dimensions de tailles x , y et z.
+<tr bgcolor="#ffffff">
+	<td>_length
+	<td>(lecture) retourne la taille du tableau, (ecriture) modifie la taille du tableau.
+<tr bgcolor="#ffffff">
+	<td>[n]
+	<td>accéde en lecture ou écriture au n-ième élément du tableau.
+<tr bgcolor="#ffffff">
+	<td>concat(...)
+	<td>ajoute les paramètres au tableau. Si un de ces paramètres est un tableau, son contenu est ajouté.
+<tr bgcolor="#ffffff">
+	<td>sub(start,len)
+	<td>retourne une sous partie d'un tableau sous la forme d'un nouveau tableau.
+<tr bgcolor="#ffffff">
+	<td>sort(f_compare)
+	<td>tri les élements du tableau d'aprés une fonction de comparaison.
+<tr bgcolor="#ffffff">
+	<td>to_list()
+	<td>renvoie la liste contenant les mêmes éléments.
+</table>
+
+<h3>String :</h3>
+
+Une chaine de caractères est aussi un objet.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new String()
+	<td>crée une nouvelle string vide.
+<tr bgcolor="#ffffff">
+	<td>new String(s)
+	<td>crée une nouvelle string qui est une copie de s.
+<tr bgcolor="#ffffff">
+	<td>[n]
+	<td>(lecture seulement) retourne le caractère de la string à la position n.
+<tr bgcolor="#ffffff">
+	<td>_length
+	<td>(lecture seulement) retourne la taille de la chaine de caractères.
+<tr bgcolor="#ffffff">
+	<td>sub(start,len)
+	<td>retourne une sous partie d'une string sous la forme d'une nouvelle string.
+		si <code>len = null</code> alors retourne <code>s.sub(start,s._length-start)</code>.
+</table>
+
+<h3>Event :</h3>
+
+Un évènement est une fonction appellée qui se déclenche à un intervalle régulier.
+
+<table>
+<tr bgcolor="#ffffff">
+	<td>new Event(f,t)
+	<td>crée un nouvel évènement qui appellera la fonction f toutes les t millisecondes.
+<tr bgcolor="#ffffff">
+	<td>start()
+	<td>démarre l'exécution de l'évènement. Lors de sa création, un évènement est arrété.
+<tr bgcolor="#ffffff">
+	<td>stop()
+	<td>stoppe l'exécution d'un évènement. Ce dernier pourra être redémarré ensuite.
+<tr bgcolor="#ffffff">
+	<td>running()
+	<td>retourne true si l'évènement est actuellement démarré, false sinon.
+<tr bgcolor="#ffffff">
+	<td>_time
+	<td>(lecture et écriture) : lis/modifie l'intervale d'exécution de l'évènement, en millisecondes. Ce temps doit être strictement positif.
+<tr bgcolor="#ffffff">
+	<td>_callback
+	<td>(lecture et écriture) : lis/modifie la fonction appellée a chaque intervalle. Cette fonction ne peut être null.
+</table>
+
+</body>
+</html>

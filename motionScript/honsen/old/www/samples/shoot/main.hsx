@@ -1,0 +1,50 @@
+<honsen width="400" height="300" bgcolor="0xFFFFFF" fps="40">
+	<font face="Times New Roman" size="40" italic="true" res="Speed"/>
+	<font face="Times New Roman" size="20" italic="false" res="Score"/>
+	<font face="Times New Roman" size="10" italic="false" res="Saves"/>
+	<pic file="map\splash.png" res="Splash"/>
+	<pic file="map\axelay.png" res="AxelayPicto"/>
+	<pic file="map\fioles.png" res="Indic"/>
+	<pic file="map\bg.jpg" res="Scroll" wrap="true"/>
+	<pic file="map\bg2.png" res="Scroll2" wrap="true"/>
+	<pic file="map\bg3.png" res="Scroll3" wrap="true"/>
+	<pic file="map\tanookiSkin.jpg"/>
+	<pic file="map\shoot.jpg"/>
+	<mtw file="mesh\lifeBonus.mtw">
+		<id name="Cylinder" res="HealthBonus"/>
+	</mtw>
+	<mtw file="mesh\lifeBonus.mtw">
+		<id name="Cylinder" res="LifeBonus"/>
+	</mtw>
+	<mtw file="mesh\tan.mtw">
+		<id name="Tan" res="Delta"/>
+	</mtw>
+	<mtw file="mesh\tan.mtw">
+		<id name="Tan" res="Common"/>
+	</mtw>
+	<mtw file="mesh\apple.mtw">
+		<id name="Sphere" res="Shape1"/>
+	</mtw>
+	<mtw file="mesh\apple.mtw">
+		<id name="Sphere" res="Shape2"/>
+	</mtw>
+	<mtw file="mesh\apple.mtw">
+		<id name="Sphere" res="Shape3"/>
+	</mtw>
+	<mtw file="mesh\ball.mtw">
+		<id name="Sphere" res="Ball"/>
+	</mtw>
+	<mtw file="mesh\ball.mtw">
+		<id name="Sphere" res="Particule"/>
+	</mtw>
+	<mts file="flyers.mts"/>
+	<mts file="count.mts"/>
+	<mts file="indicator.mts"/>
+	<mts file="particules.mts"/>
+	<mts file="weapon.mts"/>
+	<mts file="shots.mts"/>
+	<mts file="rock.mts"/>
+	<mts file="shuttle.mts"/>
+	<mts file="scrolling.mts"/>
+	<mts file="main.mts"/>
+</honsen>

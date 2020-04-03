@@ -1,0 +1,16 @@
+init = getTimer();
+ellapsed = 0;
+cpt = 0;
+res = 1.1;
+
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 100000; i++){
+		res *= 1.00001;
+		des /= 1.00001;
+	}
+	ellapsed = getTimer() - init;
+}
+
+t = ellapsed / cpt;
+stop();

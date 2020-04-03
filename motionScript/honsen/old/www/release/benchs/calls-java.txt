@@ -1,0 +1,20 @@
+class Calls {
+	public static int call(int n){
+		return n;
+	}
+
+	public static void main (String[] args) {
+		Timex timer = new Timex();
+		int init = timer.getClock(), ellapsed = 0;
+		int cpt = 0;
+		int res = 0;
+		int i = 0;
+		while( ellapsed < 10000 ){
+			cpt++;
+			for( i = 0; i < 10000; i++)
+				res = call(i);
+			ellapsed = timer.getClock() - init;
+		}
+		System.out.println(cpt + " times in " + ellapsed + " ms ==> " + ellapsed / (double)(cpt) + " ms for 1 loop\n");
+	}
+}

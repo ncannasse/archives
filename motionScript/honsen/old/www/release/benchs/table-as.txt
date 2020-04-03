@@ -1,0 +1,17 @@
+init = getTimer();
+ellapsed = 0;
+cpt = 0;
+res = 0;
+tab = new Array(10000);
+
+while(ellapsed < 10000){
+	cpt++;
+	for(i = 0; i < 10000; i++)
+		tab[i] = i;
+	for(i = 0; i < 10000; i++)
+		res = tab[i];
+	ellapsed = getTimer() - init;
+}
+
+t = ellapsed / cpt;
+stop();

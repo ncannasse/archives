@@ -1,0 +1,195 @@
+body {
+    font-size: 82%;
+    margin: 0px;
+    font-family: Trebuchet MS, tahoma, helvetica, arial, sans-serif;
+    background-color: #4D6D9F;
+}
+
+IMG {
+    border:0px;
+}
+
+#header {
+    height: 2.1em;
+    background-color: #718EBB;
+}
+
+#title {
+    font-size: 335%;
+    color: #fff;
+    padding: 6px;
+    background-color: #4F72A6;
+    letter-spacing: 6px;
+}
+#title img {
+    margin-left: 10px;
+}
+
+#toplinks {
+    padding-left: 1.3mm;
+    padding-top: 1ex;
+    height: 2.15em;
+    background-color: #354D6F;
+    color: white;
+}
+
+#toplinks A {
+    padding-right: 1.5ex;
+    padding-left: 0.75ex;
+    font-weight: bold;
+    text-decoration: none;
+    color: #95ABCC;
+}
+
+#toplinks A:hover {
+    text-decoration: underline;
+}
+
+#toplinks .highlight {
+    color: white;
+}
+
+#content {
+    background-color: #f0f0f0;
+}
+
+#menu {
+    clear: left;
+    float: left;
+    padding-bottom: 1em;
+    width: 200px;
+    padding-top: 1em;
+    margin: 0px;
+    border-bottom: #999999 1px solid;
+    background-color: #f0f0f0;
+}
+
+
+#menu A {
+    padding-right: 1ex;
+    display: block;
+    padding-left: 5mm;
+    padding-bottom: 1.5ex;
+    padding-top: 1.5ex;
+    text-decoration: none;
+    color: #EB4B07;
+}
+
+#menu A:hover {
+    background-color: #EB4B07;
+    color: white;
+}
+
+#menu DIV {
+    color: #1D4649;
+    padding-left: 5.5mm;
+    padding-bottom: 1ex;
+}
+
+
+#text {
+    padding-right: 5mm;
+    padding-left: 5mm;
+    padding-bottom: 2mm;
+    margin: 0px ;
+    border-left: #999999 1px solid;
+    line-height: 1.5em;
+    padding-top: 5mm;
+    height:auto ;
+    min-height: 600px;
+    background-color: white;
+    text-align: justify;
+    color: #555;
+    margin-left: 200px;
+}
+
+#text H1 {
+    padding-right: 1px;
+    padding-left: 15px;
+    color: white;
+    background-color: #bbb;
+    margin-top: 3ex;
+    margin-bottom:0px;
+    font-weight: bold;
+    font-size: 100%;
+    padding-bottom: 0.5ex;
+    padding-top: 0.5ex;
+    text-transform : uppercase;
+    letter-spacing: 2px;
+}
+
+#text P {
+    padding-right: 1ex;
+    padding-left: 1ex;
+    padding-bottom: 2ex;
+    margin-top:5px;
+    line-height: 16px;    
+}
+
+#text A {
+    border-bottom-color: #cc4400;
+    text-decoration: none;
+    color: #cc4400;
+}
+
+#text A:hover {
+    text-decoration: underline;
+}
+
+
+#footer {
+    padding-right: 2.6mm;
+    padding-left: 2.6mm;
+    font-size: 90%;
+    padding-bottom: 2.4ex;
+    padding-top: 1.9ex;
+    background-color: #718EBB;
+    color: white;
+}
+
+#footer DIV {
+    line-height: 1.45em;
+    text-align: right;
+}
+
+#footer A {
+    color: white;
+    text-decoration: none;
+}
+
+#footer A:hover {
+    text-decoration: underline;
+}
+
+.footerLeft {
+    float: left;
+    clear: left;
+}
+
+ul.group li {
+    margin-bottom : 20px;
+}
+
+ul.group li ul li {
+    margin-bottom: 0px;
+}
+
+ol.group li {
+    margin-bottom : 20px;
+}
+
+ol.group li ul li {
+    margin-bottom: 0px;
+}
+
+td.prem {
+    width: 200px;
+    color: #4F72A6;
+}
+
+pre.mts {
+    background: #F0F0F0;
+    padding: 10px 20px;
+    margin-left: 50px;
+    margin-right: 50px;    
+}

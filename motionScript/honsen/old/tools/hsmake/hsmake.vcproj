@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="hsmake"
+	ProjectGUID="{B8E22464-2199-4C09-801A-E875F234A20D}"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake -opt hsmake.dsp xml-light.cmxa -o ..\..\bin\hsmake.exe ../../hslib/release/hslib.lib extLib.cmxa"
+				ReBuildCommandLine="ocamake -opt hsmake.dsp xml-light.cmxa -o ..\..\bin\hsmake.exe ../../hslib/release/hslib.lib -all extLib.cmxa"
+				Output="..\bin\hsmake.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ocamake hsmake.dsp xml-light.cma -o ..\..\bin\hsmake.exe -lp &quot;-dllib hslib.dll&quot; -I ../../bin/ extLib.cma"
+				ReBuildCommandLine="ocamake hsmake.dsp xml-light.cma -o ..\..\bin\hsmake.exe -all  -lp &quot;-dllib hslib.dll&quot; -I ../../bin/ extLib.cma"
+				Output="..\..\bin\hsmake.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath="hsmake.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\hsx.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\mtw.mli">
+		</File>
+		<File
+			RelativePath="..\..\common\tree.ml">
+		</File>
+		<File
+			RelativePath="..\..\common\tree.mli">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
