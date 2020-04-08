@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="mtypes"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Native code|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="nmake native"
+				ReBuildCommandLine="nmake rebuild"
+				CleanCommandLine="nmake clean"
+				Output="mtypes.exe"/>
+		</Configuration>
+		<Configuration
+			Name="Bytecode|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="nmake byte"
+				ReBuildCommandLine="nmake rebuild_byte"
+				CleanCommandLine="nmake clean"
+				Output="mtypes.exe"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="main"
+			Filter="">
+			<File
+				RelativePath="main.ml">
+			</File>
+		</Filter>
+		<Filter
+			Name="swf"
+			Filter="">
+			<File
+				RelativePath="..\..\mtcvs\swflib\actionScript.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3.mli">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3code.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\as3parse.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swf.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swfParser.ml">
+			</File>
+			<File
+				RelativePath="..\..\mtcvs\swflib\swfZip.ml">
+			</File>
+		</Filter>
+		<Filter
+			Name="generators"
+			Filter="">
+			<File
+				RelativePath=".\genAs.ml">
+			</File>
+			<File
+				RelativePath=".\genNeko.ml">
+			</File>
+			<File
+				RelativePath=".\genStrings.ml">
+			</File>
+			<File
+				RelativePath=".\genSwf.ml">
+			</File>
+			<File
+				RelativePath="..\neko\libs\include\ocaml\nast.ml">
+			</File>
+			<File
+				RelativePath="..\neko\libs\include\ocaml\nxml.ml">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\checker.ml">
+		</File>
+		<File
+			RelativePath="expr.ml">
+		</File>
+		<File
+			RelativePath="lexer.mll">
+		</File>
+		<File
+			RelativePath="parser.ml">
+		</File>
+		<File
+			RelativePath=".\plugin.ml">
+		</File>
+		<File
+			RelativePath="type.ml">
+		</File>
+		<File
+			RelativePath="typer.ml">
+		</File>
+		<File
+			RelativePath=".\typetools.ml">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
